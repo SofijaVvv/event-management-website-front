@@ -1,8 +1,8 @@
 from sqlalchemy.orm import joinedload
 
-from baznimodeli import ItemKomitent, ItemDogadjaj
+from baznimodeli import ItemKomitent, ItemDogadjaj, ItemZadatak, ItemPrihodi, ItemRaspored, ItemTroskovi
 from modeli import DogadjajiStatusDogadjaja, DogadjajiVrsteDogadjaja, DogadjajiVrsteTroskova, Komitent, VrstaKomitenata, \
-    Dogadjaji
+    Dogadjaji, DogadjajiZadaci, DogadjajiPrihodi, DogadjajiRaspored, DogadjajiTroskovi
 from db import get_db
 
 
@@ -133,3 +133,154 @@ def lista_dogadjaja(datumod: str, datumdo: str):
             rezultat.append(tmp)
     return rezultat
 
+
+# DOGADJAJI
+
+# ZADACI
+
+def upis_zadataka(zadatak: ItemZadatak):
+    rezultat = {
+        'greska': True,
+        'poruka': 'Nije upisano'
+    }
+    with get_db() as db:
+        if zadatak.id > 0:
+            query = db.query(DogadjajiZadaci).filter(DogadjajiZadaci.id == zadatak.id).first()
+            if query:
+                for kljuc, vrijednost in zadatak.model_dump().items():
+                    setattr(query, kljuc, vrijednost)
+                db.commit()
+                rezultat = {
+                    'greska': False,
+                    'poruka': 'Uspješno ispravljen podatak'
+                }
+        else:
+            del zadatak.id
+            db.add(DogadjajiZadaci(**zadatak.model_dump()))
+            db.commit()
+            rezultat = {
+                'greska': False,
+                'poruka': 'Uspješno upisan podatak'
+            }
+    return rezultat
+
+
+def lista_zadataka(dogadjaj_id: int):
+    with get_db() as db:
+        if dogadjaj_id > 0:
+            return db.query(DogadjajiZadaci).filter(DogadjajiZadaci.dogadjaj_id == dogadjaj_id).all()
+        return db.query(DogadjajiZadaci).all()
+
+
+# ZADACI
+
+# PRIHODI
+
+def upis_prihoda(prihod: ItemPrihodi):
+    rezultat = {
+        'greska': True,
+        'poruka': 'Nije upisano'
+    }
+    with get_db() as db:
+        if prihod.id > 0:
+            query = db.query(DogadjajiPrihodi).filter(DogadjajiPrihodi.id == prihod.id).first()
+            if query:
+                for kljuc, vrijednost in prihod.model_dump().items():
+                    setattr(query, kljuc, vrijednost)
+                db.commit()
+                rezultat = {
+                    'greska': False,
+                    'poruka': 'Uspješno ispravljen podatak'
+                }
+        else:
+            del prihod.id
+            db.add(DogadjajiPrihodi(**prihod.model_dump()))
+            db.commit()
+            rezultat = {
+                'greska': False,
+                'poruka': 'Uspješno upisan podatak'
+            }
+    return rezultat
+
+
+def lista_prihoda(dogadjaj_id: int):
+    with get_db() as db:
+        if dogadjaj_id > 0:
+            return db.query(DogadjajiPrihodi).filter(DogadjajiPrihodi.dogadjaj_id == dogadjaj_id).all()
+        return db.query(DogadjajiPrihodi).all()
+
+
+# PRIHODI
+
+# RASPORED
+
+def upis_rasporeda(raspored: ItemRaspored):
+    rezultat = {
+        'greska': True,
+        'poruka': 'Nije upisano'
+    }
+    with get_db() as db:
+        if raspored.id > 0:
+            query = db.query(DogadjajiRaspored).filter(DogadjajiRaspored.id == raspored.id).first()
+            if query:
+                for kljuc, vrijednost in raspored.model_dump().items():
+                    setattr(query, kljuc, vrijednost)
+                db.commit()
+                rezultat = {
+                    'greska': False,
+                    'poruka': 'Uspješno ispravljen podatak'
+                }
+        else:
+            del raspored.id
+            db.add(DogadjajiRaspored(**raspored.model_dump()))
+            db.commit()
+            rezultat = {
+                'greska': False,
+                'poruka': 'Uspješno upisan podatak'
+            }
+    return rezultat
+
+
+def lista_rasporeda(dogadjaj_id: int):
+    with get_db() as db:
+        if dogadjaj_id > 0:
+            return db.query(DogadjajiRaspored).filter(DogadjajiRaspored.dogadjaj_id == dogadjaj_id).all()
+        return db.query(DogadjajiRaspored).all()
+
+
+# RASPORED
+
+# TROSKOVI
+
+def upis_troskova(trosak: ItemTroskovi):
+    rezultat = {
+        'greska': True,
+        'poruka': 'Nije upisano'
+    }
+    with get_db() as db:
+        if trosak.id > 0:
+            query = db.query(DogadjajiTroskovi).filter(DogadjajiTroskovi.id == trosak.id).first()
+            if query:
+                for kljuc, vrijednost in trosak.model_dump().items():
+                    setattr(query, kljuc, vrijednost)
+                db.commit()
+                rezultat = {
+                    'greska': False,
+                    'poruka': 'Uspješno ispravljen podatak'
+                }
+        else:
+            del trosak.id
+            db.add(DogadjajiTroskovi(**trosak.model_dump()))
+            db.commit()
+            rezultat = {
+                'greska': False,
+                'poruka': 'Uspješno upisan podatak'
+            }
+    return rezultat
+
+
+def lista_troskova(dogadjaj_id: int):
+    with get_db() as db:
+        if dogadjaj_id > 0:
+            return db.query(DogadjajiTroskovi).filter(DogadjajiTroskovi.dogadjaj_id == dogadjaj_id).all()
+        return db.query(DogadjajiTroskovi).all()

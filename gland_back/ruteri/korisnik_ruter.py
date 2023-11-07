@@ -6,9 +6,11 @@ import psutil
 from GPUtil import GPUtil
 from fastapi import Depends, APIRouter, Form
 
-from baznimodeli import ItemOperater, ItemSifrarnik, ItemKomitent, ItemDogadjaj
+from baznimodeli import ItemOperater, ItemSifrarnik, ItemKomitent, ItemDogadjaj, ItemZadatak, ItemPrihodi, ItemRaspored, \
+    ItemTroskovi
 from moduli.dogadjaji_modul import upis_sifrarnika, listanje_sifrarnika, upis_komitenata, lista_komitenata, \
-    upis_dogadjaja, lista_dogadjaja
+    upis_dogadjaja, lista_dogadjaja, upis_zadataka, lista_zadataka, upis_prihoda, lista_prihoda, upis_rasporeda, \
+    lista_rasporeda, lista_troskova, upis_troskova
 from ruteri.login_ruter import get_current_active_user
 
 router = APIRouter()
@@ -120,3 +122,68 @@ async def listanje_dogadjaja(
     return lista_dogadjaja(datumod, datumdo)
 
 # DOGADJAJ
+
+
+#ZADACI
+
+@router.post("/zadatak/uredi")
+async def kreiraj_zadatak(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], podaci: ItemZadatak
+):
+    return upis_zadataka(podaci)
+
+
+@router.get("/zadatak/lista/{dogadjaj_id}")
+async def listanje_zadataka(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], dogadjaj_id: int
+):
+    return lista_zadataka(dogadjaj_id)
+
+# ZADACI
+
+# PRIHODI
+
+@router.post("/prihodi/uredi")
+async def kreiraj_prihod(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], podaci: ItemPrihodi
+):
+    return upis_prihoda(podaci)
+
+@router.get("/prihodi/lista/{dogadjaj_id}")
+async def listanje_prihoda(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], dogadjaj_id: int
+):
+    return lista_prihoda(dogadjaj_id)
+
+
+# PRIHODI
+
+# RASPORED
+
+@router.post("/raspored/uredi")
+async def kreiraj_raspored(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], podaci: ItemRaspored
+):
+    return upis_rasporeda(podaci)
+
+@router.get("/raspored/lista/{dogadjaj_id}")
+async def listanje_rasporeda(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], dogadjaj_id: int
+):
+    return lista_rasporeda(dogadjaj_id)
+
+
+# TROSKOVI
+
+@router.post("/troskovi/uredi")
+async def kreiraj_trosak(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], podaci: ItemTroskovi
+):
+    return upis_troskova(podaci)
+
+
+@router.get("/troskovi/lista/{dogadjaj_id}")
+async def listanje_troskova(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], dogadjaj_id: int
+):
+    return lista_troskova(dogadjaj_id)

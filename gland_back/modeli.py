@@ -188,6 +188,38 @@ class DogadjajiTroskovi(Base):
     dogadjaj = relationship('Dogadjaji')
     vrstatroska = relationship('DogadjajiVrsteTroskova')
 
+class DogadjajiRaspored(Base):
+    __tablename__ = 'dogadjaji_raspored'
+
+    id = Column(Integer, primary_key=True)
+    dogadjaj_id = Column(ForeignKey('dogadjaji.id'), index=True)
+    datum = Column(DateTime)
+    opis = Column(Text(collation='utf8mb4_bin'))
+
+    dogadjaj = relationship('Dogadjaji')
+
+class DogadjajiPrihodi(Base):
+    __tablename__ = 'dogadjaji_prihodi'
+
+    id = Column(Integer, primary_key=True)
+    dogadjaj_id = Column(ForeignKey('dogadjaji.id'), index=True)
+    iznos = Column(DECIMAL(10, 2))
+    datum = Column(DateTime)
+    opis = Column(Text(collation='utf8mb4_bin'))
+
+    dogadjaj = relationship('Dogadjaji')
+
+
+class DogadjajiZadaci(Base):
+    __tablename__ = 'dogadjaji_zadaci'
+
+    id = Column(Integer, primary_key=True)
+    dogadjaj_id = Column(ForeignKey('dogadjaji.id'), index=True)
+    datum = Column(DateTime)
+    opis = Column(Text(collation='utf8mb4_bin'))
+    status = Column(Integer)
+    dogadjaj = relationship('Dogadjaji')
+
 
 def otvoribazu():
     ms = orm.Session(bind=engine)

@@ -71,3 +71,37 @@ class ItemDogadjaj(BaseModel):
     iznos: float
     opis: str
     statusdogadjaja_id: int
+
+
+class ItemZadatak(BaseModel):
+    id: int
+    dogadjaj_id: int
+    datum: str
+    opis: str
+    status: int
+
+
+class ItemRaspored(BaseModel):
+    id: int
+    dogadjaj_id: int
+    datum: str
+    opis: str
+
+
+class ItemPrihodi(BaseModel):
+    id: int
+    dogadjaj_id: int
+    datum: str
+    opis: str
+    iznos: float
+
+
+class ItemTroskovi(BaseModel):
+    id: int
+    dogadjaj_id: int
+    datum: str
+    opis: str
+    iznos: float
+    vrstatroska_id: int
+
+
