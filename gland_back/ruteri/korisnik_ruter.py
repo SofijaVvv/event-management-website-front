@@ -10,7 +10,7 @@ from baznimodeli import ItemOperater, ItemSifrarnik, ItemKomitent, ItemDogadjaj,
     ItemTroskovi
 from moduli.dogadjaji_modul import upis_sifrarnika, listanje_sifrarnika, upis_komitenata, lista_komitenata, \
     upis_dogadjaja, lista_dogadjaja, upis_zadataka, lista_zadataka, upis_prihoda, lista_prihoda, upis_rasporeda, \
-    lista_rasporeda, lista_troskova, upis_troskova
+    lista_rasporeda, lista_troskova, upis_troskova, kalendar
 from ruteri.login_ruter import get_current_active_user
 
 router = APIRouter()
@@ -187,3 +187,10 @@ async def listanje_troskova(
     current_user: Annotated[ItemOperater, Depends(get_current_active_user)], dogadjaj_id: int
 ):
     return lista_troskova(dogadjaj_id)
+
+
+@router.get("/kalendar/{mjesec}/{godina}")
+async def kreirajkalendar(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)], mjesec: int, godina: int
+):
+    return kalendar(godina, mjesec)

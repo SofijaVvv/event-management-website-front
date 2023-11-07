@@ -1,3 +1,6 @@
+import calendar
+from datetime import date
+
 from sqlalchemy.orm import joinedload
 
 from baznimodeli import ItemKomitent, ItemDogadjaj, ItemZadatak, ItemPrihodi, ItemRaspored, ItemTroskovi
@@ -284,3 +287,38 @@ def lista_troskova(dogadjaj_id: int):
         if dogadjaj_id > 0:
             return db.query(DogadjajiTroskovi).filter(DogadjajiTroskovi.dogadjaj_id == dogadjaj_id).all()
         return db.query(DogadjajiTroskovi).all()
+
+
+# TROSKOVI
+
+
+def kalendar(godina, mjesec, status=1):
+    with get_db() as ms:
+        year = godina
+        month = mjesec
+
+        _, num_days = calendar.monthrange(year, month)
+
+        start_weekday, _ = calendar.monthrange(year, month)
+        start_weekday = (start_weekday + 1) % 7  # Convert to 0-based index
+
+        cal = calendar.monthcalendar(year, month)
+
+        calendar_table = [[] for _ in range(6)]
+
+        for week_index, week in enumerate(cal):
+            for day in week:
+                if 1 <= day <= num_days:
+                    entries = ms.query(Dogadjaji).filter(Dogadjaji.datum == date(year, month, day)). \
+                        filter(Dogadjaji.statusdogadjaja_id == status).all()
+                    if entries:
+                        calendar_table[week_index].append(
+                            {"datum": day, "brojdogadjaja": len(entries), "danunedjelji": date(year, month, day).weekday()})
+                    else:
+                        calendar_table[week_index].append(
+                            {"datum": day, "brojdogadjaja": 0, "danunedjelji": date(year, month, day).weekday()})
+                else:
+                    calendar_table[week_index].append({})
+        ms.close()
+        calendar_data = {"tabela": calendar_table}
+        return calendar_data
