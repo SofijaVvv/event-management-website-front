@@ -12,6 +12,7 @@ from starlette import status
 from baznimodeli import ItemOperater
 from db import get_db
 from modeli import AppOperateri
+from moduli.otp_klasa import provjeraotp, qrkorisnika
 from podesavanja import TAJNI_KLJUC, JWT_TRAJANJE_TOKENA
 
 router = APIRouter()
@@ -117,12 +118,19 @@ async def login_za_token(
     access_token = kreiraj_token(
         data={"sub": user.email}, expires_delta=access_token_expires
     )
-    print("user", user.email, "token", access_token)
+    provjera_otp = provjeraotp(form_data.client_secret, user.kljuc)
+    print("provjera_otp", provjera_otp)
     return {"token": access_token, "tip_tokena": "bearer", "user": user}
 
 
-@router.get("/users/me/", response_model=ItemOperater)
+@router.get("/korisnici/ja/", response_model=ItemOperater)
 async def read_users_me(
     current_user: Annotated[ItemOperater, Depends(get_current_active_user)]
 ):
     return current_user
+
+@router.get("/korisnici/qr/")
+async def read_users_me_qr(
+    current_user: Annotated[ItemOperater, Depends(get_current_active_user)]
+):
+    return {"qr": qrkorisnika(current_user)}

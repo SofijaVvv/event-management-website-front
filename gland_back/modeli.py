@@ -12,7 +12,8 @@ from sqlalchemy import (
 from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-SQLALCHEMY_DATABASE_URI="mysql+pymysql://root:BsoBsgAkcz1969@localhost/mareza?charset=utf8"
+
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:BsoBsgAkcz1969@localhost/mareza?charset=utf8"
 
 Base = declarative_base()
 
@@ -40,7 +41,6 @@ class AppFirme(Base):
     pib_o = Column(String(15))
     ime_o = Column(String(100))
     adresa_o = Column(String(100))
-    staribrojfirme = Column(Integer)
 
     def to_json(self):
         return {
@@ -73,7 +73,7 @@ class AppOperateri(Base):
     admin = Column(Integer)
     aktivan = Column(Integer)
     telefon = Column(String(200))
-    brojvlasnikapodataka = Column(Integer)
+    appfirme_id = Column(Integer, ForeignKey('app_firme.id'))
 
     def to_json(self):
         return {
@@ -85,8 +85,8 @@ class AppOperateri(Base):
             "admin": self.admin,
             "aktivan": self.aktivan,
             "telefon": self.telefon,
-            "brojvlasnikapodataka": self.brojvlasnikapodataka,
-            "kodoperatera": self.kodoperatera
+            "kodoperatera": self.kodoperatera,
+            "appfirme_id": self.appfirme_id
         }
 
 

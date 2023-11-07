@@ -30,11 +30,11 @@ export class LoginComponent {
         if (data.token) {
           localStorage.setItem('token', data.token);
 
-          this.router.navigate(['/doma'])
+          this.router.navigate(['/doma']).then(r => console.log(r))
         } else {
           if (data.token ){
 
-            Swal.fire({
+            void Swal.fire({
               title: "Greška",
               html: "Greška u konekciji sa serverom!",
               icon: "error",
@@ -43,7 +43,7 @@ export class LoginComponent {
             })
           } else {
 
-            Swal.fire({
+            void Swal.fire({
               title: "Greška",
               html: "Neispravno korisnicko ime, lozinka ili otp",
               icon: "warning",

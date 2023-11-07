@@ -18,5 +18,4 @@ class ItemOperater(BaseModel):
     admin: Optional[int]
     aktivan: Optional[int]
     telefon: Optional[str]
-    brojvlasnikapodataka: Optional[int]
-
+    appfirme_id: Optional[int]

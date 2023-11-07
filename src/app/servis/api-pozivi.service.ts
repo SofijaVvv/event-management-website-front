@@ -10,9 +10,8 @@ export class ApiPoziviService {
   constructor(
     private http: HttpClient
   ) { }
-  API_SERVIS_LOGOVANJE = 'http://localhost:9000'
+  API_SERVIS_LOGOVANJE = 'http://192.168.31.55:9000'
   headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
-  headers_login = new HttpHeaders({"Content-Type": "application/x-www-form-urlencoded"});
 
   statusTokena() : Observable<any>{
     return this.http.get<string>('http://localhost:9000/users/me')

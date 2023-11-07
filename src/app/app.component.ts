@@ -12,13 +12,5 @@ export class AppComponent {
     private poziviServis: ApiPoziviService
   ){}
 
-  ngOnInit(): void {
-    this.poziviServis.statusTokena().subscribe((data: any) => {
-      if (data.status === 0){
-        console.log('status 0')
-      } else {
-        console.log('status 1', data, data.status)
-      }
-    })
-  }
+
 }
