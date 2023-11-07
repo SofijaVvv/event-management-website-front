@@ -12,7 +12,7 @@ from starlette import status
 from baznimodeli import ItemOperater
 from db import get_db
 from modeli import AppOperateri
-from moduli.otp_klasa import provjeraotp, qrkorisnika
+from moduli.otp_modul import provjeraotp, qrkorisnika
 from podesavanja import TAJNI_KLJUC, JWT_TRAJANJE_TOKENA
 
 router = APIRouter()

@@ -1,19 +1,17 @@
-import json
-
 from sqlalchemy import (
     Column,
     Integer,
     String,
     ForeignKey,
-    Float,
     orm,
-    text, DateTime, INTEGER,
+    DateTime, DECIMAL, Text, Date, Time,
 )
 from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
+from sqlalchemy.orm import relationship
 
-SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:BsoBsgAkcz1969@localhost/mareza?charset=utf8"
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:@localhost/gland?charset=utf8"
 
 Base = declarative_base()
 
@@ -90,14 +88,105 @@ class AppOperateri(Base):
         }
 
 
-class AppSesija(Base):
-    __tablename__ = 'app_sesija'
+class DogadjajiStatusDogadjaja(Base):
+    __tablename__ = 'dogadjaji_status_dogadjaja'
 
     id = Column(Integer, primary_key=True)
-    pristupni_token = Column(String(150))
-    datum_kreiranja = Column(DateTime)
-    datum_isteka = Column(DateTime)
-    operater_id = Column(Integer)
+    naziv = Column(String(250, 'utf8mb4_bin'))
+
+
+class DogadjajiVrsteDogadjaja(Base):
+    __tablename__ = 'dogadjaji_vrste'
+
+    id = Column(Integer, primary_key=True)
+    naziv = Column(String(250, 'utf8mb4_bin'))
+
+
+class DogadjajiVrsteTroskova(Base):
+    __tablename__ = 'dogadjaji_vrste_troskova'
+
+    id = Column(Integer, primary_key=True)
+    naziv = Column(String(250, 'utf8mb4_bin'))
+
+
+class Drzave(Base):
+    __tablename__ = 'drzave'
+
+    id = Column(Integer, primary_key=True)
+    sifravalute = Column(Integer, nullable=False)
+    opisvalute = Column(String(3, 'utf8mb4_bin'), nullable=False)
+    drzava_skraceno_2 = Column(String(2, 'utf8mb4_bin'), nullable=False)
+    drzava_skraceno_3 = Column(String(3, 'utf8mb4_bin'), nullable=False)
+    drzava = Column(String(50, 'utf8mb4_bin'), nullable=False)
+    drzavaeng = Column(String(50, 'utf8mb4_bin'), nullable=False)
+    paritet = Column(Integer, nullable=False)
+    issepa = Column(Integer, nullable=False)
+
+
+class VrstaKomitenata(Base):
+    __tablename__ = 'vrsta_komitenata'
+
+    id = Column(Integer, primary_key=True)
+    naziv = Column(String(250, 'utf8mb4_bin'))
+
+
+class Komitent(Base):
+    __tablename__ = 'komitent'
+
+    id = Column(Integer, primary_key=True)
+    naziv = Column(String(250, 'utf8mb4_bin'))
+    pib = Column(String(15, 'utf8mb4_bin'))
+    pdvbroj = Column(String(15, 'utf8mb4_bin'))
+    adresa = Column(String(250, 'utf8mb4_bin'))
+    telefon = Column(String(250, 'utf8mb4_bin'))
+    email = Column(String(250, 'utf8mb4_bin'))
+    ziroracun = Column(String(250, 'utf8mb4_bin'))
+    drzava = Column(ForeignKey('drzave.id'), index=True)
+    grad = Column(String(200, 'utf8mb4_bin'))
+    napomena = Column(String(250, 'utf8mb4_bin'))
+    vrstakomitenta_id = Column(ForeignKey('vrsta_komitenata.id'), index=True)
+
+    drzave = relationship('Drzave')
+    vrstakomitenta = relationship('VrstaKomitenata')
+
+
+class Dogadjaji(Base):
+    __tablename__ = 'dogadjaji'
+
+    id = Column(Integer, primary_key=True)
+    datum = Column(Date)
+    vrijeme = Column(Time)
+    komitent_id = Column(ForeignKey('komitent.id'), index=True)
+    vrstadogadjaja_id = Column(ForeignKey('dogadjaji_vrste.id'), index=True)
+    iznos = Column(DECIMAL(10, 2))
+    opis = Column(Text(collation='utf8mb4_bin'))
+    statusdogadjaja_id = Column(ForeignKey('dogadjaji_status_dogadjaja.id'), index=True)
+    komitent = relationship('Komitent')
+    statusdogadjaja = relationship('DogadjajiStatusDogadjaja')
+    vrstadogadjaja = relationship('DogadjajiVrsteDogadjaja')
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "datum": self.datum.strftime("%d.%m.%Y"),
+            "vrijeme": self.vrijeme,
+            "komitent_id": self.komitent_id,
+            "vrstadogadjaja_id": self.vrstadogadjaja_id,
+            "iznos": self.iznos,
+            "opis": self.opis,
+            "statusdogadjaja_id": self.statusdogadjaja_id
+        }
+class DogadjajiTroskovi(Base):
+    __tablename__ = 'dogadjaji_troskovi'
+
+    id = Column(Integer, primary_key=True)
+    dogadjaj_id = Column(ForeignKey('dogadjaji.id'), index=True)
+    datum = Column(DateTime)
+    vrstatroska_id = Column(ForeignKey('dogadjaji_vrste_troskova.id'), index=True)
+    iznos = Column(DECIMAL(10, 2))
+    opis = Column(Text(collation='utf8mb4_bin'))
+    dogadjaj = relationship('Dogadjaji')
+    vrstatroska = relationship('DogadjajiVrsteTroskova')
 
 
 def otvoribazu():

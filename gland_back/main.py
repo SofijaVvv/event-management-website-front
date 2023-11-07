@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(login_router)
-app.include_router(korisnik_router)
+app.include_router(korisnik_router, prefix="/api/dogadjaji")
 
 if __name__ == '__main__':
     print("usao")
