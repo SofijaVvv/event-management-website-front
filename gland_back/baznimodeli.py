@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 
@@ -103,5 +103,19 @@ class ItemTroskovi(BaseModel):
     opis: str
     iznos: float
     vrstatroska_id: int
+    komitent_id: int
 
 
+class ItemOdgovor(BaseModel):
+    greska: bool
+    poruka: str
+
+
+class ItemStavkeKalendara(BaseModel):
+    datum: Optional[int] = None
+    brojdogadjaja: Optional[int] = None
+    danunedjelji: Optional[int] = None
+
+
+class ItemPodaciKalendara(BaseModel):
+    tabela: List[List[Optional[ItemStavkeKalendara]]];

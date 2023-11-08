@@ -101,7 +101,7 @@ async def get_current_active_user(
     return current_user
 
 
-@router.post("/token")
+@router.post("/token", tags=["Logovanje"], summary="Logovanje u aplikaciju i dobijanje  tokena")
 async def login_za_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ):
@@ -123,14 +123,14 @@ async def login_za_token(
     return {"token": access_token, "tip_tokena": "bearer", "user": user}
 
 
-@router.get("/korisnici/ja/", response_model=ItemOperater)
-async def read_users_me(
-    current_user: Annotated[ItemOperater, Depends(get_current_active_user)]
-):
-    return current_user
+# @router.get("/korisnici/ja/", response_model=ItemOperater)
+# async def read_users_me(
+#     current_user: Annotated[ItemOperater, Depends(get_current_active_user)]
+# ):
+#     return current_user
 
-@router.get("/korisnici/qr/")
-async def read_users_me_qr(
+@router.get("/korisnici/qr/", tags=["QR"])
+async def dofati_qr_korisnika(
     current_user: Annotated[ItemOperater, Depends(get_current_active_user)]
 ):
     return {"qr": qrkorisnika(current_user)}

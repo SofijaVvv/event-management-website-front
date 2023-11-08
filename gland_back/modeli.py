@@ -185,9 +185,11 @@ class DogadjajiTroskovi(Base):
     vrstatroska_id = Column(ForeignKey('dogadjaji_vrste_troskova.id'), index=True)
     iznos = Column(DECIMAL(10, 2))
     opis = Column(Text(collation='utf8mb4_bin'))
-    dogadjaj = relationship('Dogadjaji')
-    vrstatroska = relationship('DogadjajiVrsteTroskova')
+    komitent_id = Column(ForeignKey('komitent.id'), index=True)
 
+    dogadjaj = relationship('Dogadjaji')
+    komitent = relationship('Komitent')
+    vrstatroska = relationship('DogadjajiVrsteTroskova')
 class DogadjajiRaspored(Base):
     __tablename__ = 'dogadjaji_raspored'
 

@@ -31,7 +31,7 @@ class STRUKTURABAZE:
 # test
 baza = 'gland'
 # vrsta = 'listatabela'
-tabela = 'dogadjaji_zadaci'
+tabela = 'dogadjaji_troskovi'
 # vrsta = 'model'
 a = STRUKTURABAZE()
 print(a.sqlmodeltabele(baza, tabela))

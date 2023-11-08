@@ -74,3 +74,8 @@ export interface ItemStavkeKalendara {
     brojdogadjaja: number
     danunedjelji: number
 }
+
+export interface ItemPodaciKalendara {
+    tabela: Array<Array<ItemStavkeKalendara>>;
+}
+

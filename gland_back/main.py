@@ -4,7 +4,59 @@ from starlette.middleware.cors import CORSMiddleware
 from ruteri.login_ruter import router as login_router
 from ruteri.korisnik_ruter import router as korisnik_router
 
-app = FastAPI()
+app = FastAPI(
+    title="GravelLand API",
+    description="API za GravelLand aplikaciju",
+    version="1.0.0"
+
+)
+
+
+tags_metadata = [
+    {
+        "name": "Logovanje",
+        "description": "Operacije za login",
+    },
+    {
+        "name": "QR",
+        "description": "Operacije za korisnika",
+    },
+    {
+        "name": "Šifrarnik",
+        "description": "Operacije za šifrarnike",
+    },
+    {
+        "name": "Dogadjaji",
+        "description": "Operacije za dogadjaje",
+    },
+    {
+        "name": "Zadaci",
+        "description": "Operacije za zadatke",
+    },
+    {
+        "name": "Rasporedi",
+        "description": "Operacije za rasporede",
+
+    },
+    {
+        "name": "Prihodi",
+        "description": "Operacije za prihode",
+    },
+    {
+        "name": "Troskovi",
+        "description": "Operacije za troskove",
+    },
+    {
+        "name": "Komitenti",
+        "description": "Operacije za komitente",
+    },
+    {
+        "name": "KALENDAR",
+        "description": "Operacije za kalendar",
+    }
+
+
+]
 
 app.add_middleware(
     CORSMiddleware,
