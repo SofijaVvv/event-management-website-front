@@ -39,6 +39,7 @@ export interface ItemDogadjaj {
     iznos: number
     opis: string
     statusdogadjaja_id: number
+    komitent: string
 }
 
 

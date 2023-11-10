@@ -22,8 +22,25 @@ export class ApiPoziviService {
   API_SERVIS_LOGOVANJE = 'http://192.168.31.55:9000'
   API_SERVIS = 'http://192.168.31.55:9000/api/dogadjaji'
   headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+  public mjeseci = [
+    {id: 1, naziv: 'Januar'},
+    {id: 2, naziv: 'Februar'},
+    {id: 3, naziv: 'Mart'},
+    {id: 4, naziv: 'April'},
+    {id: 5, naziv: 'Maj'},
+    {id: 6, naziv: 'Jun'},
+    {id: 7, naziv: 'Jul'},
+    {id: 8, naziv: 'Avgust'},
+    {id: 9, naziv: 'Septembar'},
+    {id: 10, naziv: 'Oktobar'},
+    {id: 11, naziv: 'Novembar'},
+    {id: 12, naziv: 'Decembar'}
+  ]
+  public godine = [
+    {id: 2023, naziv: '2023'},
+    {id: 2024, naziv: '2024'},
 
-
+  ]
   logovanje2( payload : string) : Observable<any>{
     let podaciForme = JSON.parse(payload)
     const formData = new FormData();
@@ -153,7 +170,10 @@ export class ApiPoziviService {
     }
 
     listaDogadjaja(datumod: string, datumdo: string) : Observable<any>{
-        return this.http.get<ItemDogadjaj[]>(this.API_SERVIS + '/lista/' + datumod + '/' + datumdo)
+        const formData = new FormData();
+        formData.append('datumod', datumod);
+        formData.append('datumdo', datumdo);
+        return this.http.post<ItemDogadjaj[]>(this.API_SERVIS + '/lista', formData)
             .pipe(catchError((e: any): Observable<any> => {
                     return of(e);
                 }),

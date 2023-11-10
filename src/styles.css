@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+@import "@ng-select/ng-select/themes/default.theme.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -723,6 +725,9 @@
 
 html, body {
   height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Rubik, sans-serif;
   overscroll-behavior-y: none;
 }
 

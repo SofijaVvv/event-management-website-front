@@ -1,1 +1,86 @@
-<p>doma works!</p>
+<div class="w-full h-full  md:flex md:flex-col  bg-white  items-center">
+<div class="omotac  w-full  md:flex  md:w-1/2 ">
+
+    <div class="md:w-full flex flex-col md:p-10 p-5 relative ">
+
+        <div class="flex mb-2 items-center justify-between">
+          <div class="flex gap-2">
+            <div class="flex items-center">
+              <!--            <label  class="text-sm   select-none " >Mjesec</label>-->
+              <ng-select class="  md:ml-5  md:mr-10  md:text-base text-xs"
+                         [items]="poziviServis.mjeseci"
+                         [(ngModel)]="selektovaniMjesec"
+                         [ngModelOptions]="{standalone: true}"
+                         #selMjesec
+                         bindLabel="naziv"
+                         placeholder="Odaberite mjesec"
+                         [virtualScroll]="true"
+                          [clearable]="false"
+                         [searchable]="false"
+                         (change)="promjenaKalendara()"
+                         required
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  {{item.naziv}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <div class="text-sm">{{item.naziv}}</div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="flex items-center">
+              <!--            <label class="text-sm   select-none ">Godina obračuna</label>-->
+              <ng-select class="  md:ml-5  md:mr-10  md:text-base text-xs"
+                         [items]="poziviServis.godine"
+                         [(ngModel)]="selektovanaGodina"
+                         [ngModelOptions]="{standalone: true}"
+                         #godine
+                         bindLabel="naziv"
+                         placeholder="Odaberite godinu"
+                         [virtualScroll]="true"
+                         (change)="promjenaKalendara()"
+                         [searchable]="false"
+                         [clearable]="false">
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <div>{{item.naziv}}</div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+
+
+          <div class="text-[#CF2C4F] md:text-5xl text-xl font-bold">Novembar</div>
+        </div>
+        <table class="kalendar border-collapse border-spacing-0 w-full select-none ">
+            <thead>
+            <tr >
+                <th class="text-center text-xs md:text-base">Pon</th>
+                <th class="text-center text-xs md:text-base">Uto</th>
+                <th class="text-center text-xs md:text-base">Sri</th>
+                <th class="text-center text-xs md:text-base">Čet</th>
+                <th class="text-center text-xs md:text-base">Pet</th>
+                <th class="text-center text-xs md:text-base">Sub</th>
+                <th class="text-center text-xs md:text-base">Ned</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let nedjelja of kalendar; let i = index;" class="h-16">
+                <td *ngFor="let dan of nedjelja"  class="text-xs md:text-base">
+                    <div class="text-center md:text-base text-xs absolute right-[10px] top-[10px] font-bold text-[#CF2C4F]">
+                        {{ dan.datum }}
+                    </div>
+                    <div *ngIf="dan.brojdogadjaja > 0" class="absolute px-2 py-2 md:bottom-[10px]  bg-red-700 text-xs md:text-base rounded-full w-3/4 left-0 right-0 m-auto text-white text-center">
+
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!--  <div class=" srednji  md:flex-1 ">-->
+<!--      <app-pregled-dogadjaja></app-pregled-dogadjaja>-->
+<!--  </div>-->
+</div>
+

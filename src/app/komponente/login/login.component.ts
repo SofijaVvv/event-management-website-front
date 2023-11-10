@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {ApiPoziviService} from "../../servis/api-pozivi.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../servis/auth.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private poziviServis: ApiPoziviService,
     private router: Router,
+    private _authServis: AuthService
 
   ) { }
   formaLogin = this.fb.group({
@@ -22,6 +24,12 @@ export class LoginComponent {
     otp: ['']
   });
   uIzradi = false
+
+  ngOnInit(): void {
+    // this._authServis.ocistiLokalniStoridz()
+  }
+
+
   logovanje(){
 
     const podaci = JSON.stringify(this.formaLogin.value)

@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<div class="w-full min-h-screen bg-white  flex relative">
+  <div class="w-full h-full absolute top-0 left-0 bg-[#222] opacity-50" *ngIf="prikaziGlavniMeni && _authServis.uzmiToken()"></div>
+  <div class="w-64 bg-[#222] text text-gray-300 absolute left-0 top-0 min-h-screen z-10"  [@uletiUnos]="" *ngIf="prikaziGlavniMeni && _authServis.uzmiToken()">
+    <app-glavni-meni (zatvoriPregled) = "zatvoriGlavniMeni($event)"></app-glavni-meni>
+  </div>
+
+<div class="flex-1">
+  <router-outlet></router-outlet>
+</div>
+
+</div>

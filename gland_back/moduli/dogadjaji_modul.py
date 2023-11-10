@@ -1,6 +1,7 @@
 import calendar
 from datetime import date
 
+from sqlalchemy import exc
 from sqlalchemy.orm import joinedload
 
 from baznimodeli import ItemKomitent, ItemDogadjaj, ItemZadatak, ItemPrihodi, ItemRaspored, ItemTroskovi
@@ -118,22 +119,32 @@ def lista_dogadjaja(datumod: str, datumdo: str):
     if '.' in datumdo:
         day, month, year = datumdo.split('.')
         datumdo = f"{year}-{month}-{day}"
-    with get_db() as db:
-        # db_book = db.query(Knjige).options(joinedload(Knjige.autori), joinedload(Knjige.vrsta_knjige)).all()
 
-        upit = db.query(Dogadjaji, DogadjajiStatusDogadjaja.naziv.label('status'),
-                        DogadjajiVrsteDogadjaja.naziv.label('vrstadogadjaja'),
-                        Komitent.naziv.label('komitent')) \
-            .join(DogadjajiStatusDogadjaja, Dogadjaji.statusdogadjaja_id == DogadjajiStatusDogadjaja.id) \
-            .join(DogadjajiVrsteDogadjaja, Dogadjaji.vrstadogadjaja_id == DogadjajiVrsteDogadjaja.id) \
-            .join(Komitent, Dogadjaji.komitent_id == Komitent.id) \
-            .filter(Dogadjaji.datum >= datumod, Dogadjaji.datum <= datumdo).all()
-        for dogadjaj in upit:
-            tmp = dogadjaj[0].to_json()
-            tmp['status'] = dogadjaj[1]
-            tmp['vrstadogadjaja'] = dogadjaj[2]
-            tmp['komitent'] = dogadjaj[3]
-            rezultat.append(tmp)
+
+    try:
+        with get_db() as db:
+            # db_book = db.query(Knjige).options(joinedload(Knjige.autori), joinedload(Knjige.vrsta_knjige)).all()
+
+            upit = db.query(Dogadjaji, DogadjajiStatusDogadjaja.naziv.label('status'),
+                            DogadjajiVrsteDogadjaja.naziv.label('vrstadogadjaja'),
+                            Komitent.naziv.label('komitent')) \
+                .join(DogadjajiStatusDogadjaja, Dogadjaji.statusdogadjaja_id == DogadjajiStatusDogadjaja.id) \
+                .join(DogadjajiVrsteDogadjaja, Dogadjaji.vrstadogadjaja_id == DogadjajiVrsteDogadjaja.id) \
+                .join(Komitent, Dogadjaji.komitent_id == Komitent.id) \
+                .filter(Dogadjaji.datum >= datumod, Dogadjaji.datum <= datumdo).all()
+
+            for dogadjaj in upit:
+                tmp = dogadjaj[0].to_json()
+                tmp['status'] = dogadjaj[1]
+                tmp['vrstadogadjaja'] = dogadjaj[2]
+                tmp['komitent'] = dogadjaj[3]
+                print(tmp)
+                rezultat.append(tmp)
+    except exc.SQLAlchemyError as e:
+        print(e)
+    except Exception as e:
+        print(e)
+    print(rezultat)
     return rezultat
 
 
@@ -320,5 +331,5 @@ def kalendar(godina, mjesec, status=1):
                 else:
                     calendar_table[week_index].append({})
         ms.close()
-        calendar_data = {"tabela": calendar_table}
+        calendar_data = {"tabela": calendar_table[:-1]}
         return calendar_data

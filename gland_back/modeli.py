@@ -169,7 +169,7 @@ class Dogadjaji(Base):
         return {
             "id": self.id,
             "datum": self.datum.strftime("%d.%m.%Y"),
-            "vrijeme": self.vrijeme,
+            "vrijeme": self.vrijeme.strftime("%H:%M"),
             "komitent_id": self.komitent_id,
             "vrstadogadjaja_id": self.vrstadogadjaja_id,
             "iznos": self.iznos,

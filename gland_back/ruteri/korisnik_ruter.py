@@ -119,11 +119,12 @@ async def kreiraj_dogadjaj(
     return upis_dogadjaja(podaci)
 
 
-@router.get("/lista", tags=["Dogadjaji"], response_model=list[ItemDogadjaj])
+@router.post("/lista", tags=["Dogadjaji"])
 async def listanje_dogadjaja(
     current_user: Annotated[ItemOperater, Depends(get_current_active_user)],
     datumod: str = Form(...), datumdo: str = Form(...)
 ):
+
     return lista_dogadjaja(datumod, datumdo)
 
 
@@ -203,5 +204,4 @@ async def kreirajkalendar(
     current_user: Annotated[ItemOperater, Depends(get_current_active_user)], mjesec: int, godina: int
 ):
     podaci = kalendar(godina, mjesec)
-    print(podaci)
     return podaci
