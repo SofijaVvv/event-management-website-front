@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiPoziviService} from "../../servis/api-pozivi.service";
-import {ItemDogadjaj, ItemPodaciKalendara} from "../../moduli/interfejsi";
 import {DateAdapter} from "@angular/material/core";
 
 @Component({
@@ -30,8 +29,8 @@ export class DomaComponent implements OnInit{
     this.poziviServis.kalendar(mjesec, godina).subscribe(
         (data: any) => {
           console.log(data)
-          this.kalendar = data.tabela
 
+          this.kalendar = data.tabela
         });
   }
 

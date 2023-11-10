@@ -21,6 +21,10 @@ import { UnosDogadjajaComponent } from './komponente/dogadjaji/unos-dogadjaja/un
 import { GlavniMeniComponent } from './komponente/glavni-meni/glavni-meni.component';
 import {MatNativeDateModule} from "@angular/material/core";
 import {NgSelectModule} from "@ng-select/ng-select";
+import { JwtModule } from "@auth0/angular-jwt";
+
+
+
 
 @NgModule({
   declarations: [
@@ -46,7 +50,14 @@ import {NgSelectModule} from "@ng-select/ng-select";
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatNativeDateModule,
-    NgSelectModule
+    NgSelectModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: function  tokenGetter() {
+          return     localStorage.getItem('token');
+        }
+      }
+    })
   ],
   providers: [
     {

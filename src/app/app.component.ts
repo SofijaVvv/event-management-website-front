@@ -4,6 +4,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "./servis/auth.service";
 import Swal from "sweetalert2";
 import {Router} from "@angular/router";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,16 @@ export class AppComponent {
     private poziviServis: ApiPoziviService,
     public _authServis: AuthService,
     private router: Router,
+    public jwtHelper: JwtHelperService
   ){}
+
+  ngOnInit(): void {
+    console.log(this.jwtHelper.isTokenExpired());
+    console.log(this.jwtHelper.getTokenExpirationDate());
+    const token = localStorage.getItem('token') || '';
+    console.log(this.jwtHelper.decodeToken(token));
+
+  }
     defaultTouch = { x: 0, y: 0, time: 0 };
 
     @HostListener('touchstart', ['$event'])

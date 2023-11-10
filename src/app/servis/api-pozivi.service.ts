@@ -10,6 +10,9 @@ import {
     ItemTroskovi,
     ItemZadatak
 } from "../moduli/interfejsi";
+import Swal from "sweetalert2";
+import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,9 @@ import {
 export class ApiPoziviService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private _authServis: AuthService,
+    private router: Router,
   ) { }
   API_SERVIS_LOGOVANJE = 'http://192.168.31.55:9000'
   API_SERVIS = 'http://192.168.31.55:9000/api/dogadjaji'
@@ -41,6 +46,35 @@ export class ApiPoziviService {
     {id: 2024, naziv: '2024'},
 
   ]
+
+  odjavaOperatera() {
+    Swal.fire({
+      title: 'Odjava',
+      text: "Da se odjavim iz programa?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#8E4585',
+      cancelButtonColor: '#4B4B78',
+      confirmButtonText: 'Da, odjavi me!',
+      cancelButtonText: 'Nazad na program'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._authServis.ocistiLokalniStoridz()
+        // this.poziviServis.jeliVidljivLijeviMeni = false
+        this.router.navigate(['/login'])
+        // this.stateService.go('login')
+      }
+    })
+
+  }
+
+  direktnaOdjavaOperatera() {
+    this._authServis.ocistiLokalniStoridz()
+    this.router.navigate(['/login'])
+  }
+
+
+
   logovanje2( payload : string) : Observable<any>{
     let podaciForme = JSON.parse(payload)
     const formData = new FormData();
