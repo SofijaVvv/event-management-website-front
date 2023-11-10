@@ -1,0 +1,71 @@
+<aside class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-gray-900 border-gray-700">
+    <div class=" flex items-center justify-center gap-3">
+<!--        <img class="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="">-->
+        <svg width="70px" height="70px" viewBox="0 0 130 130"  xmlns="http://www.w3.org/2000/svg" >
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="v" transform="translate(-370.000000, -217.000000)">
+                    <g id="Group-2" transform="translate(370.862915, 217.862915)">
+                        <path d="M64.5,4.94974747 L124.050253,64.5 L64.5,124.050253 L4.94974747,64.5 L64.5,4.94974747 Z" id="Rectangle" stroke="#A41E21" stroke-width="7"></path>
+                        <rect id="Rectangle" fill="#A41E21" transform="translate(64.280729, 64.236875) rotate(45.000000) translate(-64.280729, -64.236875) " x="30.0744384" y="30.0305841" width="68.4125811" height="68.4125811"></rect>
+                        <g id="G" transform="translate(43.976226, 44.546331)" fill="#FFFFFF" fill-rule="nonzero">
+                            <path d="M40.1608593,20.0074211 C40.0582952,26.1879767 38.2890644,30.9970045 34.853167,34.4345045 C31.4172696,37.8720045 26.895902,39.5907545 21.2890644,39.5907545 C14.861714,39.5907545 9.73350889,37.5855461 5.90444906,33.5751295 C2.07538923,29.5647128 0.160859314,24.8685322 0.160859314,19.4865878 C0.160859314,14.1046434 2.07538923,9.44318503 5.90444906,5.5022128 C9.73350889,1.56124058 14.6736798,-0.409245529 20.7249619,-0.409245529 C24.0070132,-0.409245529 27.0582952,0.207073916 29.878808,1.4397128 C32.6993209,2.67235169 35.4600046,4.55603225 38.1608593,7.09075447 L34.7762439,10.3720045 C32.6907738,8.32339336 30.4343636,6.7522128 28.0070132,5.6584628 C25.5796627,4.5647128 23.0839362,4.0178378 20.5198337,4.0178378 C17.9557311,4.0178378 15.4087226,4.71228225 12.878808,6.10117114 C10.3488935,7.49006003 8.36598752,9.36506003 6.93009008,11.7261711 C5.49419265,14.0872822 4.77624393,16.6393656 4.77624393,19.3824211 C4.77624393,23.6532545 6.35744051,27.3772128 9.51983367,30.5542961 C12.6822268,33.7313795 16.6394918,35.3199211 21.3916285,35.3199211 C24.9129961,35.3199211 27.9557311,34.3390184 30.5198337,32.3772128 C33.0839362,30.4154072 34.6565858,27.7331156 35.2377824,24.3303378 L23.5454747,24.3303378 L23.5454747,20.0074211 L40.1608593,20.0074211 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+         <div class="text-yellow-400 text-xl uppercase ">GravelLand</div>
+    </div>
+
+<!--    <div class="flex flex-col items-center mt-6 -mx-2">-->
+<!--        <img class="object-cover w-24 h-24 mx-2 rounded-full" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="avatar">-->
+<!--        <h4 class="mx-2 mt-2  text-gray-800 dark:text-gray-200">John Doe</h4>-->
+<!--        <p class="mx-2 mt-1 text-sm  text-gray-400 ">john@example.com</p>-->
+<!--    </div>-->
+
+    <div class="flex flex-col justify-between flex-1 mt-6">
+        <nav>
+            <div (click)="dodirnuo('doma')"
+              class="flex items-center px-4 py-2 text-gray-400  rounded-lg  cursor-pointer " [ngClass]="{'aktivni-meni' : koji_meni == 'doma'}" >
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V9C19 7.89543 18.1046 7 17 7M5 11V9C5 7.89543 5.89543 7 7 7M7 7V5C7 3.89543 7.89543 3 9 3H15C16.1046 3 17 3.89543 17 5V7M7 7H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <span class="mx-4 ">Doma</span>
+            </div>
+
+            <div (click)="dodirnuo('pregled-dogadjaja')" [ngClass]="{'aktivni-meni' : koji_meni == 'pregled-dogadjaja'}"
+              class="flex items-center px-4 py-2 mt-5 text-gray-400 transition-colors duration-300 transform rounded-lg     cursor-pointer" >
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <span class="mx-4 ">Događaji</span>
+            </div>
+
+            <div (click)="dodirnuo('pregled-zadataka')" [ngClass]="{'aktivni-meni' : koji_meni == 'pregled-zadataka'}"
+              class="flex items-center px-4 py-2 mt-5 text-gray-400 transition-colors duration-300 transform rounded-lg    cursor-pointer" >
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5V7M15 11V13M15 17V19M5 5C3.89543 5 3 5.89543 3 7V10C4.10457 10 5 10.8954 5 12C5 13.1046 4.10457 14 3 14V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V14C19.8954 14 19 13.1046 19 12C19 10.8954 19.8954 10 21 10V7C21 5.89543 20.1046 5 19 5H5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <span class="mx-4 ">Zadaci</span>
+            </div>
+
+            <div (click)="dodirnuo('pregled-rasporeda')" [ngClass]="{'aktivni-meni' : koji_meni == 'pregled-rasporeda'}"
+              class="flex items-center px-4 py-2 mt-5 text-gray-400 transition-colors duration-300 transform rounded-lg     cursor-pointer" >
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.3246 4.31731C10.751 2.5609 13.249 2.5609 13.6754 4.31731C13.9508 5.45193 15.2507 5.99038 16.2478 5.38285C17.7913 4.44239 19.5576 6.2087 18.6172 7.75218C18.0096 8.74925 18.5481 10.0492 19.6827 10.3246C21.4391 10.751 21.4391 13.249 19.6827 13.6754C18.5481 13.9508 18.0096 15.2507 18.6172 16.2478C19.5576 17.7913 17.7913 19.5576 16.2478 18.6172C15.2507 18.0096 13.9508 18.5481 13.6754 19.6827C13.249 21.4391 10.751 21.4391 10.3246 19.6827C10.0492 18.5481 8.74926 18.0096 7.75219 18.6172C6.2087 19.5576 4.44239 17.7913 5.38285 16.2478C5.99038 15.2507 5.45193 13.9508 4.31731 13.6754C2.5609 13.249 2.5609 10.751 4.31731 10.3246C5.45193 10.0492 5.99037 8.74926 5.38285 7.75218C4.44239 6.2087 6.2087 4.44239 7.75219 5.38285C8.74926 5.99037 10.0492 5.45193 10.3246 4.31731Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <span class="mx-4 ">Raspored</span>
+            </div>
+        </nav>
+        <div (click)="odjavaOperatera()" class=" mx-auto cursor-pointer w-1/2  text-white text-center py-1 px-2 text-xs rounded border-solid border border-[#83eeff]">
+            Odjava
+        </div>
+
+    </div>
+</aside>
