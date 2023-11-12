@@ -17,9 +17,26 @@ export class GlavniMeniComponent implements OnInit{
   ) { }
 
   koji_meni = "doma"
+  jeliDarkMode = false
+   handleColorSchemeChange (e: any)  {
+    // Check if switched to light mode
+     const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+     this.jeliDarkMode = darkModeQuery.matches
+     window.location.reload();
+     if (!e.matches) {
+       console.log('Switched to light mode!', this.jeliDarkMode);
+
+    }
+  }
 
   ngOnInit(): void {
     this.koji_meni = this._authServis.citajLokalniStoridz('koji_meni') || "doma"
+    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this.jeliDarkMode = darkModeQuery.matches;
+    // Listen for changes
+    darkModeQuery.addEventListener('change', this.handleColorSchemeChange);
+
+
   }
 
   promjenaMenija(kojimeni: string) {
