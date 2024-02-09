@@ -1,0 +1,6 @@
+.background-main {
+  background-image: url(../../../assets/pozadina.svg), linear-gradient(to bottom, rgba(14, 65, 102, 0.86), #0e4166);
+  background-size: cover;
+}
+
+/*# sourceMappingURL=login.component.css.map */

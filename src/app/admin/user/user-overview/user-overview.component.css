@@ -1,0 +1,29 @@
+.srednji {
+  height: calc(100vh - 65px);
+  max-height: calc(100vh - 65px);
+}
+
+.background {
+  background-color: rgba(82, 155, 208, 0.86);
+}
+
+.gradient {
+  background-color: #edf0f5;
+}
+
+.button-bg {
+  background-color: rgb(14, 65, 102);
+}
+.button-bg:hover {
+  background-color: rgb(21, 71, 138);
+}
+
+.selected-user {
+  background-color: rgb(192, 223, 247);
+}
+
+.select-nav {
+  color: #93C5FD;
+}
+
+/*# sourceMappingURL=user-overview.component.css.map */

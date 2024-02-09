@@ -1,0 +1,10 @@
+{
+  "error": "Greška",
+  "login": {
+    "dugme": "Prijava",
+    "email": "Email",
+    "error": "Neispravno korisnicko ime, lozinka ili otp",
+    "password": "Lozinka",
+    "title": "Prijavite se na svoj nalog"
+  }
+}

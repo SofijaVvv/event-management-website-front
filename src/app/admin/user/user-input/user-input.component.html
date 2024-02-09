@@ -1,0 +1,59 @@
+<!--<button (click)="closeUserInput()" class="px-10 py-4 bg-blue-600 m-4 text-white rounded"  >Back</button>-->
+
+
+<form [formGroup]="userForm" class="m-10  p-10 rounded-[30px] bg-[#A5D1F3]/70 border border-blue-300">
+  <div class="mb-6">
+    <label class="block mb-2 text-sm font-family  text-[#216191]">Name</label>
+    <input formControlName="name"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+           placeholder="" required>
+  </div>
+  <div class="mb-6">
+    <label class="block mb-2 text-sm  font-family text-[#216191]">Phone number</label>
+    <input formControlName="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+           placeholder="" required>
+  </div>
+  <div class="mb-6" *ngIf="userForInput.id == 0">
+    <label  class="block mb-2 text-sm  text-[#216191] ">Email</label>
+    <input formControlName="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+           placeholder="" required>
+  </div>
+
+  <div class="mb-6">
+    <label class="block mb-2 text-sm  font-family text-[#216191]">Role</label>
+    <ng-select
+      formControlName="roles_combo"
+      bindLabel="name"
+      placeholder="Choose role"
+    [items]="roleList"
+    [virtualScroll]="true"
+    [clearable]="false"
+    >
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div>{{item.name}}</div>
+      </ng-template>
+    </ng-select>
+  </div>
+
+<!--  <div class="flex items-center mb-4">-->
+<!--    <input formControlName="activity" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">-->
+<!--    <label  class="ms-2 text-sm font-medium text-black ">activity</label>-->
+<!--  </div>-->
+
+  <div class="flex justify-between items-center">
+    <label class="switch text-sm flex items-center">
+      <input type="checkbox" formControlName="activity">
+      <span class="slider"></span>
+      <div class="text-sm ml-3 text-white pl-16 mt-1">
+        <span  *ngIf="userForm.get('activity')?.value" class="text-[#0e4166] text-sm">Active</span>
+        <span  *ngIf="!userForm.get('activity')?.value" class="text-white text-sm">Inactive</span>
+      </div>
+    </label>
+    <button type="submit" class="mt-10 text-white font-family button-bg   focus:outline-none
+    font-medium rounded-lg text-sm  px-5 py-2.5 text-center "
+            [disabled]="userForm.invalid"
+            (click)="onSubmit()" >Save user</button>
+  </div>
+
+
+
+</form>
