@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {HomeComponent} from "./komponente/home/home.component";
 import {LoginComponent} from "./komponente/login/login.component";
-import {DomaComponent} from "./komponente/doma/doma.component";
-import {PregledZadatakaComponent} from "./komponente/zadaci/pregled-zadataka/pregled-zadataka.component";
-import {PregledRasporedaComponent} from "./komponente/rasporedi/pregled-rasporeda/pregled-rasporeda.component";
-import {PregledKomitenataComponent} from "./komponente/komitenti/pregled-komitenata/pregled-komitenata.component";
-import {PregledDogadjajaComponent} from "./komponente/dogadjaji/pregled-dogadjaja/pregled-dogadjaja.component";
+import {UserOverviewComponent} from "./admin/user/user-overview/user-overview.component";
+import {AdminPageComponent} from "./admin/admin-page/admin-page.component";
+import {
+  RolesPrivilegesOverviewComponent
+} from "./admin/roles-privileges/roles/roles-privileges-overview/roles-privileges-overview.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -14,25 +15,22 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'doma',
-    component: DomaComponent
+    path: 'admin',
+    component: UserOverviewComponent,
   },
   {
-    path: 'pregled-zadataka',
-    component: PregledZadatakaComponent
+  path: 'admin-user',
+    component: UserOverviewComponent,
   },
   {
-    path: 'pregled-rasporeda',
-    component: PregledRasporedaComponent
-  },
-  {
-    path: 'pregled-komitenata',
-    component: PregledKomitenataComponent
-  },
-  {
-    path: 'pregled-dogadjaja',
-    component: PregledDogadjajaComponent
+    path: 'roles-privileges',
+    component: RolesPrivilegesOverviewComponent
   }
+
+
+
+
+
 
 
 ];

@@ -6,7 +6,8 @@
 @import @ng-select/ng-select/themes/default.theme.css
 
 
-$glavna-boja: #894CB2
+
+$glavna-boja: rgba(21, 71, 138, 1)
 $sekundarna-boja: #3B0086
 $glavna-svijetla: #C46EFF
 $tamna-pozadina: #231F20
@@ -23,3 +24,38 @@ html, body
 
 .glavna-pozadina
   background-color: $glavna-boja
+
+
+
+/* Works on Firefox */
+*
+  scrollbar-width: thin
+  scrollbar-color: $glavna-boja white
+
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar
+  width: 5px
+  border-radius: 20px
+
+
+*::-webkit-scrollbar-track
+  background: #fff
+
+
+*::-webkit-scrollbar-thumb
+  background-color: $glavna-boja
+  border-radius: 20px
+  border: 1px solid white
+
+.mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked:not(.mat-disabled) .mdc-switch__shadow
+  background-color: #894CB2
+/*replace with your color*/
+
+
+.mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked:not(.mat-disabled) .mdc-switch__track::after
+  background-color: #C46EFF !important
+/*replace with your color*/
+
+.font-family
+  font-family: "Helvetica Neue", sans-serif

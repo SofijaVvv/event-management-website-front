@@ -1,64 +1,78 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import Swal from "sweetalert2";
-import {ApiPoziviService} from "../../servis/api-pozivi.service";
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {FormBuilder} from "@angular/forms";
+import {ApiCallsService} from "../../service/api-calls.service";
 import {Router} from "@angular/router";
-import {AuthService} from "../../servis/auth.service";
+import {AuthService} from "../../service/auth.service";
+import Swal from "sweetalert2";
+import {TranslateService} from "@ngx-translate/core";
+
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass']
 })
-export class LoginComponent implements OnInit{
-  constructor(
-    private fb: FormBuilder,
-    private poziviServis: ApiPoziviService,
-    private router: Router,
-    private _authServis: AuthService
+export class LoginComponent implements AfterViewInit {
+@ViewChild('password') password!: ElementRef ;
 
-  ) { }
-  formaLogin = this.fb.group({
-    email: ['', Validators.required],
-    lozinka: ['', Validators.required],
-    otp: ['']
-  });
-  uIzradi = false
+constructor
+(
+  private fb: FormBuilder,
+  private apiPoziviServis: ApiCallsService,
+  private router: Router,
+  private authServis: AuthService,
+  public translate: TranslateService
+) {}
 
-  ngOnInit(): void {
-    // this._authServis.ocistiLokalniStoridz()
+  formLogin = this.fb.group({
+  email: [''],
+  password: [''],
+    orm: ['']
+});
+
+ngAfterViewInit() {
+  this.password.nativeElement.focus();
+}
+
+  onEmailEnter() {
+    this.password.nativeElement.focus();
   }
 
+login(){
+  const loginInfo = JSON.stringify(this.formLogin.value)
+  console.log("prije podatake", loginInfo)
 
-  logovanje(){
+  this.apiPoziviServis.login(loginInfo).subscribe((data: any) => {
+console.log("povratno:", data)
+    if (data.token) {
+      this.authServis.upisLokalniStoridz('token', data.token)
+      this.router.navigate(['/admin']).then(r => console.log(r))
+    } else {
+      void Swal.fire({
+          title: this.translate.instant('error'),
+          html: this.translate.instant('login.error'),
+          icon: "warning",
+          showConfirmButton: false,
+          timer: 2000
+        })
+    }
 
-    const podaci = JSON.stringify(this.formaLogin.value)
-    this.poziviServis.logovanje2(podaci).subscribe((data: any) => {
-        console.log("povratno:", data)
-        if (data.token) {
-          localStorage.setItem('token', data.token);
 
-          this.router.navigate(['/doma']).then(r => console.log(r))
-        } else {
-          if (data.token ){
 
-            void Swal.fire({
-              title: "Greška",
-              html: "Greška u konekciji sa serverom!",
-              icon: "error",
-              showConfirmButton: false,
-              timer: 2000
-            })
-          } else {
+  })
+}
 
-            void Swal.fire({
-              title: "Greška",
-              html: "Neispravno korisnicko ime, lozinka ili otp",
-              icon: "warning",
-              showConfirmButton: false,
-              timer: 2000
-            })
-          }
-        }})
+
+
+
+  onKeyUp() {
+      this.login();
   }
+
+changeLanguage(jezik: string) {
+  this.translate.use(jezik);
+
+}
+
 }
