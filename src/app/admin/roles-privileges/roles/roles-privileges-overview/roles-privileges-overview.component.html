@@ -11,7 +11,7 @@
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">LgProject</span>
       </a>
       <div class="flex  md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
-        <button type="button" class="text-white  font-medium rounded-lg text-sm px-4 py-2 text-center ">Log out</button>
+        <button type="button" class="text-white  font-medium rounded-lg text-sm px-4 py-2 text-center " (click)="logOut()" >{{"logout" | translate}}</button>
         <ul class="text-white flex gap-5 items-center justify-end bg-[#0e4166]">
           <li class="cursor-pointer hover:underline hover:text-amber-600 " (click)="changeLanguage('en')">EN</li>
           <li class="cursor-pointer hover:underline hover:text-amber-600 " (click)="changeLanguage('bs')">ME</li>
@@ -20,10 +20,10 @@
       <div class="items-center   flex flex-1 justify-center" >
         <ul class="flex flex-row font-medium">
           <li>
-            <a  routerLink="/admin-user" class="block py-2 px-3 text-white hover:text-blue-300" aria-current="page">User</a>
+            <a  routerLink="/admin/user" class="block py-2 px-3 text-white hover:text-blue-300" aria-current="page">{{'users.users' | translate}}</a>
           </li>
           <li>
-            <a routerLink="/roles-privileges" class="block py-2 px-3 text-blue-300">Roles & Privileges</a>
+            <a routerLink="admin/roles-privileges" class="block py-2 px-3 text-blue-300">{{'users.roles' | translate}}</a>
           </li>
         </ul>
       </div>
@@ -39,16 +39,16 @@
     <div class="gradient border-r border-white h-screen   w-2/4  flex flex-col srednji">
 
       <div class="flex  m-4 justify-between items-center ">
-        <input type="text" placeholder="Search"
+        <input type="text" placeholder="{{'search' | translate}}"
                [(ngModel)]="search_input"
                (keyup)="filterUsers()"
                class="p-2 bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg   ">
-        <button class=" px-4 py-2 button-bg rounded-lg text-gray-100" (click)="addRole()" >Add</button>
+        <button class=" px-4 py-2 button-bg rounded-lg text-gray-100" (click)="addRole()" >{{'add' | translate}}</button>
       </div>
 
       <div  class="flex-1  cursor-pointer p-4 flex gap-4 flex-col overflow-y-auto">
         <div (click)="selectRole(role)" *ngFor="let role of filteredRoleList"
-             [ngClass]="{'selected-role': role.id === selectedRole?.id}"
+             [ngClass]="{'selected-role': role.id === selectedRole.id}"
              class=" p-4 border border-white bg-white/80 text-gray-900 rounded-lg shadow flex flex-row justify-between ">
           <h5  class="text-xl  tracking-tight text-[#0e4166] font-family uppercase"
 
@@ -65,7 +65,7 @@
       <div class="flex flex-col    rounded w-full p-4">
         <div class="flex justify-end w-full">
           <button class=" px-8 py-2 button-bg rounded-lg text-white mb-4" (click)="savePrivileges()">
-            Save privileges
+            {{'users.saveprivileges' | translate}}
           </button>
         </div>
 
@@ -73,16 +73,15 @@
           <div class="flex p-4   bg-[#A5D1F3]/70 border border-blue-300 rounded-xl  justify-between text-[#0e4166] font-family font-medium items-center">
             <div>{{ privilege.key }}</div>
             <div class="flex items-center gap-10 ">
-            <div *ngFor="let p of privilege.value" class="flex items-center">
-              <div class="flex  items-center gap-3">
-                <label class=" container text-sm font-medium text-gray-900 flex justify-items-center">
-                  <input class="w-4 h-4 text-blue-600 bg-white border-white rounded "  type="checkbox"  [checked]=p.activity (change)="privilegesChange($event, p) ">
-                  <span class="checkmark"></span>
-                  <div class="text-sm text-[#2B88CC] mt-1">{{ p.privileges_name }}</div>
-                </label>
-              </div>
-
-            </div>
+                    <div *ngFor="let p of privilege.value" class="flex ">
+                      <div class="flex  items-center gap-3">
+                          <label class=" switch text-sm font-medium text-gray-900 flex ">
+                            <input class="w-4 h-4 text-blue-600 bg-white border-white rounded "  type="checkbox"  [checked]=p.activity (change)="privilegesChange($event, p) ">
+                            <span class="slider"></span>
+                          </label>
+                        <div class="text-sm   ">{{ p.privileges_name }}</div>
+                      </div>
+                    </div>
             </div>
           </div>
 

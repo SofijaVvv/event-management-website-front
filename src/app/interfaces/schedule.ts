@@ -1,8 +1,11 @@
-export interface ISchedule {
+import {Details} from "./events";
+
+
+export interface ScheduleDetails {
   id: number;
-  dogadjaj_id: number;
-  operater_id: number;
-  vrijeme_pocetka: string;
-  vrijeme_zavrsetka: string;
-  opis: string;
+  event_id: number;
+  user: { id: number, name: string };
+  start_time: Details;
+  end_time: Details;
+  description: string;
 }

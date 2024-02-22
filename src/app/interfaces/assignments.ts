@@ -1,3 +1,5 @@
+import {Details} from "./events";
+
 export interface IAssignments {
   id: number,
   opis: string,
@@ -9,4 +11,16 @@ export interface IAssignments {
   datum_kreiranja: string,
   datum_zavrsetka: string,
 
+}
+
+
+export interface AssignmentsDetails {
+  id: number,
+  description: string,
+  status: number,
+  priority: Details,
+  user: Details,
+  event_id: number,
+  created_date: Date,
+  end_date: Date,
 }

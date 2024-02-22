@@ -5,6 +5,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {IRoles} from "../../../interfaces/roles";
 import Swal from "sweetalert2";
 import {NgxSpinnerService} from "ngx-spinner";
+import {TranslateService} from "@ngx-translate/core";
 
 interface ngOnChanges {
 }
@@ -22,6 +23,7 @@ export class UserInputComponent implements ngOnChanges{
     private spinner: NgxSpinnerService,
     private serviceCalls: ApiCallsService,
     private fb: FormBuilder,
+    private translate: TranslateService,
 
   ) { }
 
@@ -80,7 +82,49 @@ loadCompanyList() {
   })
 }
 
-
+resetPassword() {
+  Swal.fire({
+    title: this.translate.instant('users.resetpass'),
+    text: this.translate.instant('users.passresetquestion'),
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#894CB2',
+    cancelButtonColor: '#4B4B78',
+    confirmButtonText: this.translate.instant('users.passresetyes'),
+    cancelButtonText: this.translate.instant('users.passresetno')
+  }).then((result) => {
+    if (result.isConfirmed) {
+      void this.spinner.show()
+      this.serviceCalls.resetPassword(this.userForInput.email).subscribe(
+        (odgovor: any) => {
+          console.log(odgovor, 'odgovor')
+          void this.spinner.hide()
+          if (odgovor.error === true) {
+            Swal.fire({
+              title: this.translate.instant('error'),
+              text: odgovor.message,
+              icon: 'error',
+              showCancelButton: false,
+              confirmButtonColor: '#894CB2',
+              cancelButtonColor: '#',
+              confirmButtonText: this.translate.instant('back'),
+            })
+          } else {
+            Swal.fire({
+              title: this.translate.instant('success'),
+              text: odgovor.message,
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#894CB2',
+              cancelButtonColor: '#',
+              confirmButtonText: this.translate.instant('back'),
+            })
+          }
+        }
+      )
+    }
+  })
+}
 
 
   closeUserInput() {
@@ -92,14 +136,14 @@ loadCompanyList() {
   onSubmit() {
   console.log(this.userForm.value)
     Swal.fire({
-      title: 'Upis komitenta',
-      text: "Da upišem komitenta?",
+      title: this.translate.instant('users.insertuser'),
+      text: this.translate.instant('users.insertuserquestion'),
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#894CB2',
       cancelButtonColor: '#',
-      confirmButtonText: 'Da,upiši!',
-      cancelButtonText: 'Nazad na program'
+      confirmButtonText: this.translate.instant('users.insertuseryes'),
+      cancelButtonText: this.translate.instant('back')
     }).then((result) => {
       if (result.isConfirmed) {
         void this.spinner.show()
@@ -113,24 +157,24 @@ loadCompanyList() {
               void this.spinner.hide()
               if (odgovor.error === true) {
                 Swal.fire({
-                  title: 'Greška',
+                  title: this.translate.instant('error'),
                   text: odgovor.message,
                   icon: 'error',
                   showCancelButton: false,
                   confirmButtonColor: '#894CB2',
                   cancelButtonColor: '#',
-                  confirmButtonText: 'Nazad na program',
+                  confirmButtonText: this.translate.instant('back'),
                 })
               } else {
                 this.closeInput.emit(true)
                 Swal.fire({
-                  title: 'Uspešno',
-                  text: odgovor.message,
+                  title: this.translate.instant('success'),
+                  text: this.translate.instant('users.insertusersuccess'),
                   icon: 'success',
                   showCancelButton: false,
                   confirmButtonColor: '#894CB2',
                   cancelButtonColor: '#',
-                  confirmButtonText: 'Nazad na program',
+                  confirmButtonText: this.translate.instant('back'),
                 })
               }
 
@@ -145,24 +189,24 @@ loadCompanyList() {
               void this.spinner.hide()
               if (odgovor.error === true) {
                 Swal.fire({
-                  title: 'Greška',
-                  text: odgovor.message,
+                  title: this.translate.instant('error'),
+                  text: this.translate.instant('users.editusererror'),
                   icon: 'error',
                   showCancelButton: false,
                   confirmButtonColor: '#894CB2',
                   cancelButtonColor: '#',
-                  confirmButtonText: 'Nazad na program',
+                  confirmButtonText: this.translate.instant('back'),
                 })
               } else {
                 this.closeInput.emit(true)
                 Swal.fire({
-                  title: 'Uspešno',
-                  text: odgovor.message,
+                  title: this.translate.instant('success'),
+                  text: this.translate.instant('users.editusersuccess'),
                   icon: 'success',
                   showCancelButton: false,
                   confirmButtonColor: '#894CB2',
                   cancelButtonColor: '#',
-                  confirmButtonText: 'Nazad na program',
+                  confirmButtonText: this.translate.instant('back'),
                 })
               }
 
@@ -175,9 +219,29 @@ loadCompanyList() {
     })
   }
   getRoleDetails(id: number) {
-  const mujo = this.roleList.find((role: IRoles) => role.id === id)
-    console.log(mujo, "mujo")
-    return mujo
+    const mujo = this.roleList.find((role: IRoles) => role.id === id)
+      console.log(mujo, "mujo")
+      return mujo
 
-  }
+    }
+
+    goBack() {
+      Swal.fire({
+        title: this.translate.instant('users.newuser'),
+        text: this.translate.instant('users.canceluserinput'),
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#8E4585',
+        cancelButtonColor: '#4B4B78',
+        confirmButtonText: this.translate.instant('users.canceluserinputyes'),
+        cancelButtonText: this.translate.instant('back')
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.closeInput.emit(false)
+        } else {
+
+          return
+        }
+      })
+    }
 }

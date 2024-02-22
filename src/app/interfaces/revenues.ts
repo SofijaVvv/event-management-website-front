@@ -1,11 +1,11 @@
-export interface IRevenues {
-  id: number;
-  vrste_prihoda_id: number;
-  status_prihoda_id: number;
-  dogadjaj_id: number;
-  operater_id: number;
-  iznos: number;
-  opis: string;
-  rok_placanja: string;
+import {Details} from "./events";
 
+export interface RevenuesDetails {
+  id: number;
+  type_of_revenue: Details;
+  event_id: number;
+  user: Details;
+  amount: number;
+  quantity: number;
+  unit: Details;
 }

@@ -26,7 +26,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 export class AppComponent {
   title = 'gland';
   constructor(
-    public poziviServis: ApiCallsService,
+    public apiCalls: ApiCallsService,
     public _authServis: AuthService,
     private router: Router,
     public jwtHelper: JwtHelperService,
@@ -39,10 +39,22 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    const uderData = this._authServis.readLocalStorage('user');
+    this.apiCalls.isOpenedMainMenu = true
+    if (uderData) {
+      this._authServis.setOperatorData(JSON.parse(uderData)).then((data: any) => {
+        console.log("ja sam iz app.component")
+      })
+    }
+
     console.log(this.jwtHelper.isTokenExpired());
     console.log(this.jwtHelper.getTokenExpirationDate());
     const token = localStorage.getItem('token') || '';
     console.log(this.jwtHelper.decodeToken(token));
 
+  }
+
+  closeMainMenu(event: any){
+    this.apiCalls.isOpenedMainMenu = false
   }
 }

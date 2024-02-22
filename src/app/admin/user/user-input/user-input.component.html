@@ -3,12 +3,12 @@
 
 <form [formGroup]="userForm" class="m-10  p-10 rounded-[30px] bg-[#A5D1F3]/70 border border-blue-300">
   <div class="mb-6">
-    <label class="block mb-2 text-sm font-family  text-[#216191]">Name</label>
+    <label class="block mb-2 text-sm font-family  text-[#216191]">{{"name" | translate}}</label>
     <input formControlName="name"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
            placeholder="" required>
   </div>
   <div class="mb-6">
-    <label class="block mb-2 text-sm  font-family text-[#216191]">Phone number</label>
+    <label class="block mb-2 text-sm  font-family text-[#216191]">{{"phone" | translate}}</label>
     <input formControlName="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
            placeholder="" required>
   </div>
@@ -19,11 +19,11 @@
   </div>
 
   <div class="mb-6">
-    <label class="block mb-2 text-sm  font-family text-[#216191]">Role</label>
+    <label class="block mb-2 text-sm  font-family text-[#216191]">{{ "users.roles" | translate}}</label>
     <ng-select
       formControlName="roles_combo"
       bindLabel="name"
-      placeholder="Choose role"
+      placeholder= '{{"users.selectrole" | translate}}'
     [items]="roleList"
     [virtualScroll]="true"
     [clearable]="false"
@@ -44,14 +44,31 @@
       <input type="checkbox" formControlName="activity">
       <span class="slider"></span>
       <div class="text-sm ml-3 text-white pl-16 mt-1">
-        <span  *ngIf="userForm.get('activity')?.value" class="text-[#0e4166] text-sm">Active</span>
-        <span  *ngIf="!userForm.get('activity')?.value" class="text-white text-sm">Inactive</span>
+        <span  *ngIf="userForm.get('activity')?.value" class="text-[#0e4166] text-sm">{{ "active" | translate }}</span>
+        <span  *ngIf="!userForm.get('activity')?.value" class="text-white text-sm">{{"inactive" | translate}}</span>
       </div>
+
     </label>
-    <button type="submit" class="mt-10 text-white font-family button-bg   focus:outline-none
+    <div>
+      <button  class="mt-10 text-white font-family button-bg   focus:outline-none
     font-medium rounded-lg text-sm  px-5 py-2.5 text-center "
-            [disabled]="userForm.invalid"
-            (click)="onSubmit()" >Save user</button>
+                (click)="resetPassword()"
+               *ngIf="userForInput.id">
+        {{ "users.resetpass" | translate}}
+      </button>
+    </div>
+
+    <div class="flex gap-5 ">
+      <button type="submit" class="mt-10 text-white font-family button-bg   focus:outline-none
+    font-medium rounded-lg text-sm  px-5 py-2.5 text-center "
+              [disabled]="userForm.invalid"
+              (click)="onSubmit()" >{{"users.saveuser" | translate}}</button>
+      <button *ngIf="!userForInput.id" class="mt-10 text-white font-family bg-red-600
+    font-medium rounded-lg text-sm  px-5 py-2.5 text-center "
+              (click)="goBack()" >{{ "back" | translate}}</button>
+
+    </div>
+
   </div>
 
 

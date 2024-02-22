@@ -1,0 +1,48 @@
+
+
+<div class="flex h-screen  flex-row bg-color p-10">
+  <div class="  flex w-full  bg-white shadow-lg  rounded-xl p-4  ">
+    <div class="flex flex-col p-2  w-full">
+      <div class="w-full relative flex  bg-blue-50 shadow-sm   rounded-[15px] px-2  ">
+        <table class="calendar !border-transparent ">
+        <thead>
+        <tr class="flex   " >
+          <th class="p-2.5 font-family text-color ">Pon</th>
+          <th class="p-2.5 font-family text-color ">Uto</th>
+          <th class="p-2.5 font-family text-color ">Sri</th>
+          <th class="p-2.5 font-family text-color ">Čet</th>
+          <th class="p-2.5 font-family text-color ">Pet</th>
+          <th class="p-2.5 font-family text-color ">Sub</th>
+          <th class="p-2.5 font-family text-color ">Ned</th>
+        </tr>
+        </thead>
+        </table>
+      </div>
+
+      <div class="  flex h-full w-full rounded-[20px] mt-4 ">
+        <table class="calendar  bg-white">
+          <tbody >
+          <tr class="  bg-white cursor-pointer " *ngFor="let week of eventCalendarData">
+            <td class="relative" *ngFor="let day of week">
+                  <div class=" text-color  absolute right-4 top-4 text-right"> {{day.date}}</div>
+                  <div class="px-2 py-0.5 w-12 bg-indigo-300 text-indigo-500  rounded-full absolute bottom-4 right-4 text-center" *ngIf="day.number_of_events > 0" >{{day.number_of_events}}</div>
+            </td>
+
+          </tr>
+          </tbody>
+
+
+        </table>
+      </div>
+
+    </div>
+  </div>
+<!--  <div class=" w-1/2 bg-[#A5D1F3]/70 border border-blue-300 rounded-xl"></div>-->
+</div>
+
+
+
+
+
+
+

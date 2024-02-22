@@ -18,8 +18,8 @@ import {MatIconModule} from "@angular/material/icon";
 
 import { TouchEventsDirective } from './directives/touch-events.directive';
 import {NgChartsModule} from "ng2-charts";
-import { LoginComponent } from './komponente/login/login.component';
-import { HomeComponent } from './komponente/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { UserInputComponent } from './admin/user/user-input/user-input.component';
@@ -27,7 +27,22 @@ import { UserOverviewComponent } from './admin/user/user-overview/user-overview.
 import {NgxSpinnerModule} from "ngx-spinner";
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RolesPrivilegesOverviewComponent } from './admin/roles-privileges/roles/roles-privileges-overview/roles-privileges-overview.component';
-import { RolesPrivilegesInputComponent } from './admin/roles-privileges/roles/roles-privileges-input/roles-privileges-input.component';
+import { ErrorComponent } from './error/error.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { EventOverviewComponent } from './components/events/event-overview/event-overview.component';
+import { EventInputComponent } from './components/events/event-input/event-input.component';
+import { TaskInputComponent } from './components/tasks/task-input/task-input.component';
+import { ScheduleInputComponent } from './components/schedule/schedule-input/schedule-input.component';
+import { RevenueInputComponent } from './components/revenue/revenue-input/revenue-input.component';
+import { ExpensesInputComponent } from './components/expenses/expenses-input/expenses-input.component';
+import { TaskOverviewComponent } from './components/tasks/task-overview/task-overview.component';
+import { ScheduleOverviewComponent } from './components/schedule/schedule-overview/schedule-overview.component';
+import { ClientInputComponent } from './components/clients/client-input/client-input.component';
+import { ClientOverviewComponent } from './components/clients/client-overview/client-overview.component';
+import { ExpensesOverviewComponent } from './components/expenses/expenses-overview/expenses-overview.component';
+import { AnalysisComponent } from './components/analysis/analysis.component';
+import {MatListModule} from "@angular/material/list";
+import {MatButtonModule} from "@angular/material/button";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,7 +59,20 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserOverviewComponent,
     AdminPageComponent,
     RolesPrivilegesOverviewComponent,
-    RolesPrivilegesInputComponent,
+    ErrorComponent,
+    MainMenuComponent,
+    EventOverviewComponent,
+    EventInputComponent,
+    TaskInputComponent,
+    ScheduleInputComponent,
+    RevenueInputComponent,
+    ExpensesInputComponent,
+    TaskOverviewComponent,
+    ScheduleOverviewComponent,
+    ClientInputComponent,
+    ClientOverviewComponent,
+    ExpensesOverviewComponent,
+    AnalysisComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +104,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDatepickerModule,
     MatMenuModule,
     MatIconModule,
-    NgChartsModule
+    NgChartsModule,
+    MatListModule,
+    MatButtonModule
   ],
   providers: [
     {

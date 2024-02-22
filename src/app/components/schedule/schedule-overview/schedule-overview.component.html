@@ -1,0 +1,55 @@
+<div  class="flex flex-col overflow-auto  bg-[#EDF0F5FF] w-full h-screen ">
+
+
+
+  <div class="flex items-center justify-between  ml-4 mr-4 border-b border-b-gray-300">
+    <div  class=" text-xl text-[#0E4166FF] font-family font-medium">Schedule</div>
+    <div class="flex relative  items-center">
+      <div class="flex  mb-2 ">
+        <div class=" m-2  ">
+          <form>
+
+            <div class="relative">
+              <div class="absolute inset-y-0  flex items-center ps-3 ">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </div>
+              <input (keyup)="filterEventsByKeyword()" type="search" [formControl]="searchInput" class="block w-96 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 " placeholder="Search..." required>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="flex flex-col mt-2 ">
+    <div (click)="navigateToEvent(schedule)" *ngFor="let schedule of filteredScheduleList" class="flex flex-col   w-full pl-4 pr-4 ">
+      <div  class="  m-1  ">
+        <div class="grid grid-cols-[1fr_100px_100px]  p-5  items-center bg-white border  border-gray-200 rounded-lg shadow cursor-pointer">
+          <div class=" text-xl font-family  text-[#0e4166] w-[300px]  ">{{schedule.description}}</div>
+          <div class="text-sm text-[#2B88CC]  flex gap-2 ">{{schedule.start_time.name}}</div>
+          <div class="text-sm text-[#2B88CC] flex gap-2">{{schedule.end_time.name}}</div>
+
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+

@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import {IPrivilegesResponse, IPrivilegesRoles} from "../../../../interfaces/privileges_roles";
 import {IUser} from "../../../../interfaces/user";
 import {TranslateService} from "@ngx-translate/core";
+import {AuthService} from "../../../../service/auth.service";
 
 @Component({
   selector: 'app-roles-privileges-overview',
@@ -42,7 +43,8 @@ defaultRole: IRoles = {
 
   constructor(
     private apiCalls: ApiCallsService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private authService: AuthService
 
   ) {}
   cant_edit = true
@@ -52,6 +54,10 @@ defaultRole: IRoles = {
   ngOnInit(): void {
      void this.loadRoles()
      // void this.loadPrivileges(7)
+  }
+
+  logOut() {
+    this.authService.logOut()
   }
 
   loadRoles() {
@@ -76,16 +82,16 @@ defaultRole: IRoles = {
     this.selectedRole = JSON.parse(JSON.stringify(this.defaultRole))
     this.showInput = true
     const {value: roleName} = await Swal.fire({
-      title: 'Unos vrste troška',
+      title: this.translate.instant('users.insertrole'),
       input: 'text',
       inputValue: "",
-      inputLabel: 'Naziv vrste troška',
+      inputLabel: this.translate.instant('users.insertrolename'),
       inputPlaceholder: '',
       showCancelButton: true,
       confirmButtonColor: '#894CB2',
       cancelButtonColor: '#',
-      confirmButtonText: 'Upis',
-      cancelButtonText: 'Nazad na program'
+      confirmButtonText: this.translate.instant('users.insertuseryes'),
+      cancelButtonText: this.translate.instant('back')
     })
     if (!roleName) {
       return;
@@ -95,11 +101,11 @@ defaultRole: IRoles = {
         (odgovor) => {
           console.log(odgovor)
           if (odgovor.error === true){
-            Swal.fire(`Greška kod upisa!`)
+            Swal.fire(this.translate.instant('users.editusererror'))
             return
           }
           this.loadRoles()
-          Swal.fire(`Podatak je upisan!`)
+          Swal.fire(this.translate.instant('users.editusersuccess'))
         })
     }
   }
@@ -123,18 +129,18 @@ selectRole(role: IRoles) {
 
   savePrivileges() {
   if (!this.changedPrivileges.length){
-    Swal.fire(`No privileges are changed!`)
+    Swal.fire(this.translate.instant('users.insertrole_norole'))
     return
   }
     Swal.fire({
-      title: 'Role',
-      text: "Do you want to save privileges for this role?",
+      title: this.translate.instant('users.role'),
+      text: this.translate.instant('users.insertprivileges'),
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#894CB2',
       cancelButtonColor: '#',
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
+      confirmButtonText: this.translate.instant('users.passresetyes'),
+      cancelButtonText: this.translate.instant('users.passresetno')
     }).then((result) => {
 if (result.isConfirmed) {
 
@@ -147,10 +153,10 @@ if (result.isConfirmed) {
       (odgovor) => {
         console.log(odgovor)
         if (odgovor.error === true) {
-          Swal.fire(`Error while saving privileges!`)
+          Swal.fire(this.translate.instant('users.editusererror'))
           return
         }
-        Swal.fire(`Privileges are saved!`)
+        Swal.fire(this.translate.instant('users.editusersuccess'))
       })
 
   }

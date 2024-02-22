@@ -1,0 +1,79 @@
+
+
+<div class="flex bg-color h-full flex-col ">
+<div class="flex border-b ml-0.5 bg-white items-center gap-2 p-4">
+<div class="text-xl">Analyse your data</div>
+  <button mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" >
+    <mat-icon class=" text-[#275C85FF]">unfold_more</mat-icon>
+    <div class=" underline decoration-blue-300  decoration-1 text-lg font-family text-[#275C85FF]">The last...
+    </div>
+
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon> bar_chart</mat-icon>
+      <div >This week</div>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon> bar_chart</mat-icon>
+      <span>Last 14 days</span>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon> bar_chart</mat-icon>
+      <span>Last month</span>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon> bar_chart</mat-icon>
+      <span>Last 3 months</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <mat-icon> bar_chart</mat-icon>
+      <span>Custom range</span>
+    </button>
+  </mat-menu>
+</div>
+
+
+<div class="flex ">
+  <div class="  p-6 shadow-lg flex flex-col rounded-[15px] items-center bg-white m-4 w-4/6  justify-center  relative"
+       style="position: relative; height:40vh; "
+  >
+    Expenses & Revenue
+    <canvas baseChart class="chart "
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [type]="barChartType"
+    >
+    </canvas>
+
+  </div>
+
+  <div class="  p-6 shadow-lg flex flex-col rounded-[15px] items-center w-2/6 bg-white m-4  justify-center h-72"
+       style="position: relative; height:40vh; "
+  >
+
+    Expenses & Revenue
+    <canvas baseChart class="chart "
+            [data]="barChartData2"
+            [options]="barChartoptions2"
+            [plugins]="barChartPlugin2"
+            [type]="BarChartType2"
+    >
+    </canvas>
+
+  </div>
+
+
+
+</div>
+
+
+
+
+</div>
+

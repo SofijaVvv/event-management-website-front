@@ -1,10 +1,12 @@
-export interface ICosts {
-  id: number;
-  dogadjaj_id: number;
-  operater_id: number;
-  vrsta_troska_id: number;
-  komitenti_id: number;
-  iznos: number;
-  opis: string;
+import {Details} from "./events";
 
+
+export interface CostsDetails {
+  id: number;
+  event_id: number;
+  client: Details;
+  type_of_cost: Details;
+  amount: number;
+  description: string;
+  user: Details;
 }

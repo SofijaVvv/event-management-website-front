@@ -1,0 +1,17 @@
+.text-color {
+  color: rgb(14, 65, 102);
+}
+.text-color:hover {
+  color: rgba(35, 101, 150, 0.86);
+}
+
+.fill {
+  background-color: rgb(14, 65, 102);
+}
+
+.active-menu {
+  background-color: #2B88CC;
+  color: white;
+}
+
+/*# sourceMappingURL=main-menu.component.css.map */

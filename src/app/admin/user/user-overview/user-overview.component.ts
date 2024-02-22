@@ -4,6 +4,8 @@ import {ApiCallsService} from "../../../service/api-calls.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {NgxSpinnerService} from "ngx-spinner";
 import {TranslateService} from "@ngx-translate/core";
+import {AuthService} from "../../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-pregled-korisnika',
@@ -24,8 +26,21 @@ import {TranslateService} from "@ngx-translate/core";
 export class UserOverviewComponent implements OnInit{
 userList: IUser[] = []
 fileteredUserList: IUser[] = []
-  selectedUser: IUser = {} as IUser
+
+  selectedUser: IUser = {
+    id: 0,
+    roles_combo: {id: -1, name: ""},
+    email: "",
+    key: "",
+    activity: false,
+    name: "",
+    telephone: "",
+    roles_id: 0,
+    company_id: 1
+  } as IUser
+
   showInput = false;
+
   defaultUser: IUser = {
     id: 0,
     roles_combo: {id: -1, name: ""},
@@ -37,16 +52,28 @@ fileteredUserList: IUser[] = []
     roles_id: 0,
     company_id: 1
   }
+
   search_input = ""
+  isNewUser = false
+
+
+
+
   constructor(
     private apiCalls: ApiCallsService,
     private spinner: NgxSpinnerService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public authService: AuthService,
+    private router: Router
   ) { }
+
+
 
   ngOnInit(): void {
     void this.loadUsers()
   }
+
+
 
   async loadUsers() {
     void this.spinner.show()
@@ -83,6 +110,11 @@ closeUserInput(event:any) {
     if (event === true){
       this.getListOfUsers()
     }
+    if (this.userList.length > 0){
+      this.selectedUser = this.userList[0]
+
+    }
+    this.isNewUser = false;
     this.showInput = false;
 }
 
@@ -104,5 +136,11 @@ editUser(user: IUser) {
       return user.name.toLowerCase().includes(this.search_input.toLowerCase()) || user.email.toLowerCase().includes(this.search_input.toLowerCase())
     })
   }
+
+  logOut() {
+    this.authService.logOut()
+  }
+
+
 
 }

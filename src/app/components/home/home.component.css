@@ -1,0 +1,50 @@
+.calendar {
+  width: 100%;
+  border-radius: 20px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #b5c4da;
+}
+.calendar th {
+  font-weight: normal;
+}
+.calendar td {
+  border-bottom: 1px solid #b5c4da;
+  border-right: 1px solid #b5c4da;
+  position: relative;
+}
+.calendar td, .calendar th {
+  width: 14.28%;
+}
+.calendar tr:nth-child(1) td:nth-child(1) {
+  border-radius: 20px 0 0 0;
+}
+.calendar tr:nth-child(1) td:nth-child(7) {
+  border-radius: 0 20px 0 0;
+}
+.calendar tr:last-child td:nth-child(1) {
+  border-radius: 0 0 0 20px;
+}
+.calendar tr:last-child td:nth-child(7) {
+  border-radius: 0 0 20px 0;
+}
+.calendar tr td:nth-child(7n) {
+  border-right: none;
+}
+.calendar tr:nth-child(5) td {
+  border-bottom: none;
+}
+
+.bg-color {
+  background-color: #edf0f5;
+}
+
+.bg-color-2 {
+  background-color: rgb(14, 65, 102);
+}
+
+.text-color {
+  color: rgb(14, 65, 102);
+}
+
+/*# sourceMappingURL=home.component.css.map */

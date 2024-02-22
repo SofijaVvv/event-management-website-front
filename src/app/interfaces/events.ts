@@ -1,14 +1,32 @@
 export interface IEvents {
   id: number;
-  datum: string;
-  vrijeme: string;
-  komitenti_id: number;
-  vrsta_dogadjaja_id: number;
-  status_dogadjaja_id: number;
-  lokacija_id: number;
-  ocjena_dogadjaja_id: number;
-  operater_id: number;
-  opis: string;
-  iznos: number;
+  date: string;
+  time: string;
+  client_name: number;
+  type_of_event_name: number;
+  event_status_name: number;
+  location_name: number;
+  event_rating: number;
+  user_name: number;
+  description: string;
+  amount: number;
+
+}
+export interface Details {
+  id: number;
+  name: string;
+}
+
+export interface EventDetails {
+  id: number;
+  client: Details;
+  type_of_event: Details;
+  status_event: Details;
+  location: Details;
+  user: Details;
+  description: string;
+  date: Date;
+  time: Details;
+  event_rating: number;
 
 }

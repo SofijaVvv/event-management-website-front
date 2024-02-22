@@ -16,12 +16,17 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+
           "options": {
             "outputPath": "dist/gland",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "sweetalert2",
+              "moment"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "sass",

@@ -1,0 +1,94 @@
+
+<div class="flex flex-col w-full h-full   items-center justify-center">
+  <form [formGroup]="formEditClient" class=" bg-white   min-w-[500px] p-4 min-h-[300px] rounded-[15px]  ">
+
+    <div class=" flex flex-col gap-1  h-full w-full ">
+      <div *ngIf="!clientForInput.id" class="p-2 text-2xl">New client</div>
+      <div *ngIf="clientForInput.id" class="p-2 text-2xl">Client</div>
+
+
+<!--//////////////////////////Forme name, email,phone,bank account, city///////////////////////-->
+      <div  class="w-full  flex-1">
+        <label  class="block text-sm text-[#104166] font-family">Name of client</label>
+        <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="name">
+      </div>
+      <div  class="w-full  flex-1">
+        <label  class="block text-sm text-[#104166] font-family">Email</label>
+        <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="email">
+      </div>
+      <div  class="w-full  flex-1">
+        <label  class="block text-sm text-[#104166] font-family">Phone</label>
+        <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="phone">
+      </div>
+      <div  class="w-full  flex-1">
+        <label  class="block text-sm text-[#104166] font-family">Address</label>
+        <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="address">
+      </div>
+      <div  class="w-full  flex-1">
+        <label  class="block text-sm text-[#104166] font-family">Bank account</label>
+        <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="bank_account">
+      </div>
+      <div  class="w-full  flex-1">
+        <label  class="block text-sm text-[#104166] font-family">City</label>
+        <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="city">
+      </div>
+      <div  class="w-full  flex-1">
+        <label  class="block text-sm text-[#104166] font-family">Note</label>
+        <textarea class="border w-full border-gray-400  p-2 rounded-[6px] outline-none " formControlName="note"></textarea>
+      </div>
+
+      <!--//////////////////////////Forme name, email,phone,bank account, city///////////////////////-->
+
+
+
+
+      <div class=" flex  gap-2  p-2 w-full">
+
+        <div class="flex flex-col  w-40 ">
+          <label class="text-sm text-[#104166]  mr-2">Type of client<sup class="text-red-800">*</sup></label>
+          <ng-select class=" custom-select w-full"
+                      [items]="clientTypeList"
+                     bindLabel="name"
+                     placeholder="Choose user"
+                     formControlName="type_of_client"
+                     [virtualScroll]="true"
+                     [clearable]="false"
+          >
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div>{{item.name}}</div>
+              <!--        <div>{{item.naziv}}</div>-->
+            </ng-template>
+          </ng-select>
+        </div>
+        <div  class="w-40 flex-1">
+          <label  class="block text-sm text-[#104166] font-family">PDV number</label>
+          <input class="w-full p-1.5 rounded border-gray-300 border" formControlName="pdvnumber">
+        </div>
+
+        <div  class="w-40  flex-1">
+          <label  class="block text-sm text-[#104166] font-family">PIB number</label>
+          <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="pib">
+        </div>
+
+      </div>
+
+      <div class="flex w-full justify-center gap-2 mt-4 ">
+
+        <button class=" w-full py-2 px-4 bg-blue-500 text-white  rounded-[6px]" (click)="saveClient()" [disabled]="formEditClient.invalid" >Save </button>
+
+        <button class=" w-full p-3 bg-red-500 text-white  rounded-[6px]"
+                (click)="closeCloseClient() " >Cancel </button>
+
+
+      </div>
+
+    </div>
+
+
+
+  </form>
+
+</div>
+
+
+
