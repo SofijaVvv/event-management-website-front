@@ -1,0 +1,87 @@
+<div class="flex flex-col w-full h-full   items-center justify-center bg-white   min-w-[500px] p-4 min-h-[300px] rounded-[15px]">
+  <form [formGroup]="formEditRevenue" class=" w-full h-full  ">
+
+    <div class=" flex flex-col h-full w-full ">
+      <div *ngIf="!revenueForInput.id" class="p-2 text-2xl">New revenue</div>
+      <div *ngIf="revenueForInput.id" class="p-2 text-2xl">Revenue</div>
+
+      <div class=" flex  gap-4 p-2 w-full items-center">
+        <div class="flex flex-col  w-1/2">
+          <label class="text-sm text-[#104166]  mr-2">Revenue type</label>
+          <ng-select class=" custom-select w-full"
+                     [items]="revenueTypesList"
+                     bindLabel="name"
+                     placeholder="Start time"
+                     formControlName="type_of_revenue"
+                     [virtualScroll]="true"
+                     [clearable]="false"
+          >
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div>{{item.name}}</div>
+              <!--        <div>{{item.naziv}}</div>-->
+            </ng-template>
+          </ng-select>
+        </div>
+
+
+
+      </div>
+      <div class="flex gap-2 " >
+
+        <div class="flex ml-2 ">
+          <div class="flex flex-col  w-40">
+            <label class="text-sm text-[#104166]  mr-2 text-right">Quantity</label>
+            <input class="border py-1 border-gray-300 rounded text-right pr-3" formControlName="quantity">
+          </div>
+        </div>
+
+        <div class="flex flex-col  w-1/2" >
+          <label class="text-sm text-[#104166]  mr-2 text-center">Unit</label>
+          <ng-select class=" custom-select w-full"
+                     [items]="unitsList"
+                     bindLabel="name"
+                     placeholder="End time"
+                     formControlName="unit"
+                     [virtualScroll]="true"
+                     [clearable]="false"
+          >
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div>{{item.name}}</div>
+              <!--        <div>{{item.naziv}}</div>-->
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="flex ml-2 ">
+          <div class="flex flex-col  w-20">
+            <label class="text-sm text-[#104166]  mr-2 text-right">Price</label>
+            <input class="border py-1 border-gray-300 rounded text-right pr-3" formControlName="amount">
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </form>
+
+
+
+
+
+      <div class="flex w-full justify-center gap-2 mt-4 ">
+
+        <button class=" w-full py-2 px-4 bg-blue-500 text-white  rounded-[6px]" (click)="saveRevenue()" >Save </button>
+
+        <button class=" w-full p-3 bg-red-500 text-white  rounded-[6px]" (click)="colseRevenueForm()" >Cancel </button>
+
+
+      </div>
+
+
+
+</div>
+
+
+
+

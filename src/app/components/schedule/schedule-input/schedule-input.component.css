@@ -1,0 +1,18 @@
+.bg-color {
+  background-color: #edf0f5;
+}
+
+.bg-color-2 {
+  background-color: rgb(14, 65, 102);
+}
+
+.middle {
+  height: calc(100vh - 49px);
+  max-height: calc(100vh - 49px);
+}
+
+.text {
+  color: #0E4166;
+}
+
+/*# sourceMappingURL=schedule-input.component.css.map */
