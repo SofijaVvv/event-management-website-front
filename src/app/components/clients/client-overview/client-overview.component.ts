@@ -6,6 +6,7 @@ import {AuthService} from "../../../service/auth.service";
 import {Router} from "@angular/router";
 import {IClient} from "../../../interfaces/client";
 import {FormControl, isFormControl} from "@angular/forms";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-client-overview',
@@ -47,8 +48,9 @@ export class ClientOverviewComponent implements OnInit {
     this.loadClients();
 
   }
-
+  appData = this.authService.appData;
   loadClients() {
+    console.log("loading clients", this.appData)
     this.spinner.show()
     this.apiCalls.getClients().subscribe((data: IClient[]) => {
       this.clientList = data
@@ -88,6 +90,14 @@ export class ClientOverviewComponent implements OnInit {
   }
 
   editClient(client: IClient) {
+    if (!this.appData.can_edit){
+      void Swal.fire({
+        icon: 'error',
+        title: 'Access denied',
+        text: 'You do not have access to edit clients!',
+      })
+      return;
+      }
     this.selectedClient = JSON.parse(JSON.stringify(client));
     this.showInput = true;
   }

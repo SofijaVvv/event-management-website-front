@@ -17,7 +17,7 @@
           </div>
         </div>
 
-        <button class="text-white text-sm  py-2.5 px-4 rounded-[8px] bg-color-2 cursor-pointer " (click)="newClient()" >Add client</button>
+        <button *ngIf="appData.can_edit" class="text-white text-sm  py-2.5 px-4 rounded-[8px] bg-color-2 cursor-pointer " (click)="newClient()" >Add client</button>
 
       </div>
 
@@ -34,7 +34,7 @@
       <div class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] p-5  items-center bg-white border  border-gray-200 rounded-lg shadow cursor-pointer w-full">
 
 
-      <div class=" text-xl font-family  text-[#0e4166]  ">{{client.name}}</div>
+      <div class=" text-base font-family  text-[#0e4166]  ">{{client.name}}</div>
         <div class="text-sm text-[#2B88CC] flex gap-2 ">
           <div class="w-5 h-5">
             <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg"

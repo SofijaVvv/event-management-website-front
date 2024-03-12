@@ -10,8 +10,7 @@
 }
 
 .active-menu {
-  background-color: #2B88CC;
-  color: white;
+  @apply border border-blue-400 rounded-lg  shadow-lg bg-white;
 }
 
 /*# sourceMappingURL=main-menu.component.css.map */

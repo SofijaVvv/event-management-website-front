@@ -1,5 +1,4 @@
 
-<div class="flex-1">
 
 <!-- TODO: Translate -->
 <!-- TODO: Kada se klikne add user, dodaj overlay(disable da korisnik ne moze da select nekog iz liste) preko liste i dodaj cancel dugme kod inputa-->
@@ -9,30 +8,14 @@
 
 
 
-  <div class="w-full min-h-screen   flex relative" >
+  <div class="w-full min-h-screen   flex " >
 
-
-<!--    <button class="fixed z-90 top-2 left-3 cursor-pointer z-[500]" (click)="apiCalls.isOpenedMainMenu = !apiCalls.isOpenedMainMenu" (tap)="apiCalls.isOpenedMainMenu = !apiCalls.isOpenedMainMenu">-->
-<!--      <svg *ngIf="apiCalls.isOpenedMainMenu" width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--        <path d="M12.2491 3.93306C12.5257 3.68898 12.9742 3.68898 13.2508 3.93306C13.5275 4.17714 13.5275 4.57286 13.2508 4.81694L10.21 7.5L13.2508 10.1831C13.5275 10.4271 13.5275 10.8229 13.2508 11.0669C12.9742 11.311 12.5257 11.311 12.2491 11.0669L8.70745 7.94194C8.43082 7.69786 8.43082 7.30214 8.70745 7.05806L12.2491 3.93306Z" fill="#A875E6"/>-->
-<!--        <path d="M7.29078 3.93306C7.5674 3.68898 8.01589 3.68898 8.29251 3.93306C8.56914 4.17714 8.56914 4.57286 8.29251 4.81694L5.25171 7.5L8.29251 10.1831C8.56914 10.4271 8.56914 10.8229 8.29251 11.0669C8.01589 11.311 7.5674 11.311 7.29078 11.0669L3.74911 7.94194C3.47249 7.69786 3.47249 7.30214 3.74911 7.05806L7.29078 3.93306Z" fill="#A875E6"/>-->
-<!--      </svg>-->
-<!--      <svg *ngIf="!apiCalls.isOpenedMainMenu" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--        <path d="M6.70711 6.29289C6.31658 5.90237 5.68342 5.90237 5.29289 6.29289C4.90237 6.68342 4.90237 7.31658 5.29289 7.70711L9.58579 12L5.29289 16.2929C4.90237 16.6834 4.90237 17.3166 5.29289 17.7071C5.68342 18.0976 6.31658 18.0976 6.70711 17.7071L11.7071 12.7071C12.0976 12.3166 12.0976 11.6834 11.7071 11.2929L6.70711 6.29289Z" fill="#A875E6"/>-->
-<!--        <path d="M13.7071 6.29289C13.3166 5.90237 12.6834 5.90237 12.2929 6.29289C11.9024 6.68342 11.9024 7.31658 12.2929 7.70711L16.5858 12L12.2929 16.2929C11.9024 16.6834 11.9024 17.3166 12.2929 17.7071C12.6834 18.0976 13.3166 18.0976 13.7071 17.7071L18.7071 12.7071C19.0976 12.3166 19.0976 11.6834 18.7071 11.2929L13.7071 6.29289Z" fill="#A875E6"/>-->
-<!--      </svg>-->
-
-<!--    </button>-->
-<!--    <div class="w-full h-full absolute top-0 left-0 bg-[#ddd] opacity-50 z-50"-->
-<!--         *ngIf="apiCalls.isOpenedMainMenu && _authServis.getToken()"-->
-<!--         (click)="apiCalls.isOpenedMainMenu = false"-->
-<!--    ></div>-->
     <div class="w-60 text text-gray-300  left-0 top-0 min-h-screen z-50 border-r-2 border-[#894CB2]"
-         *ngIf="apiCalls.isOpenedMainMenu && _authServis.getToken()">
+         *ngIf="apiCalls.isOpenedMainMenu && _authServis.getToken() ">
       <app-main-menu (zatvoriPregled) = "closeMainMenu($event)"></app-main-menu>
     </div>
 
-    <div class="flex-1">
+    <div class="flex-1 h-full">
       <router-outlet></router-outlet>
     </div>
     <ngx-spinner size="large" bdColor="rgba(190,190,190,0.5)"
@@ -63,4 +46,3 @@
 
 
 
-</div>

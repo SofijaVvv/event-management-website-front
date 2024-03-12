@@ -1,9 +1,131 @@
 {
   "active": "Active",
-  "add": "Add",
+  "add": {
+    "expense": "Add Expense",
+    "role": "Add role"
+  },
+  "analyse": {
+    "data": "Analyse your data"
+  },
+  "assignment": {
+    "priority": "Priority"
+  },
+  "assignments": "Assignments",
   "back": "Back",
+  "backto": {
+    "event": "Back to program"
+  },
+  "c": {
+    "costs": "Expenses"
+  },
+  "cancel": {
+    "button": "Cancel"
+  },
+  "cl": {
+    "type": "Client type"
+  },
+  "client": "Client",
+  "cost": {
+    "per": {
+      "event": "Expense Per Event",
+      "perticipant": "Cost Per Participant"
+    },
+    "price": "Price",
+    "type": "Cost type"
+  },
+  "costs": {
+    "per": {
+      "event": "Expenses Per Event"
+    }
+  },
+  "date": {
+    "input": "Date"
+  },
+  "days": {
+    "friday": {
+      "short": "Fri"
+    },
+    "monday": {
+      "short": "Mon"
+    },
+    "saturday": {
+      "short": "Sat"
+    },
+    "sunday": {
+      "short": "Sun"
+    },
+    "thursday": {
+      "short": "Thu"
+    },
+    "tuesday": {
+      "short": "Tue"
+    },
+    "wednesday": {
+      "short": "Wed"
+    }
+  },
+  "desc": "Description",
+  "download": {
+    "excel": "Download Excel File"
+  },
+  "e": {
+    "costs": "Event Expenses",
+    "date": "Event Date",
+    "event": "Events"
+  },
+  "enter": {
+    "event": "Yes!"
+  },
   "error": "Error",
+  "es": {
+    "event": {
+      "status": "Status"
+    }
+  },
+  "et": {
+    "event": {
+      "type": "Event type"
+    }
+  },
+  "event": {
+    "diagram": "Event Revenues and Expenses",
+    "input": "Event:",
+    "type": {
+      "input": "Event type"
+    }
+  },
+  "events": {
+    "add": "Add event",
+    "details": "Event details",
+    "list": "Event list",
+    "none": "No events found"
+  },
+  "expense": {
+    "amount": "Amount",
+    "type": "Expense type"
+  },
+  "expenses": "Expenses",
+  "filter": {
+    "active": "Active",
+    "all": "All",
+    "costs": {
+      "inactive": "Other costs"
+    },
+    "events": {
+      "active": "Event costs"
+    },
+    "inactive": "Inactive"
+  },
   "inactive": "Inactive",
+  "list": {
+    "expenses": "Expense list"
+  },
+  "lo": {
+    "location": "Location"
+  },
+  "location": {
+    "input": "Location"
+  },
   "login": {
     "dugme": "Sign in ",
     "email": "Email",
@@ -12,23 +134,150 @@
     "title": "Sign in to your account"
   },
   "logout": "Log out",
+  "main": {
+    "menu": {
+      "analisys": "Analisys",
+      "assignments": "Assignments",
+      "clients": "Clients",
+      "events": "Events",
+      "expenses": "Expenses",
+      "home": "Home",
+      "schedule": "Schedule",
+      "shared": "Shared"
+    }
+  },
   "name": "Name",
+  "new": {
+    "expense": "New expense",
+    "revenue": {
+      "input": "New revenue"
+    }
+  },
+  "no": {
+    "change": "You cannot change a completed task!"
+  },
+  "nochange": {
+    "cost": "You have no right to change the costs!",
+    "revenue": "You have no right to change income!",
+    "schedule": "You have no right to change the schedule!",
+    "task": "You have no right to change tasks!"
+  },
+  "number": {
+    "of": {
+      "events": "Number Of Events"
+    },
+    "participants": {
+      "input": "Number of participants"
+    }
+  },
+  "old": {
+    "expense": "Expense"
+  },
+  "operator": "Operator",
+  "p": {
+    "participants": "Participants"
+  },
+  "participants": {
+    "per": {
+      "event": "Participants Per Event"
+    }
+  },
   "phone": "Phone Number",
-  "search": "Search",
+  "profit": {
+    "per": {
+      "event": "Profit Per Event",
+      "perticipant": "Profit Per Perticipant"
+    }
+  },
+  "reset": {
+    "passwerror": "Error while resetting password",
+    "passwsuccess": "Password resetted successfully. Check your email for details."
+  },
+  "revenue": {
+    "amount": "Amount",
+    "input": "Revenue",
+    "per": {
+      "event": "Revenue Per Event",
+      "perticipant": "Revenue Per Participant"
+    },
+    "price": "Price",
+    "quantity": "Quantity",
+    "type": "Revenue type",
+    "unit": "Unit"
+  },
+  "revenues": "Revenues",
+  "rights": {
+    "er": {
+      "error": "ou have no right to change tasks!"
+    },
+    "error": "You have no rights"
+  },
+  "s": {
+    "shared": "Shared"
+  },
+  "save": {
+    "button": "Save",
+    "changes": "Do you want to save data?",
+    "event": "Registration of events"
+  },
+  "schedule": {
+    "new": "New schedule"
+  },
+  "schedules": "Schedule",
+  "search": "Search...",
+  "select": {
+    "period": "Select period"
+  },
+  "status": {
+    "event": {
+      "input": "Event status"
+    }
+  },
   "success": "Success",
+  "supplier": "Supplier",
+  "task": {
+    "finished": "Task completed",
+    "new": "New assignment"
+  },
+  "time": {
+    "end": "End time",
+    "input": "Time",
+    "start": "Start time"
+  },
+  "timeline": {
+    "14days": "Last 14 days",
+    "month": "This month",
+    "select": {
+      "month": "Select month"
+    },
+    "week": "This week"
+  },
+  "total": {
+    "all": "Total:",
+    "costs": "Total expenses",
+    "event": {
+      "costs": "Total event expenses"
+    },
+    "events": "Total events",
+    "participants": "Total participants",
+    "revenues": "Total Revenues"
+  },
+  "typein": {
+    "event": "Should I enter an event?"
+  },
   "users": {
     "canceluserinput": "Do you want to cancel user input?",
     "canceluserinputyes": "Yes, cancel!",
     "editusererror": "Error with inserting!",
     "editusersuccess": "Data successfully edited!",
     "insertprivileges": "Do you want to save privileges for this role?",
-    "insertrole": "Insert role",
+    "insertrole": "Add role",
     "insertrole_norole": "No privileges are changed!",
     "insertrolename": "Role name",
-    "insertuser": "Insert user",
+    "insertuser": "Save user data",
     "insertuserquestion": "Do you want to insert user?",
     "insertusersuccess": "User inserted",
-    "insertuseryes": "Yes, insert!",
+    "insertuseryes": "Yes, save!",
     "newuser": "New user",
     "passresetno": "No, cancel!",
     "passresetquestion": "Do you want to reset password?",

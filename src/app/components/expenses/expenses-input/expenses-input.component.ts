@@ -1,29 +1,32 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CostsDetails} from "../../../interfaces/costs";
+import { EventCostsDetails} from "../../../interfaces/costs";
 import {FormBuilder, Validators} from "@angular/forms";
 import {ApiCallsService} from "../../../service/api-calls.service";
 import {Details} from "../../../interfaces/events";
 import {firstValueFrom} from "rxjs";
 import Swal from "sweetalert2";
-
+import * as moment from "moment";
 @Component({
   selector: 'app-expenses-input',
   templateUrl: './expenses-input.component.html',
   styleUrls: ['./expenses-input.component.sass']
 })
 export class ExpensesInputComponent implements OnInit{
-  @Input() expenseForInput: CostsDetails = {} as CostsDetails;
-  @Output() closeExpense = new EventEmitter<CostsDetails>();
-
+ @Input() expenseForInput: EventCostsDetails = {} as EventCostsDetails;
+  @Output() closeExpense = new EventEmitter<EventCostsDetails>();
+  @Input() costType: String = "event";
   formEditExpense = this.fb.group({
     id: [0],
-    user: {id: -1, name: ""},
     event_id: [0],
+    user: {id: -1, name: ""},
+    date: [new Date(), Validators.required],
     amount: [0, Validators.required],
     type_of_cost: [{id: -1, name: ""}, Validators.required],
     client: [{id: -1, name: ""}, Validators.required],
     description: [""],
   });
+
+  selectedPickerDate = ""
 
 
 
@@ -44,12 +47,19 @@ costTypesList: Details[] = [];
       this.expenseForInput.type_of_cost = {id: -1, name: ""};
       this.expenseForInput.client = {id: -1, name: ""};
     }
+    if (this.expenseForInput.id !== 0) {
+      this.selectedPickerDate = moment(this.expenseForInput.date, 'DD.MM.YYYY').format('DD.MM.YYYY')
+    } else {
+      this.selectedPickerDate = moment(new Date()).format('DD.MM.YYYY')
+    }
     console.log(this.expenseForInput, "za ispravku expenses")
     this.formEditExpense.patchValue({
       id: this.expenseForInput.id,
       user: this.expenseForInput.user,
       event_id: this.expenseForInput.event_id,
+      date: moment(this.selectedPickerDate, 'DD.MM.YYYY').toDate(),
       amount: this.expenseForInput.amount,
+      // date: this.expenseForInput.date,
       type_of_cost: this.expenseForInput.type_of_cost,
       client: this.expenseForInput.client,
       description: this.expenseForInput.description,
@@ -66,7 +76,7 @@ costTypesList: Details[] = [];
   }
 
   closeExpenseForm() {
-    this.closeExpense.emit({id: -1} as CostsDetails);
+    this.closeExpense.emit({id: -1} as  EventCostsDetails);
   }
 
   saveExpense() {
@@ -96,30 +106,68 @@ costTypesList: Details[] = [];
         if (expense.event_id === 0){
           expense.event_id = null;
         }
-        const dataForInput = JSON.stringify(expense);
-        this.apiCalls.addCosts(dataForInput).subscribe((response) => {
-          console.log(response);
-          if (response.error){
-            Swal.fire({
-              title: 'Greška',
-              text: 'Greška prilik upisa troška',
-              icon: 'error',
-              confirmButtonColor: '#894CB2',
-            });
-            return;
-          } else {
-            Swal.fire({
-              title: 'Uspešno',
-              text: 'Trošak je uspešno upisan',
-              icon: 'success',
-              confirmButtonColor: '#894CB2',
-            });
-            this.closeExpense.emit(expense as CostsDetails);
-          }
-        });
+        const mjesec = this.formEditExpense.value.date?.getMonth()
+        let tmp = this.formEditExpense.value.date?.getFullYear() + "-" +
+          (mjesec! +1).toString().padStart(2, '0') + '-'
+          + this.formEditExpense.value.date?.getDate().toString().padStart(2, '0');
+        console.log(tmp, "tmp")
+        let datum=  new Date(tmp)
+        datum.setUTCHours(0);
+        expense.date = datum;
 
+
+        const dataForInput = JSON.stringify(expense);
+        if (this.costType === "event") {
+          this.apiCalls.addEventCosts(dataForInput).subscribe((response) => {
+            console.log(response);
+            if (response.error) {
+              Swal.fire({
+                title: 'Greška',
+                text: 'Greška prilik upisa troška',
+                icon: 'error',
+                confirmButtonColor: '#894CB2',
+              });
+              return;
+            } else {
+              Swal.fire({
+                title: 'Uspešno',
+                text: 'Trošak je uspešno upisan',
+                icon: 'success',
+                confirmButtonColor: '#894CB2',
+              });
+              this.closeExpense.emit(expense as EventCostsDetails);
+            }
+          });
+        } else {
+          this.apiCalls.addOtherCosts(dataForInput).subscribe((response) => {
+            console.log(response);
+            if (response.error) {
+              Swal.fire({
+                title: 'Greška',
+                text: 'Greška prilik upisa troška',
+                icon: 'error',
+                confirmButtonColor: '#894CB2',
+              });
+              return;
+            } else {
+              Swal.fire({
+                title: 'Uspešno',
+                text: 'Trošak je uspešno upisan',
+                icon: 'success',
+                confirmButtonColor: '#894CB2',
+              });
+              this.closeExpense.emit(expense as EventCostsDetails);
+            }
+          });
+        }
       }}
     )
   }
 
-}
+  dateChanged() {
+    const dateChange = this.formEditExpense.value.date ? this.formEditExpense.value.date : new Date();
+    console.log(dateChange, "dateChange")
+    this.selectedPickerDate = dateChange.getDate().toString().padStart(2, '0') + '.' + (dateChange.getMonth() + 1).toString().padStart(2, '0') + '.' + dateChange.getFullYear();
+  }
+
+  }

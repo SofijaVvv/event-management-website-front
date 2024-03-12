@@ -10,8 +10,10 @@ import * as moment from "moment";
 import {AssignmentsDetails} from "../../../interfaces/assignments";
 import {ScheduleDetails} from "../../../interfaces/schedule";
 import {RevenuesDetails} from "../../../interfaces/revenues";
-import {CostsDetails} from "../../../interfaces/costs";
+import {EventCostsDetails} from "../../../interfaces/costs";
 import Swal from "sweetalert2";
+import {AuthService} from "../../../service/auth.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-event-input',
@@ -26,7 +28,7 @@ export class EventInputComponent implements OnInit {
   newExpense = false;
   showExpense = false;
 
-  defaultExpense: CostsDetails = {
+  defaultExpense: EventCostsDetails = {
     id: 0,
     type_of_cost: {id: -1, name: ""},
     event_id: this.editEventID,
@@ -34,9 +36,10 @@ export class EventInputComponent implements OnInit {
     amount: 0,
     description: "",
     client: {id: -1, name: ""},
+    date: new Date(),
   }
 
-  selectedExpense: CostsDetails = JSON.parse(JSON.stringify(this.defaultExpense));
+  selectedExpense: EventCostsDetails = JSON.parse(JSON.stringify(this.defaultExpense));
 
   ///expenses
 
@@ -72,6 +75,7 @@ export class EventInputComponent implements OnInit {
     start_time: {id: 6, name: "06:00"},
     end_time: {id: 7, name: "07:00"},
     description: "",
+    date: '',
   }
   selectedSchedule: ScheduleDetails = JSON.parse(JSON.stringify(this.defaultSchedule));
 
@@ -104,12 +108,16 @@ export class EventInputComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    public translate: TranslateService,
+    private authServis: AuthService,
     public apiCalls: ApiCallsService,
     private activate_route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private _adapter: DateAdapter<any>,
   ) {
   }
+
+  appData = this.authServis.appData;
 
   // editEventID = 0
 
@@ -122,7 +130,7 @@ export class EventInputComponent implements OnInit {
   assignmentList: AssignmentsDetails[] = [];
   scheduleList: ScheduleDetails[] = []
   revenueList: RevenuesDetails[] = []
-  costList: CostsDetails[] = []
+  costList: EventCostsDetails[] = []
 
   eventDate: string = moment().format('DD.MM.YYYY')
 
@@ -138,6 +146,7 @@ export class EventInputComponent implements OnInit {
     user: {id: -1, name: ""},
     description: "",
     event_rating: 0,
+    number_of_participants: 0,
   }
 
 
@@ -152,6 +161,7 @@ export class EventInputComponent implements OnInit {
     user: [{id: -1, name: ""}, Validators.required],
     description: [''],
     event_rating: [0],
+    number_of_participants: [0],
 
   });
 
@@ -168,6 +178,7 @@ export class EventInputComponent implements OnInit {
       console.log(this.editEventID, "event id")
       void this.loadEvents((this.editEventID))
       this.editEventData = await this.loadEvents((this.editEventID));
+
       console.log(this.editEventData, "edit event data")
       this.formEditEvent.patchValue({
         id: this.editEventData.id,
@@ -179,6 +190,7 @@ export class EventInputComponent implements OnInit {
         type_of_event: this.editEventData.type_of_event,
         client: this.editEventData.client,
         user: this.editEventData.user,
+        number_of_participants: this.editEventData.number_of_participants,
 
       })
       this.dateChanged()
@@ -229,7 +241,7 @@ export class EventInputComponent implements OnInit {
 
   loadEvents(event_id: number): Promise<EventDetails> {
     void this.spinner.show()
-    return firstValueFrom(this.apiCalls.eventList(event_id));
+    return firstValueFrom(this.apiCalls.getEventListById(event_id, 'x', 'y'));
   }
 
 
@@ -250,45 +262,37 @@ export class EventInputComponent implements OnInit {
   }
 
   loadAssignment(event_id: number): Promise<AssignmentsDetails[]> {
-    return firstValueFrom(this.apiCalls.getAssignments(event_id));
+    return firstValueFrom(this.apiCalls.getAssignments(event_id, 'x', 'y'));
   }
 
   loadSchedule(event_id: number): Promise<ScheduleDetails[]> {
-    return firstValueFrom(this.apiCalls.getSchedules(event_id));
+    return firstValueFrom(this.apiCalls.getSchedules(event_id, 'x', 'y'));
   }
   loadRevenue(event_id: number): Promise<RevenuesDetails[]> {
-    return firstValueFrom(this.apiCalls.getRevenues(event_id));
+    return firstValueFrom(this.apiCalls.getRevenues(event_id, 'x', 'y'));
   }
-  loadCost(event_id: number): Promise<CostsDetails[]> {
-    return firstValueFrom(this.apiCalls.getCosts(event_id));
+  loadCost(event_id: number): Promise<EventCostsDetails[]> {
+    return firstValueFrom(this.apiCalls.getEventCosts(event_id, 'x', 'y'));
   }
 
   dateChanged(){
     const dateChange = this.formEditEvent.value.date ? this.formEditEvent.value.date : new Date();
     this.selectedPickerDate = dateChange.getDate().toString().padStart(2, '0') + '.' + (dateChange.getMonth()+1).toString().padStart(2, '0') +  '.' + dateChange.getFullYear();
-    // const kojipiker = (event.targetElement.id);
-    // console.log("kojipiker", kojipiker)
-    // const datum = event.value
-    // if (kojipiker === 'prvipiker'){
-    //     this.oddatum = datum.getDate().toString().padStart(2, '0') + '.' + (datum.getMonth()+1).toString().padStart(2, '0') +  '.' + datum.getFullYear();
-    // } else {
-    //     this.dodatum =  datum.getDate().toString().padStart(2, '0') + '.' + (datum.getMonth()+1).toString().padStart(2, '0') +  '.' + datum.getFullYear();
-    // }
-    // this.uzmiDogadjaje(2)
+
   }
 
 
 
   saveEvent() {
     Swal.fire({
-      title: 'Upis događaja',
-      text: "Da upišem događaj?",
+      title: this.translate.instant('save.event'),
+      text: this.translate.instant('typein.event'),
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#894CB2',
+      confirmButtonColor: 'rgba(35,101,150,0.86)',
       cancelButtonColor: '#',
-      confirmButtonText: 'Da,upiši!',
-      cancelButtonText: 'Nazad na program'
+      confirmButtonText: this.translate.instant('enter.event'),
+      cancelButtonText: this.translate.instant('backto.event')
     }).then((result) => {
       if (result.isConfirmed) {
         const mjesec = this.formEditEvent.value.date?.getMonth()
@@ -310,17 +314,17 @@ export class EventInputComponent implements OnInit {
             console.log(data)
             if (data.error){
               Swal.fire({
-                title: 'Greška',
-                text: "Greška prilikom upisa događaja",
+                title: this.translate.instant('error.er.event'),
+                text: this.translate.instant('error.event'),
                 icon: 'error',
-                confirmButtonColor: '#894CB2',
+                confirmButtonColor: 'rgba(35,101,150,0.86)',
               })
             } else {
               Swal.fire({
-                title: 'Uspeh',
-                text: "Uspešno upisan događaj",
+                title: this.translate.instant('success.s.event'),
+                text: this.translate.instant('success.event'),
                 icon: 'success',
-                confirmButtonColor: '#894CB2',
+                confirmButtonColor: 'rgba(35,101,150,0.86)',
               })
             }
 
@@ -371,35 +375,65 @@ export class EventInputComponent implements OnInit {
 
 
   editTask(task: AssignmentsDetails){
+    if(!this.appData.can_edit){
+      Swal.fire({
+        title: this.translate.instant('rights.error'),
+        text: this.translate.instant('rights.er.error'),
+        icon: 'error',
+      });
+      return;
+    }
     if (task.status === 1) {
       Swal.fire({
-        title: 'Task je završen',
-        text: "Ne mozete mijenjati zavrseni zadatak!",
+        title: this.translate.instant('task.finished'),
+        text:  this.translate.instant('no.change'),
         icon: 'error',
       });
       return;
     }
 
     this.newTask = false;
-    console.log(task, "task za edit")
     this.selectedTask = task;
     this.showTask = true;
   }
 
   addTask(){
+    if(!this.appData.can_edit){
+      Swal.fire({
+        title: this.translate.instant('rights.error'),
+        text: this.translate.instant('nochange.task'),
+        icon: 'error',
+      });
+      return;
+    }
     this.newTask = true;
     this.selectedTask = JSON.parse(JSON.stringify(this.defaultTask));
-    console.log("add task", this.selectedTask)
     this.showTask = true;
   }
 
 
   editSchedule(schedule: ScheduleDetails){
+    if(!this.appData.can_edit){
+      Swal.fire({
+        title: this.translate.instant('rights.error'),
+        text: this.translate.instant('nochange.schedule'),
+        icon: 'error',
+      });
+      return;
+    }
     this.selectedSchedule = schedule;
     this.showSchedule = true;
   }
 
   addSchedule(){
+    if(!this.appData.can_edit){
+      Swal.fire({
+        title: this.translate.instant('rights.error'),
+        text: this.translate.instant('nochange.schedule'),
+        icon: 'error',
+      });
+      return;
+    }
    this.newSchedule = true;
     this.selectedSchedule = JSON.parse(JSON.stringify(this.defaultSchedule));
     console.log("add schedule", this.selectedSchedule)
@@ -407,12 +441,19 @@ export class EventInputComponent implements OnInit {
   }
 ////////REVENUE////////
   addRevenue(){
+    if(!this.appData.can_edit){
+      Swal.fire({
+        title: this.translate.instant('rights.error'),
+        text: this.translate.instant('nochange.revenue'),
+        icon: 'error',
+      });
+      return;
+    }
     this.newRevenue = true;
     this.selectedRevenue = JSON.parse(JSON.stringify(this.defaultRevenue));
-    console.log("add revenue", this.selectedRevenue)
     this.showRevenue = true;
   }
-closeExpenses(event : CostsDetails){
+closeExpenses(event : EventCostsDetails){
   console.log(event, "event povratni")
   if (event.id < 0){
     this.showExpense = false;
@@ -425,7 +466,6 @@ closeExpenses(event : CostsDetails){
     this.costList.findIndex((cost, index) => {
       if (cost.id === event.id){
         this.costList[index] = event;
-        console.log("izmjena", this.costList[index])
       }
     })
   }
@@ -478,6 +518,14 @@ closeExpenses(event : CostsDetails){
   }
 
 editRevenue(revenue: RevenuesDetails){
+  if(!this.appData.can_edit){
+    Swal.fire({
+      title: this.translate.instant('rights.error'),
+      text: this.translate.instant('nochange.revenue'),
+      icon: 'error',
+    });
+    return;
+  }
     this.newRevenue = false;
   this.selectedRevenue = revenue;
   console.log(revenue, "revenue za edit")
@@ -485,15 +533,31 @@ editRevenue(revenue: RevenuesDetails){
 }
 
 addNewExpense(){
+  if(!this.appData.can_edit){
+    Swal.fire({
+      title: this.translate.instant('rights.error'),
+      text: this.translate.instant('nochange.cost'),
+      icon: 'error',
+    });
+    return;
+  }
   this.newExpense = true;
   this.selectedExpense = JSON.parse(JSON.stringify(this.defaultExpense));
   console.log("add expense", this.selectedExpense)
   this.showExpense = true;
 }
 
-editExpense(expense : CostsDetails){
+editExpense(expense : EventCostsDetails){
+  if(!this.appData.can_edit){
+    Swal.fire({
+      title: this.translate.instant('rights.error'),
+      text: this.translate.instant('nochange.cost'),
+      icon: 'error',
+    });
+    return;
+  }
   this.newExpense = false;
-  this.selectedExpense = JSON.parse(JSON.stringify(expense));
+  this.selectedExpense = expense
   console.log("add expense", this.selectedExpense)
   this.showExpense = true;
 

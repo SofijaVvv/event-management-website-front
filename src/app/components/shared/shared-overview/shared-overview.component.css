@@ -1,0 +1,14 @@
+.bg-color {
+  background-color: #edf0f5;
+}
+
+.text {
+  color: #0E4166;
+}
+
+.middle {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+/*# sourceMappingURL=shared-overview.component.css.map */

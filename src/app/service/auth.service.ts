@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 import Swal from "sweetalert2";
+import {ApiCallsService} from "./api-calls.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,10 @@ export class AuthService {
   }
 
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private apiCalls: ApiCallsService
+    ) {
   }
 
   async setOperatorData(data: any) {
@@ -77,7 +81,7 @@ export class AuthService {
     // nama je ptrrebno samo 'admin' i smjestamo je u activeFolder
     // u ovom slucaju activeFolder ce biti 'admin'
     const activeFolder = activeRoute?.split('/')[0];
-    const privileges = this.operaterData?.privileges;
+    const privileges = this.operaterData!.privileges;
 
     // ako uopste nema privilegija a to znaci da user i nije ulogovan vracamo error
     if (!privileges) {
@@ -87,7 +91,7 @@ export class AuthService {
     }
     // uporedjujemo activeFolder sa rutama aplikacije iz tabele app
     const operaterPrivileges = privileges.find((item: any) => item.route === activeFolder);
-
+    console.log(privileges, operaterPrivileges,activeFolder, "operaterPrivileges")
     // ako korinik nema upisanu privilegiju za rutu koju pokusava da otvori vracamo error
     if (!operaterPrivileges) {
       console.log("error nema operaterPrivileges")
@@ -98,24 +102,32 @@ export class AuthService {
 
     // uzimamo can_view i can_edit iz za datu rolu
     if (operaterPrivileges) {
-      this.appData.application = operaterPrivileges?.key;
+      this.appData.application = operaterPrivileges.route;
       this.appData.route = activeRoute!;
-      this.appData.can_view = operaterPrivileges.value.find((item: any) => item.privileges_name === 'can_view').activity;
-      this.appData.can_edit = operaterPrivileges.value.find((item: any) => item.privileges_name === 'can_edit').activity;
+      this.appData.can_view = operaterPrivileges.can_view //value.find((item: any) => item.privileges_name === 'can_view').activity;
+      this.appData.can_edit = operaterPrivileges.can_edit //value.find((item: any) => item.privileges_name === 'can_edit').activity;
       console.log(this.appData, "this.appData", this.operaterData['userdata']['isadmin'])
 
 
       console.log(this.appData.can_view, "this.appData.can_view")
-      if (this.appData.can_view > 0) {
+
+      if (this,this.appData.application === 'admin')
+      {
+        this.apiCalls.isOpenedMainMenu = false;
+      } else {
+        this.apiCalls.isOpenedMainMenu = true;
+      }
+
+      if (this.appData.can_view) {
          return true;
       } else {
         Swal.fire({
           title: 'Access denied!',
           text: "You don't have access to this route",
           icon: 'error',
-          confirmButtonColor: '#8E4585',
+          confirmButtonColor: 'rgba(35,101,150,0.86)',
         });
-
+        // void this.router.navigate(['/error']);
         return false;
       }
     }
@@ -130,5 +142,32 @@ export class AuthService {
 
     return true;
   }
+
+  logout() {
+    Swal.fire({
+      title: 'Log out?',
+      text: "Do you want to log out?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#8E4585',
+      cancelButtonColor: '#4B4B78',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cleanLocalStorage()
+        this.router.navigate(['/login'])
+      }
+    })
+
+  }
+
+  directLogoutUser() {
+
+    this.cleanLocalStorage()
+    this.router.navigate(['/login'])
+
+  }
+
 }
 

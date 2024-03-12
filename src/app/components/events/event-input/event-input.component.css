@@ -16,15 +16,19 @@
 }
 
 .assignment-status-0 {
-  fill: #8DD233;
+  background-color: #b2eca6;
+  color: #4c65e0;
+  padding: 0.5rem;
 }
 
 .assignment-status-1 {
   fill: #FBBE40;
+  color: #ffffff;
 }
 
 .assignment-status-2 {
   fill: #FF5A5F;
+  color: #eaa8a8;
 }
 
 /*# sourceMappingURL=event-input.component.css.map */

@@ -10,6 +10,7 @@ export interface IEvents {
   user_name: number;
   description: string;
   amount: number;
+  number_of_participants: number;
 
 }
 export interface Details {
@@ -28,5 +29,5 @@ export interface EventDetails {
   date: Date;
   time: Details;
   event_rating: number;
-
+  number_of_participants: number;
 }

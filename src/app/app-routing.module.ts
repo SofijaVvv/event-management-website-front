@@ -16,6 +16,8 @@ import {ScheduleOverviewComponent} from "./components/schedule/schedule-overview
 import {ClientOverviewComponent} from "./components/clients/client-overview/client-overview.component";
 import {ExpensesOverviewComponent} from "./components/expenses/expenses-overview/expenses-overview.component";
 import {AnalysisComponent} from "./components/analysis/analysis.component";
+import {SharedOverviewComponent} from "./components/shared/shared-overview/shared-overview.component";
+
 
 
 
@@ -50,33 +52,45 @@ const routes: Routes = [
     component: ErrorComponent,
   },
   {
-    path:'events/list',
+    path:'events/list/:fromDate/:toDate',
     component: EventOverviewComponent,
+    canActivate: [AuthService],
   },
   {
     path:'events/input/:id',
     component: EventInputComponent,
+    canActivate: [AuthService],
   },
   {
-    path:'task/overview',
+    path:'assignments/overview',
     component: TaskOverviewComponent,
+    canActivate: [AuthService],
   },
   {
     path:'schedule/overview',
     component: ScheduleOverviewComponent,
+    canActivate: [AuthService],
   },
   {
-    path:'clients/overview',
+    path:'client/overview',
     component: ClientOverviewComponent,
+    canActivate: [AuthService],
   },
   {
-    path:'costs/overview',
+    path:'cost/overview',
     component: ExpensesOverviewComponent,
+    canActivate: [AuthService],
   },
   {
     path: 'analisys',
     component: AnalysisComponent,
+    canActivate: [AuthService],
+  },
+  {
+    path: 'shared/overview',
+    component: SharedOverviewComponent
   }
+
 
 ];
 

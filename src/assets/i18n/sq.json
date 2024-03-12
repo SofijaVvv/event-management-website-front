@@ -1,9 +1,131 @@
 {
   "active": "",
-  "add": "",
+  "add": {
+    "expense": "",
+    "role": ""
+  },
+  "analyse": {
+    "data": ""
+  },
+  "assignment": {
+    "priority": ""
+  },
+  "assignments": "",
   "back": "",
+  "backto": {
+    "event": ""
+  },
+  "c": {
+    "costs": ""
+  },
+  "cancel": {
+    "button": ""
+  },
+  "cl": {
+    "type": ""
+  },
+  "client": "",
+  "cost": {
+    "per": {
+      "event": "",
+      "perticipant": ""
+    },
+    "price": "",
+    "type": ""
+  },
+  "costs": {
+    "per": {
+      "event": ""
+    }
+  },
+  "date": {
+    "input": ""
+  },
+  "days": {
+    "friday": {
+      "short": ""
+    },
+    "monday": {
+      "short": ""
+    },
+    "saturday": {
+      "short": ""
+    },
+    "sunday": {
+      "short": ""
+    },
+    "thursday": {
+      "short": ""
+    },
+    "tuesday": {
+      "short": ""
+    },
+    "wednesday": {
+      "short": ""
+    }
+  },
+  "desc": "",
+  "download": {
+    "excel": ""
+  },
+  "e": {
+    "costs": "",
+    "date": "",
+    "event": ""
+  },
+  "enter": {
+    "event": ""
+  },
   "error": "",
+  "es": {
+    "event": {
+      "status": ""
+    }
+  },
+  "et": {
+    "event": {
+      "type": ""
+    }
+  },
+  "event": {
+    "diagram": "",
+    "input": "",
+    "type": {
+      "input": ""
+    }
+  },
+  "events": {
+    "add": "",
+    "details": "",
+    "list": "",
+    "none": ""
+  },
+  "expense": {
+    "amount": "",
+    "type": ""
+  },
+  "expenses": "",
+  "filter": {
+    "active": "",
+    "all": "",
+    "costs": {
+      "inactive": ""
+    },
+    "events": {
+      "active": ""
+    },
+    "inactive": ""
+  },
   "inactive": "",
+  "list": {
+    "expenses": ""
+  },
+  "lo": {
+    "location": ""
+  },
+  "location": {
+    "input": ""
+  },
   "login": {
     "dugme": "",
     "email": "",
@@ -12,10 +134,137 @@
     "title": "Hyni në llogarinë tuaj"
   },
   "logout": "Sprese matre",
+  "main": {
+    "menu": {
+      "analisys": "",
+      "assignments": "",
+      "clients": "",
+      "events": "",
+      "expenses": "",
+      "home": "",
+      "schedule": "",
+      "shared": ""
+    }
+  },
   "name": "",
+  "new": {
+    "expense": "",
+    "revenue": {
+      "input": ""
+    }
+  },
+  "no": {
+    "change": ""
+  },
+  "nochange": {
+    "cost": "",
+    "revenue": "",
+    "schedule": "",
+    "task": ""
+  },
+  "number": {
+    "of": {
+      "events": ""
+    },
+    "participants": {
+      "input": ""
+    }
+  },
+  "old": {
+    "expense": ""
+  },
+  "operator": "",
+  "p": {
+    "participants": ""
+  },
+  "participants": {
+    "per": {
+      "event": ""
+    }
+  },
   "phone": "",
+  "profit": {
+    "per": {
+      "event": "",
+      "perticipant": ""
+    }
+  },
+  "reset": {
+    "passwerror": "",
+    "passwsuccess": ""
+  },
+  "revenue": {
+    "amount": "",
+    "input": "",
+    "per": {
+      "event": "",
+      "perticipant": ""
+    },
+    "price": "",
+    "quantity": "",
+    "type": "",
+    "unit": ""
+  },
+  "revenues": "",
+  "rights": {
+    "er": {
+      "error": ""
+    },
+    "error": ""
+  },
+  "s": {
+    "shared": ""
+  },
+  "save": {
+    "button": "",
+    "changes": "",
+    "event": ""
+  },
+  "schedule": {
+    "new": ""
+  },
+  "schedules": "",
   "search": "",
+  "select": {
+    "period": ""
+  },
+  "status": {
+    "event": {
+      "input": ""
+    }
+  },
   "success": "",
+  "supplier": "",
+  "task": {
+    "finished": "",
+    "new": ""
+  },
+  "time": {
+    "end": "",
+    "input": "",
+    "start": ""
+  },
+  "timeline": {
+    "14days": "",
+    "month": "",
+    "select": {
+      "month": ""
+    },
+    "week": ""
+  },
+  "total": {
+    "all": "",
+    "costs": "",
+    "event": {
+      "costs": ""
+    },
+    "events": "",
+    "participants": "",
+    "revenues": ""
+  },
+  "typein": {
+    "event": ""
+  },
   "users": {
     "canceluserinput": "",
     "canceluserinputyes": "",

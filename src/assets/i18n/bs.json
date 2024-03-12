@@ -1,9 +1,131 @@
 {
   "active": "Aktivan",
-  "add": "Dodaj",
+  "add": {
+    "expense": "Dodaj Trošak",
+    "role": "Dodaj ulogu"
+  },
+  "analyse": {
+    "data": "Analizirajte svoje podatke"
+  },
+  "assignment": {
+    "priority": "Prioritet"
+  },
+  "assignments": "Zadaci",
   "back": "Nazad",
+  "backto": {
+    "event": "Nazad na program"
+  },
+  "c": {
+    "costs": "Troškovi"
+  },
+  "cancel": {
+    "button": "Poništiti"
+  },
+  "cl": {
+    "type": "Tip Komitenta"
+  },
+  "client": "Komitent",
+  "cost": {
+    "per": {
+      "event": "Trošak Po Događaju",
+      "perticipant": "Trošak Po Učesniku"
+    },
+    "price": "Cijena",
+    "type": "Tip troška"
+  },
+  "costs": {
+    "per": {
+      "event": "Troškovi Po Događaju"
+    }
+  },
+  "date": {
+    "input": "Datum"
+  },
+  "days": {
+    "friday": {
+      "short": "Pet"
+    },
+    "monday": {
+      "short": "Pon"
+    },
+    "saturday": {
+      "short": "Sub"
+    },
+    "sunday": {
+      "short": "Neđ"
+    },
+    "thursday": {
+      "short": "Čet"
+    },
+    "tuesday": {
+      "short": "Uto"
+    },
+    "wednesday": {
+      "short": "Sri"
+    }
+  },
+  "desc": "Opis",
+  "download": {
+    "excel": "Preuzmite Excel datoteku"
+  },
+  "e": {
+    "costs": "Troškovi Događaja",
+    "date": "Datum Događaja",
+    "event": "Događaji"
+  },
+  "enter": {
+    "event": "Da,upiši!"
+  },
   "error": "Greška",
+  "es": {
+    "event": {
+      "status": "Status"
+    }
+  },
+  "et": {
+    "event": {
+      "type": "Tip događaja"
+    }
+  },
+  "event": {
+    "diagram": "Prihodi i Troškovi Događaja",
+    "input": "Događaj:",
+    "type": {
+      "input": "Tip događaja"
+    }
+  },
+  "events": {
+    "add": "Dodaj događaj",
+    "details": "Detalji događaja",
+    "list": "Lista događaja",
+    "none": "Nije pronađen nijedan događaj"
+  },
+  "expense": {
+    "amount": "Iznos",
+    "type": "Tip troška"
+  },
+  "expenses": "Troškovi",
+  "filter": {
+    "active": "Aktivan",
+    "all": "Sve",
+    "costs": {
+      "inactive": "Drugi troškovi"
+    },
+    "events": {
+      "active": "Troškovi događaja"
+    },
+    "inactive": "Neaktivan"
+  },
   "inactive": "Neaktivan",
+  "list": {
+    "expenses": "Lista troškova"
+  },
+  "lo": {
+    "location": "Lokacija"
+  },
+  "location": {
+    "input": "Lokacija"
+  },
   "login": {
     "dugme": "Prijava",
     "email": "Email",
@@ -12,10 +134,137 @@
     "title": "Prijavite se na svoj nalog"
   },
   "logout": "Odjava",
+  "main": {
+    "menu": {
+      "analisys": "Analiza",
+      "assignments": "Zadaci",
+      "clients": "Klijenti",
+      "events": "Događaji",
+      "expenses": "Troškovi",
+      "home": "Doma",
+      "schedule": "Raspored",
+      "shared": "Šifrarnik"
+    }
+  },
   "name": "Ime",
+  "new": {
+    "expense": "Novi trošak",
+    "revenue": {
+      "input": "Novi prihod"
+    }
+  },
+  "no": {
+    "change": "Ne mozete mijenjati zavrseni zadatak!"
+  },
+  "nochange": {
+    "cost": "Nemate prava da mijenjate troskove!",
+    "revenue": "Nemate prava da mijenjate prihode!",
+    "schedule": "Nemate prava da mijenjate raspored!",
+    "task": "Nemate prava da mijenjate zadatke!"
+  },
+  "number": {
+    "of": {
+      "events": "Broj Događaja"
+    },
+    "participants": {
+      "input": "Broj učesnika"
+    }
+  },
+  "old": {
+    "expense": "Trošak"
+  },
+  "operator": "Operater",
+  "p": {
+    "participants": "Učesnici"
+  },
+  "participants": {
+    "per": {
+      "event": "Učesnik Po Događaju"
+    }
+  },
   "phone": "Broj telefona",
-  "search": "Pretraga",
-  "success": "Uspjeh",
+  "profit": {
+    "per": {
+      "event": "Dobit Po Događaju",
+      "perticipant": "Dobit Po Učesniku"
+    }
+  },
+  "reset": {
+    "passwerror": "Greska pri resetovanju lozinke ",
+    "passwsuccess": "Lozinka uspješno resetovana. Provjerite Vaš email za detalje. "
+  },
+  "revenue": {
+    "amount": "Iznos",
+    "input": "Prihod",
+    "per": {
+      "event": "Prihod Po Događaju",
+      "perticipant": "Prihod Po Učesniku"
+    },
+    "price": "Cijena",
+    "quantity": "Količina",
+    "type": "Tip prihoda",
+    "unit": "Jedinica"
+  },
+  "revenues": "Prihodi",
+  "rights": {
+    "er": {
+      "error": "Nemate prava da mijenjate zadatke!"
+    },
+    "error": "Nemate prave"
+  },
+  "s": {
+    "shared": "Šifrarnik"
+  },
+  "save": {
+    "button": "Sacuvaj",
+    "changes": "Da li želite da sačuvate podatke?",
+    "event": "Upis događaja"
+  },
+  "schedule": {
+    "new": "Novi raspored"
+  },
+  "schedules": "Raspored",
+  "search": "Pretraga...",
+  "select": {
+    "period": "Izaberite period"
+  },
+  "status": {
+    "event": {
+      "input": "Status događaja"
+    }
+  },
+  "success": "Uspješno",
+  "supplier": "Dobavljač",
+  "task": {
+    "finished": "Zadatak je završen",
+    "new": "Novi zadatak"
+  },
+  "time": {
+    "end": "Vreme završetka",
+    "input": "Vrijeme",
+    "start": "Početno vrijeme"
+  },
+  "timeline": {
+    "14days": "Zadnjih 14 dana",
+    "month": "Ovaj mjesec",
+    "select": {
+      "month": "Izaberi mjesec"
+    },
+    "week": "Ove nedjelje"
+  },
+  "total": {
+    "all": "Ukupno:",
+    "costs": "Ukupni troškovi",
+    "event": {
+      "costs": "Ukupni troškovi događaja"
+    },
+    "events": "Ukupni događaji",
+    "participants": "Ukupno učesnika",
+    "revenues": "Ukupni prihodi"
+  },
+  "typein": {
+    "event": "Da upišem događaj?"
+  },
   "users": {
     "canceluserinput": "Želite li da otkažete upis korisnika?",
     "canceluserinputyes": "Da, otkaži!",

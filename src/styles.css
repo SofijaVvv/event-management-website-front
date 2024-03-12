@@ -743,6 +743,7 @@ html, body {
 * {
   scrollbar-width: thin;
   scrollbar-color: rgb(21, 71, 138) white;
+  box-sizing: border-box;
 }
 
 /* Works on Chrome, Edge, and Safari */

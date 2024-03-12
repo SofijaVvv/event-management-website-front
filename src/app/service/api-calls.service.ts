@@ -12,7 +12,7 @@ import {AssignmentsDetails} from "../interfaces/assignments";
 import {Details, EventDetails} from "../interfaces/events";
 import {ScheduleDetails} from "../interfaces/schedule";
 import {RevenuesDetails} from "../interfaces/revenues";
-import {CostsDetails} from "../interfaces/costs";
+import {CostsDetails, EventCostsDetails} from "../interfaces/costs";
 import {IClient} from "../interfaces/client";
 
 @Injectable({
@@ -22,7 +22,6 @@ export class ApiCallsService {
 
   constructor(
     private http: HttpClient,
-    private _authServis: AuthService,
     private router: Router,
   ) { }
 
@@ -38,10 +37,12 @@ export class ApiCallsService {
     }
     return /^\d+(\.\d+)?$/.test(text);
   }
+
+
   isOpenedMainMenu = true
   // API_SERVIS = 'http://localhost:3000'
   headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
-  public months = [
+  public months : Details[] = [
     {id: 1, name: 'January'},
     {id: 2, name: 'February'},
     {id: 3, name: 'March'},
@@ -55,6 +56,39 @@ export class ApiCallsService {
     {id: 11, name: 'November'},
     {id: 12, name: 'December'}
   ]
+
+  public translateMonths : any = {
+    en: [
+      {id: 1, name: 'January'},
+      {id: 2, name: 'February'},
+      {id: 3, name: 'March'},
+      {id: 4, name: 'April'},
+      {id: 5, name: 'May'},
+      {id: 6, name: 'Jun'},
+      {id: 7, name: 'July'},
+      {id: 8, name: 'August'},
+      {id: 9, name: 'September'},
+      {id: 10, name: 'October'},
+      {id: 11, name: 'November'},
+      {id: 12, name: 'December'}
+    ],
+    bs: [
+      {id: 1, name: 'Januar'},
+      {id: 2, name: 'Februar'},
+      {id: 3, name: 'Mart'},
+      {id: 4, name: 'April'},
+      {id: 5, name: 'Maj'},
+      {id: 6, name: 'Jun'},
+      {id: 7, name: 'Jul'},
+      {id: 8, name: 'Avgust'},
+      {id: 9, name: 'Septembar'},
+      {id: 10, name: 'Oktobar'},
+      {id: 11, name: 'Novembar'},
+      {id: 12, name: 'Decembar'}
+    ]
+  }
+
+
   public years = [
     {id: 2023, name: '2023'},
     {id: 2024, name: '2024'},
@@ -73,31 +107,6 @@ export class ApiCallsService {
     {id: 22, name: '22:00'},        {id: 23, name: '23:00'},
     {id: 24, name: '00:00'}, ]
 
-  logout() {
-    Swal.fire({
-      title: 'Log out?',
-      text: "Do you want to log out?",
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#8E4585',
-      cancelButtonColor: '#4B4B78',
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._authServis.cleanLocalStorage()
-        this.router.navigate(['/login'])
-      }
-    })
-
-  }
-
-  directLogoutUser() {
-
-    this._authServis.cleanLocalStorage()
-    this.router.navigate(['/login'])
-
-  }
 
 
 
@@ -309,8 +318,8 @@ export class ApiCallsService {
 
   ////////////////////////////////////////////////
   //////////////////ASSIGNMENTS/////////////////////
-  getAssignments(event_id: number = 0):Observable<any>{
-    const url = `${this.API_SERVIS}/assignments/list/${event_id}`
+  getAssignments(event_id: number = 0, fromDate:string, toDate:string):Observable<any>{
+    const url = `${this.API_SERVIS}/assignments/list/${event_id}/${fromDate}/${toDate}`
     console.log(url,"url")
     return this.http.get<AssignmentsDetails[]>(url)
       .pipe(catchError((e:any):Observable<any> => {
@@ -323,8 +332,8 @@ export class ApiCallsService {
 
 ////////////////////////////////////////////////
   //////////////////SHEDULE/////////////////////
-  getSchedules(event_id: number = 0):Observable<any>{
-    const url = `${this.API_SERVIS}/schedule/list/${event_id}`
+  getSchedules(event_id: number = 0, fromDate:string, toDate:string):Observable<any>{
+    const url = `${this.API_SERVIS}/schedule/list/${event_id}/${fromDate}/${toDate}`
     console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
@@ -337,8 +346,8 @@ export class ApiCallsService {
 
   ////////////////////////////////////////////////
   //////////////////REVENUES/////////////////////
-  getRevenues(event_id: number = 0):Observable<any>{
-    const url = `${this.API_SERVIS}/revenue/list/${event_id}`
+  getRevenues(event_id: number = 0, fromDate: string, toDate:string):Observable<any>{
+    const url = `${this.API_SERVIS}/revenue/list/${event_id}/${fromDate}/${toDate}`
     console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
@@ -352,8 +361,8 @@ export class ApiCallsService {
 
   ////////////////////////////////////////////////
   //////////////////COSTS/////////////////////
-  getCosts(event_id: number = 0):Observable<any>{
-    const url = `${this.API_SERVIS}/cost/list/${event_id}`
+  getEventCosts(event_id: number = 0, fromDate: string, toDate:string):Observable<any>{
+    const url = `${this.API_SERVIS}/cost/events/${event_id}/${fromDate}/${toDate}`
     console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
@@ -364,6 +373,18 @@ export class ApiCallsService {
         }))
   }
 
+  getOtherCosts(fromDate: string, toDate:string):Observable<any>{
+    console.log(fromDate, toDate, "fromDate, toDate")
+    const url = `${this.API_SERVIS}/cost/other/${fromDate}/${toDate}`
+    console.log(url,"url")
+    return this.http.get<any>(url)
+      .pipe(catchError((e:any):Observable<any> => {
+          return of(e)
+        }),
+        finalize(() => {
+
+        }))
+  }
 
 
   ///////////////////////EVENTS////////////////////////
@@ -380,8 +401,8 @@ export class ApiCallsService {
         }))
   }
 
-  eventList(event_id: number = 0):Observable<any>{
-    const url = this.API_SERVIS + `/events/list/${event_id}`
+  getEventListById(event_id: number = 0, fromDate:string, toDate: string):Observable<any>{
+    const url = this.API_SERVIS + `/events/list/${event_id}/${fromDate}/${toDate}`
     console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
@@ -391,6 +412,7 @@ export class ApiCallsService {
 
         }))
   }
+
 
   addEvent(podaci: string):Observable<any>{
     const url = this.API_SERVIS + "/events/add"
@@ -465,8 +487,19 @@ export class ApiCallsService {
 
 
 
-  addCosts(podaci: string):Observable<any>{
-    const url = this.API_SERVIS + "/cost/add"
+  addOtherCosts(podaci: string):Observable<any>{
+    const url = this.API_SERVIS + "/cost/other/add"
+    return this.http.post<CostsDetails>(url,podaci, {headers: this.headers})
+      .pipe(catchError((e:any):Observable<any> => {
+          return of(e)
+        }),
+        finalize(() => {
+
+        }))
+  }
+
+  addEventCosts(podaci: string):Observable<any>{
+    const url = this.API_SERVIS + "/cost/events/add"
     return this.http.post<CostsDetails>(url,podaci, {headers: this.headers})
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -503,6 +536,44 @@ export class ApiCallsService {
         finalize(() => {
         }));
   }
+
+  getAnalisysDataTotals(fromDate:string, toDate:string):Observable<any>{
+    return this.http.get<any>(this.API_SERVIS + `/analisys/total/${fromDate}/${toDate}`)
+      .pipe(catchError((e: any): Observable<any> => {
+          return of(e);
+        }),
+        finalize(() => {
+        }));
+  }
+
+  getAnalisysRevenueData(fromDate:string, toDate:string):Observable<any>{
+    return this.http.get<any>(this.API_SERVIS + `/analisys/revenues/total/${fromDate}/${toDate}`)
+      .pipe(catchError((e: any): Observable<any> => {
+          return of(e);
+        }),
+        finalize(() => {
+        }));
+  }
+
+
+
+
+  downloadExcelFile(app:string, event_id: number = 0, fromDate:string, toDate: string, language:string) : Observable<Blob> {
+    const url = this.API_SERVIS + `/${app}/excel/${event_id}/${fromDate}/${toDate}/${language}`
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+  sharedUpdate(podaci: string):Observable<any>{
+    const url = this.API_SERVIS + "/shared/update"
+    return this.http.post<AssignmentsDetails>(url,podaci, {headers: this.headers})
+      .pipe(catchError((e:any):Observable<any> => {
+          return of(e)
+        }),
+        finalize(() => {
+
+        }))
+  }
+
 
 
 }

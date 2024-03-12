@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title >
+
+</head>
+<body>
+
+
+<script>
+    // create fetch to localhost:3000/excel and download returned file
+
+    function downloadFile() {
+        // add authorization header Bearer token
+
+
+        fetch('http://localhost:3000/assignments/excel/0/2024-02-01/2024-02-29/en',
+            {
+                headers: {
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlc2VsaW5AZ2VuaWplLm1lIiwiaWF0IjoxNzA5MzA3NTkwLCJleHAiOjE3MDkzOTM5OTB9.Rs_5wkZNdSxrb8p2Q13JViJ6oafq2JgMwVjSxwM6re0'
+                }
+            }
+        )
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'file.xlsx');
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            });
+    }
+
+    downloadFile();
+</script>
+</body>
+</html>

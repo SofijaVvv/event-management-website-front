@@ -1,48 +1,224 @@
 
 
-<div class="flex h-screen  flex-row bg-color p-10">
-  <div class="  flex w-full  bg-white shadow-lg  rounded-xl p-4  ">
-    <div class="flex flex-col p-2  w-full">
-      <div class="w-full relative flex  bg-blue-50 shadow-sm   rounded-[15px] px-2  ">
-        <table class="calendar !border-transparent ">
-        <thead>
-        <tr class="flex   " >
-          <th class="p-2.5 font-family text-color ">Pon</th>
-          <th class="p-2.5 font-family text-color ">Uto</th>
-          <th class="p-2.5 font-family text-color ">Sri</th>
-          <th class="p-2.5 font-family text-color ">Čet</th>
-          <th class="p-2.5 font-family text-color ">Pet</th>
-          <th class="p-2.5 font-family text-color ">Sub</th>
-          <th class="p-2.5 font-family text-color ">Ned</th>
-        </tr>
-        </thead>
-        </table>
+<div class="flex h-full p-4 gap-3 bg-color min-h-screen">
+
+<!--  <div class="text-gray-500 md:text-2xl text-xl text-center mb-4 uppercase "> {{activeMonth.name}} </div>-->
+
+  <div class="flex flex-col gap-5   flex-1    min-w-[650px] max-w-[650px] select-none ">
+    <div class="  bg-white shadow-lg  rounded-xl p-6 max-h-[550px]">
+      <div class="flex flex-col  w-full ">
+        <div class="flex mb-4 items-center justify-between gap-5 ">
+          <div (click)="changeMonth(-1)"
+               class="px-2.5 cursor-pointer text-blue-400 py-2 rounded-full shadow-gray-300 shadow  bg-white"><<
+          </div>
+          <div class="flex gap-5">
+            <div class="flex items-center ">
+              <!--            <label  class="text-sm   select-none " >Mjesec</label>-->
+              <ng-select class="     md:text-base text-xs min-w-[150px] "
+                         [items]="monthNames"
+                         [(ngModel)]="selectedMonth"
+                         [ngModelOptions]="{standalone: true}"
+                         bindLabel="name"
+                         placeholder="Odaberite mjesec"
+                         [virtualScroll]="true"
+                         [clearable]="false"
+                         [searchable]="false"
+                         (change)="calendarChange()"
+                         required
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  {{ item.name }}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <div class="text-sm">{{ item.name }}</div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="flex items-center ">
+              <!--            <label class="text-sm   select-none ">Godina obračuna</label>-->
+              <ng-select class="      md:text-base text-xs "
+                         [items]="yearNames"
+                         [(ngModel)]="selectedYear"
+                         [ngModelOptions]="{standalone: true}"
+                         bindLabel="name"
+                         placeholder="Odaberite godinu"
+                         [virtualScroll]="true"
+                         [searchable]="false"
+                         [clearable]="false"
+                         (change)="calendarChange()"
+              >
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                  <div>{{ item.name }}</div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div (click)="changeMonth(1)"
+               class="px-2.5 cursor-pointer text-blue-400 py-2 rounded-full shadow-gray-300 shadow   bg-white">>>
+          </div>
+
+
+        </div>
+        <div class=" relative flex  bg-blue-100 shadow-sm   rounded-t-[15px] px-2 w-full">
+          <table class="calendar !border-transparent w-full select-none">
+            <thead>
+            <tr class="flex   ">
+              <th class="p-2.5 font-family text-color text-xs md:text-base ">{{ 'days.monday.short' | translate }}</th>
+              <th class="p-2.5 font-family text-color text-xs md:text-base ">{{ 'days.tuesday.short' | translate }}</th>
+              <th class="p-2.5 font-family text-color text-xs md:text-base ">{{ 'days.wednesday.short' | translate }}</th>
+              <th class="p-2.5 font-family text-color text-xs md:text-base ">{{ 'days.thursday.short' | translate }}</th>
+              <th class="p-2.5 font-family text-color text-xs md:text-base ">{{ 'days.friday.short' | translate }}</th>
+              <th class="p-2.5 font-family text-color text-xs md:text-base ">{{ 'days.saturday.short' | translate }}</th>
+              <th class="p-2.5 font-family text-color text-xs md:text-base ">{{ 'days.sunday.short' | translate }}</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+
+          <div *ngFor="let week of eventCalendarData">
+            <div class="grid grid-cols-7 ">
+                <div *ngFor="let day of week" class="relative cursor-pointer " (click)="dateSelect(day.date)">
+                      <div class=" border h-20 text-right p-2 bg-gray-100 hover:!bg-blue-200" [ngClass]="{'bg-white': day.date}">
+                        {{ day.date }}
+                      </div>
+                      <div
+                        class="px-1px-1 py-0.5  absolute bottom-0.5 text-blue-400 bg-blue-100 rounded-full   text-center text-xs w-12  left-0 right-0 m-auto "
+                            *ngIf="day.number_of_events > 0">{{ day.number_of_events }}
+                      </div>
+                  </div>
+
+            </div>
+          </div>
+
+
       </div>
-
-      <div class="  flex h-full w-full rounded-[20px] mt-4 ">
-        <table class="calendar  bg-white">
-          <tbody >
-          <tr class="  bg-white cursor-pointer " *ngFor="let week of eventCalendarData">
-            <td class="relative" *ngFor="let day of week">
-                  <div class=" text-color  absolute right-4 top-4 text-right"> {{day.date}}</div>
-                  <div class="px-2 py-0.5 w-12 bg-indigo-300 text-indigo-500  rounded-full absolute bottom-4 right-4 text-center" *ngIf="day.number_of_events > 0" >{{day.number_of_events}}</div>
-            </td>
-
-          </tr>
-          </tbody>
-
-
-        </table>
-      </div>
-
     </div>
+    <div class="flex flex-col flex-1 bg-white shadow-lg rounded-xl p-6 min-w-[650px] max-w-[650px] ">
+        <div class="h-6 border-b border-b-blue-700 pb-2 ">{{selectedMonth.name}} <span class="lowercase">{{ 'e.event' | translate }}</span></div>
+        <div class=" mt-4   flex flex-col  flex-1 max-h-[calc(100%-60px)] h-[calc(100%-60px)] overflow-y-scroll  ">
+          <div  *ngFor="let event of monthEventList" class="w-full grid grid-cols-[1fr_min-content_min-content] gap-5 items-center   bg-white border-b  border-gray-200 select-none ">
+              <div class=" text-base font-family  text-[#0e4166] ">
+                {{event.client.name}}
+                <div class="text-xs text-gray-500">{{event.type_of_event.name}}</div>
+              </div>
+              <div class="text-sm text-[#2B88CC] flex gap-2">
+                <svg class="w-5 h-5" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" enable-background="new 0 0 64 64" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path fill="#2B88CC" d="M11,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,53.553,10.447,54,11,54 z M12,49h4v3h-4V49z"></path> <path fill="#2B88CC" d="M23,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,53.553,22.447,54,23,54 z M24,49h4v3h-4V49z"></path> <path fill="#2B88CC" d="M35,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,53.553,34.447,54,35,54 z M36,49h4v3h-4V49z"></path> <path fill="#2B88CC" d="M11,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,42.553,10.447,43,11,43 z M12,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M23,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,42.553,22.447,43,23,43 z M24,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M35,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,42.553,34.447,43,35,43 z M36,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M47,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,42.553,46.447,43,47,43 z M48,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M11,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,31.553,10.447,32,11,32 z M12,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M23,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,31.553,22.447,32,23,32 z M24,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M35,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,31.553,34.447,32,35,32 z M36,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M47,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,31.553,46.447,32,47,32 z M48,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M60,4h-7V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H17V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H4 C1.789,4,0,5.789,0,8v52c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V8C64,5.789,62.211,4,60,4z M49,3c0-0.553,0.447-1,1-1 s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1s-1-0.447-1-1V6V3z M13,3c0-0.553,0.447-1,1-1s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1 s-1-0.447-1-1V6V3z M62,60c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V17h60V60z M62,15H2V8c0-1.104,0.896-2,2-2h7v4 c0,1.657,1.343,3,3,3s3-1.343,3-3V6h30v4c0,1.657,1.343,3,3,3s3-1.343,3-3V6h7c1.104,0,2,0.896,2,2V15z"></path> </g> </g></svg>
+                {{event.date}}
+              </div>
+              <div class="text-sm text-[#2B88CC] ">
+                <div class="text-xs text-right text-gray-500">{{ 'p.participants' | translate }}</div>
+                <div class="text-right">{{ event.number_of_participants }}</div>
+              </div>
+        </div>
+      </div>
+
   </div>
-<!--  <div class=" w-1/2 bg-[#A5D1F3]/70 border border-blue-300 rounded-xl"></div>-->
+
+
+  </div>
+
+<div class="flex flex-1 flex-col select-none  gap-3 ">
+      <div  class="flex flex-col   h-1/2 rounded-xl p-6 w-full flex-1  bg-white shadow-lg  ">
+        <div class="h-6 border-b border-b-blue-700 pb-2">{{selectedMonth.name}} <span class="lowercase">{{'assignments' | translate}}</span> </div>
+        <div class="overflow-auto flex-1">
+          <div  *ngFor="let task of monthTaskList" class="flex ">
+            <!--    <div class="w-full flex  justify-between items-center max-h-60 p-5 bg-white border  border-gray-200 rounded-lg shadow cursor-pointer">-->
+            <div class=" w-full grid grid-cols-[1fr_min-content_1fr_min-content_1fr] gap-5 items-center   bg-white border-b  border-gray-200 select-none ">
+              <div class=" text-sm font-family  text-[#0e4166]   ">{{task.description}}</div>
+              <div>
+                <div class="" *ngIf="task.status">
+                  <svg fill="#77bb41" width="25" height="25" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                       xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <style type="text/css"> .st0 {
+                        fill: none;
+                      } </style>
+                      <g>
+                        <path
+                          d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,20c-4.5,0-8-3.5-8-8s3.5-8,8-8s8,3.5,8,8 S16.5,20,12,20z"></path>
+                        <polygon points="9.8,16.8 6.1,13.2 7.5,11.7 9.8,14 15.5,7.9 17,9.3 "></polygon>
+                      </g>
+                      <rect class="st0" width="24" height="24"></rect>
+                    </g>
+                  </svg>
+                </div>
+                <div class=" " *ngIf="!task.status">
+                  <svg fill="#00BBF0" width="25" height="25" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                       xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0 {
+                      fill: none;
+                    } </style>
+                      <path
+                        d="M11.7,2c-0.1,0-0.1,0-0.2,0c0,0,0,0-0.1,0v0c-0.2,0-0.3,0-0.5,0l0.2,2c0.4,0,0.9,0,1.3,0c4,0.3,7.3,3.5,7.5,7.6 c0.2,4.4-3.2,8.2-7.6,8.4c0,0-0.1,0-0.2,0c-0.3,0-0.7,0-1,0L11,22c0.4,0,0.8,0,1.3,0c0.1,0,0.3,0,0.4,0v0c5.4-0.4,9.5-5,9.3-10.4 c-0.2-5.1-4.3-9.1-9.3-9.5v0c0,0,0,0,0,0c-0.2,0-0.3,0-0.5,0C12,2,11.9,2,11.7,2z M8.2,2.7C7.7,3,7.2,3.2,6.7,3.5l1.1,1.7 C8.1,5,8.5,4.8,8.9,4.6L8.2,2.7z M4.5,5.4c-0.4,0.4-0.7,0.9-1,1.3l1.7,1C5.4,7.4,5.7,7.1,6,6.7L4.5,5.4z M15.4,8.4l-4.6,5.2 l-2.7-2.1L7,13.2l4.2,3.2l5.8-6.6L15.4,8.4z M2.4,9c-0.2,0.5-0.3,1.1-0.3,1.6l2,0.3c0.1-0.4,0.1-0.9,0.3-1.3L2.4,9z M4.1,13l-2,0.2 c0,0.1,0,0.2,0,0.3c0.1,0.4,0.2,0.9,0.3,1.3l1.9-0.6c-0.1-0.3-0.2-0.7-0.2-1.1L4.1,13z M5.2,16.2l-1.7,1.1c0.3,0.5,0.6,0.9,1,1.3 L6,17.3C5.7,16.9,5.4,16.6,5.2,16.2z M7.8,18.8l-1.1,1.7c0.5,0.3,1,0.5,1.5,0.8l0.8-1.8C8.5,19.2,8.1,19,7.8,18.8z"></path>
+                      <rect class="st0" width="24" height="24"></rect> </g></svg>
+                </div>
+              </div>
+              <div class="flex gap-2 items-center justify-center">
+                <div class="text-sm text-[#2B88CC]  text-center" [ngClass]="{'px-3 py-0.5 bg-green-200 w-[50px]  text-green-600 rounded-[100px]' : task.priority.id === 1,'px-4 py-1 bg-yellow-200/80 w-[90px] text-yellow-600 rounded-full' : task.priority.id === 2, 'px-[12px] w-[60px] py-[3px] bg-red-200  text-red-600 rounded-[120px]' : task.priority.id === 3}" >{{task.priority.name}}</div>
+              </div>
+
+              <div class="text-sm text-[#2B88CC] flex gap-3">
+                <svg class="w-5 h-5" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" enable-background="new 0 0 64 64" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path fill="#2B88CC" d="M11,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,53.553,10.447,54,11,54 z M12,49h4v3h-4V49z"></path> <path fill="#2B88CC" d="M23,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,53.553,22.447,54,23,54 z M24,49h4v3h-4V49z"></path> <path fill="#2B88CC" d="M35,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,53.553,34.447,54,35,54 z M36,49h4v3h-4V49z"></path> <path fill="#2B88CC" d="M11,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,42.553,10.447,43,11,43 z M12,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M23,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,42.553,22.447,43,23,43 z M24,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M35,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,42.553,34.447,43,35,43 z M36,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M47,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,42.553,46.447,43,47,43 z M48,38h4v3h-4V38z"></path> <path fill="#2B88CC" d="M11,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,31.553,10.447,32,11,32 z M12,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M23,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,31.553,22.447,32,23,32 z M24,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M35,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,31.553,34.447,32,35,32 z M36,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M47,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,31.553,46.447,32,47,32 z M48,27h4v3h-4V27z"></path> <path fill="#2B88CC" d="M60,4h-7V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H17V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H4 C1.789,4,0,5.789,0,8v52c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V8C64,5.789,62.211,4,60,4z M49,3c0-0.553,0.447-1,1-1 s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1s-1-0.447-1-1V6V3z M13,3c0-0.553,0.447-1,1-1s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1 s-1-0.447-1-1V6V3z M62,60c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V17h60V60z M62,15H2V8c0-1.104,0.896-2,2-2h7v4 c0,1.657,1.343,3,3,3s3-1.343,3-3V6h30v4c0,1.657,1.343,3,3,3s3-1.343,3-3V6h7c1.104,0,2,0.896,2,2V15z"></path> </g> </g></svg>
+                {{task.created_date}}</div>
+              <div class="text-sm flex   justify-center   text-[#2B88CC] ">
+                <div class="flex flex-col gap-0.5">
+                  <div class="text-xs text-gray-500">{{ 'operator' | translate }}</div>
+                  {{task.user.name}}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+  <div class="flex flex-1 flex-col   gap-3 shadow-lg  ">
+    <div  class="flex flex-col   h-1/2 rounded-xl p-6 w-full flex-1  bg-white">
+      <div class="h-6 border-b border-b-blue-700 pb-2">{{selectedMonth.name}} <span class="lowercase">{{ 'schedules' | translate}}</span> </div>
+      <div class="overflow-auto flex-1">
+        <div  *ngFor="let schedule of monthScheduleList" class="flex flex-col   ">
+            <div class="grid grid-cols-[1fr_1fr_100px_100px]    items-center bg-white border-b  border-gray-200 p-2 select-none">
+              <div class=" text-base font-family  text-[#0e4166]  ">{{schedule.description}}</div>
+              <div class="text-sm text-[#2B88CC]  flex gap-2 p-2">{{schedule.date}}</div>
+              <div class="text-sm text-[#2B88CC]  flex gap-2 p-2">
+                <svg class="w-5 h-5" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" enable-background="new 0 0 64 64"
+                     fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier"> <g> <path fill="#2B88CC"
+                                                         d="M32,0C14.327,0,0,14.327,0,32s14.327,32,32,32s32-14.327,32-32S49.673,0,32,0z M32,62 C15.431,62,2,48.568,2,32C2,15.431,15.431,2,32,2s30,13.431,30,30C62,48.568,48.569,62,32,62z"></path>
+                    <circle fill="#2B88CC" cx="32" cy="32" r="1"></circle>
+                    <path fill="#2B88CC"
+                          d="M36.931,32.688C36.962,32.461,37,32.236,37,32c0-1.631-0.792-3.064-2-3.978V14c0-1.657-1.343-3-3-3 s-3,1.343-3,3v14.022c-1.208,0.913-2,2.347-2,3.978c0,2.762,2.238,5,5,5c0.235,0,0.461-0.038,0.688-0.069l8.505,8.505 c1.172,1.172,3.07,1.171,4.242-0.001s1.172-3.07,0-4.242L36.931,32.688z M31,14c0-0.553,0.447-1,1-1s1,0.447,1,1v13.101 C32.677,27.035,32.343,27,32,27s-0.677,0.035-1,0.101V14z M29,32c0-1.657,1.343-3,3-3s3,1.343,3,3s-1.343,3-3,3S29,33.657,29,32z M44.021,44.021c-0.391,0.392-1.023,0.392-1.414,0.001l-7.853-7.853c0.562-0.372,1.043-0.853,1.415-1.415l7.852,7.853 C44.411,42.997,44.411,43.63,44.021,44.021z"></path>
+                    <path fill="#2B88CC"
+                          d="M32,4C16.536,4,4,16.536,4,32s12.536,28,28,28s28-12.536,28-28S47.464,4,32,4z M51.075,49.66l-2.103-2.104 c-0.393-0.39-1.025-0.39-1.415,0c-0.391,0.392-0.391,1.023,0,1.415l2.104,2.104c-4.409,4.085-10.235,6.657-16.66,6.9l0.001-2.974 c-0.002-0.553-0.449-1-1-1c-0.554,0.001-1,0.447-1,1l-0.001,2.974c-6.425-0.243-12.251-2.814-16.66-6.898l2.104-2.104 c0.39-0.392,0.39-1.024,0-1.414c-0.393-0.391-1.023-0.391-1.414,0l-2.104,2.104c-4.084-4.409-6.656-10.235-6.9-16.66h2.974 c0.553-0.001,1-0.448,1-1c-0.001-0.554-0.447-1-1-1H6.025c0.243-6.425,2.814-12.252,6.898-16.661l2.104,2.104 c0.391,0.391,1.023,0.391,1.414,0c0.391-0.392,0.391-1.023,0-1.414l-2.104-2.104c4.409-4.085,10.236-6.657,16.661-6.9V9 c0,0.553,0.447,1,1,1s1-0.447,1-1V6.025c6.425,0.243,12.252,2.814,16.661,6.899l-2.104,2.104c-0.391,0.391-0.391,1.023,0,1.414 s1.023,0.391,1.414,0l2.105-2.104c4.084,4.409,6.656,10.236,6.899,16.661H55c-0.553,0-1,0.447-1,1s0.447,1,1,1h2.975 C57.731,39.425,55.16,45.251,51.075,49.66z"></path> </g> </g></svg>
+                {{schedule.start_time.name}}</div>
+              <div class="text-sm text-[#2B88CC] flex gap-2">
+                <svg class="w-5 h-5" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" enable-background="new 0 0 64 64"
+                     fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier"> <g> <path fill="#2B88CC"
+                                                         d="M32,0C14.327,0,0,14.327,0,32s14.327,32,32,32s32-14.327,32-32S49.673,0,32,0z M32,62 C15.431,62,2,48.568,2,32C2,15.431,15.431,2,32,2s30,13.431,30,30C62,48.568,48.569,62,32,62z"></path>
+                    <circle fill="#000" cx="32" cy="32" r="1"></circle>
+                    <path fill="#000"
+                          d="M36.931,32.688C36.962,32.461,37,32.236,37,32c0-1.631-0.792-3.064-2-3.978V14c0-1.657-1.343-3-3-3 s-3,1.343-3,3v14.022c-1.208,0.913-2,2.347-2,3.978c0,2.762,2.238,5,5,5c0.235,0,0.461-0.038,0.688-0.069l8.505,8.505 c1.172,1.172,3.07,1.171,4.242-0.001s1.172-3.07,0-4.242L36.931,32.688z M31,14c0-0.553,0.447-1,1-1s1,0.447,1,1v13.101 C32.677,27.035,32.343,27,32,27s-0.677,0.035-1,0.101V14z M29,32c0-1.657,1.343-3,3-3s3,1.343,3,3s-1.343,3-3,3S29,33.657,29,32z M44.021,44.021c-0.391,0.392-1.023,0.392-1.414,0.001l-7.853-7.853c0.562-0.372,1.043-0.853,1.415-1.415l7.852,7.853 C44.411,42.997,44.411,43.63,44.021,44.021z"></path>
+                    <path fill="#000"
+                          d="M32,4C16.536,4,4,16.536,4,32s12.536,28,28,28s28-12.536,28-28S47.464,4,32,4z M51.075,49.66l-2.103-2.104 c-0.393-0.39-1.025-0.39-1.415,0c-0.391,0.392-0.391,1.023,0,1.415l2.104,2.104c-4.409,4.085-10.235,6.657-16.66,6.9l0.001-2.974 c-0.002-0.553-0.449-1-1-1c-0.554,0.001-1,0.447-1,1l-0.001,2.974c-6.425-0.243-12.251-2.814-16.66-6.898l2.104-2.104 c0.39-0.392,0.39-1.024,0-1.414c-0.393-0.391-1.023-0.391-1.414,0l-2.104,2.104c-4.084-4.409-6.656-10.235-6.9-16.66h2.974 c0.553-0.001,1-0.448,1-1c-0.001-0.554-0.447-1-1-1H6.025c0.243-6.425,2.814-12.252,6.898-16.661l2.104,2.104 c0.391,0.391,1.023,0.391,1.414,0c0.391-0.392,0.391-1.023,0-1.414l-2.104-2.104c4.409-4.085,10.236-6.657,16.661-6.9V9 c0,0.553,0.447,1,1,1s1-0.447,1-1V6.025c6.425,0.243,12.252,2.814,16.661,6.899l-2.104,2.104c-0.391,0.391-0.391,1.023,0,1.414 s1.023,0.391,1.414,0l2.105-2.104c4.084,4.409,6.656,10.236,6.899,16.661H55c-0.553,0-1,0.447-1,1s0.447,1,1,1h2.975 C57.731,39.425,55.16,45.251,51.075,49.66z"></path> </g> </g></svg>
+                {{schedule.end_time.name}}</div>
+
+
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-
-
-
-
-
-
+</div>

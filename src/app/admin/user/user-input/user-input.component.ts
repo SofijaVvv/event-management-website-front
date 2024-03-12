@@ -102,7 +102,7 @@ resetPassword() {
           if (odgovor.error === true) {
             Swal.fire({
               title: this.translate.instant('error'),
-              text: odgovor.message,
+              text: this.translate.instant('reset.passwerror'),
               icon: 'error',
               showCancelButton: false,
               confirmButtonColor: '#894CB2',
@@ -112,7 +112,7 @@ resetPassword() {
           } else {
             Swal.fire({
               title: this.translate.instant('success'),
-              text: odgovor.message,
+              text: this.translate.instant('reset.passwsuccess'),
               icon: 'success',
               showCancelButton: false,
               confirmButtonColor: '#894CB2',
@@ -137,7 +137,7 @@ resetPassword() {
   console.log(this.userForm.value)
     Swal.fire({
       title: this.translate.instant('users.insertuser'),
-      text: this.translate.instant('users.insertuserquestion'),
+      text: this.translate.instant('save.changes'),
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#894CB2',

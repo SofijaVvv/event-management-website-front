@@ -14,6 +14,8 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements AfterViewInit {
+@ViewChild('email') email!: ElementRef ;
+@ViewChild('otp') otp!: ElementRef ;
 @ViewChild('password') password!: ElementRef ;
 
 constructor
@@ -28,23 +30,35 @@ constructor
   formLogin = this.fb.group({
   email: [''],
   password: [''],
-    orm: ['']
+    otp: ['']
 });
 
+
+ngOnInit() {
+  this.authServis.directLogoutUser()
+}
+
 ngAfterViewInit() {
-  this.password.nativeElement.focus();
+  this.email.nativeElement.focus();
 }
 
   onEmailEnter() {
     this.password.nativeElement.focus();
   }
 
+  onPasswordEnter() {
+    this.otp.nativeElement.focus();
+  }
+
   async setOperator(data: any) {
       this.authServis.setOperatorData(data).then((result: any) => {
-        console.log("ja sam iz setOperator", data)
         if (data.userdata.isadmin) {
           this.router.navigate(['/admin'])
         } else {
+          const canEvents = this.authServis.operaterData.privileges.find((privilege: any) => privilege.route === 'events')
+          if (!canEvents.can_view) {
+            this.router.navigate(['/assignments/overview'])
+          } else
           this.router.navigate(['/home'])
 
         }
@@ -54,6 +68,9 @@ ngAfterViewInit() {
   }
 
  login (){
+
+
+
   const loginInfo = JSON.stringify(this.formLogin.value)
   console.log("prije podatake", loginInfo)
 
@@ -63,7 +80,7 @@ console.log("povratno:", data)
       console.log("ja sam iz login", data)
       this.authServis.saveToLocalStorage('token', data.token)
       this.authServis.saveToLocalStorage('user', JSON.stringify(data))
-      const putanja =  this.setOperator(data)
+      void this.setOperator(data)
 
     } else {
       void Swal.fire({
@@ -88,6 +105,7 @@ console.log("povratno:", data)
   }
 
 changeLanguage(jezik: string) {
+  localStorage.setItem('lang', jezik)
   this.translate.use(jezik);
 
 }

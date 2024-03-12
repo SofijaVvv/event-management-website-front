@@ -43,6 +43,9 @@ import { ExpensesOverviewComponent } from './components/expenses/expenses-overvi
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
+import {MatTabsModule} from "@angular/material/tabs";
+import { SharedInputComponent } from './components/shared/shared-input/shared-input.component';
+import { SharedOverviewComponent } from './components/shared/shared-overview/shared-overview.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -73,41 +76,44 @@ export function HttpLoaderFactory(http: HttpClient) {
     ClientOverviewComponent,
     ExpensesOverviewComponent,
     AnalysisComponent,
+    SharedInputComponent,
+    SharedOverviewComponent,
   ],
-  imports: [
-    BrowserModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatNativeDateModule,
-    NgSelectModule,
-    HammerModule,
-    NgxSpinnerModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: function tokenGetter() {
-          return localStorage.getItem('token');
-        }
-      }
-    }),
-    MatInputModule,
-    MatDatepickerModule,
-    MatMenuModule,
-    MatIconModule,
-    NgChartsModule,
-    MatListModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatNativeDateModule,
+        NgSelectModule,
+        HammerModule,
+        NgxSpinnerModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: function tokenGetter() {
+                    return localStorage.getItem('token');
+                }
+            }
+        }),
+        MatInputModule,
+        MatDatepickerModule,
+        MatMenuModule,
+        MatIconModule,
+        NgChartsModule,
+        MatListModule,
+        MatButtonModule,
+        MatTabsModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

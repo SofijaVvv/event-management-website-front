@@ -8,4 +8,5 @@ export interface ScheduleDetails {
   start_time: Details;
   end_time: Details;
   description: string;
+  date: string;
 }
