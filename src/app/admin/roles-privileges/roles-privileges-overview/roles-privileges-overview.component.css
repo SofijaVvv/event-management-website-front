@@ -16,7 +16,7 @@
   color: red;
 }
 
-.srednji {
+.middle {
   height: calc(100vh - 65px);
   max-height: calc(100vh - 65px);
   overflow: auto;

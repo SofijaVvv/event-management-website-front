@@ -7,7 +7,6 @@
       <div *ngIf="clientForInput.id" class="p-2 text-2xl">Client</div>
 
 
-<!--//////////////////////////Forme name, email,phone,bank account, city///////////////////////-->
       <div  class="w-full  flex-1">
         <label  class="block text-sm text-[#104166] font-family">Name of client</label>
         <input class="w-full p-1.5 rounded border-gray-300 border"  formControlName="name">
@@ -37,10 +36,6 @@
         <textarea class="border w-full border-gray-400  p-2 rounded-[6px] outline-none " formControlName="note"></textarea>
       </div>
 
-      <!--//////////////////////////Forme name, email,phone,bank account, city///////////////////////-->
-
-
-
 
       <div class=" flex  gap-2  p-2 w-full">
 
@@ -56,7 +51,6 @@
           >
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
               <div>{{item.name}}</div>
-              <!--        <div>{{item.naziv}}</div>-->
             </ng-template>
           </ng-select>
         </div>

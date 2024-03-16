@@ -1,4 +1,9 @@
 {
+  "accept": {
+    "yes": "yes, create!"
+  },
+  "accessdenied": "Access denied!",
+  "accessdenied!": "Access denied!",
   "active": "Active",
   "add": {
     "expense": "Add Expense",
@@ -7,6 +12,7 @@
   "analyse": {
     "data": "Analyse your data"
   },
+  "areyousureyouwanttologout": "Are you sure you want to exit program?",
   "assignment": {
     "priority": "Priority"
   },
@@ -38,6 +44,7 @@
       "event": "Expenses Per Event"
     }
   },
+  "create": "Do you want to create an Excel report??",
   "date": {
     "input": "Date"
   },
@@ -65,9 +72,7 @@
     }
   },
   "desc": "Description",
-  "download": {
-    "excel": "Download Excel File"
-  },
+  "download": "Download",
   "e": {
     "costs": "Event Expenses",
     "date": "Event Date",
@@ -76,7 +81,17 @@
   "enter": {
     "event": "Yes!"
   },
+  "enterassigment": "Enter assigment",
+  "enterexpense": "Enter expense",
+  "enterrevenue": "Enter revenue",
+  "entertheassignment": "Enter assignment",
+  "entertheassignmentquestion": "Should I enter the assignment?",
+  "entervalidcostvalue": "Enter a valid cost value.",
   "error": "Error",
+  "errorwhenenteringassigment": " Error when entering the task!",
+  "errorwhileenteringexpense": " Error when entering the cost!",
+  "errorwhileenteringrevenue": "Error while entering revenue!",
+  "errorwhileenteringtheassignmentt": " Error when entering the assignment",
   "es": {
     "event": {
       "status": "Status"
@@ -105,6 +120,7 @@
     "type": "Expense type"
   },
   "expenses": "Expenses",
+  "expensesucessfullyentered": "The expense has been entered successfully!",
   "filter": {
     "active": "Active",
     "all": "All",
@@ -147,6 +163,7 @@
     }
   },
   "name": "Name",
+  "nameisrequired": "Name is required!",
   "new": {
     "expense": "New expense",
     "revenue": {
@@ -156,6 +173,7 @@
   "no": {
     "change": "You cannot change a completed task!"
   },
+  "noaccesstoroute!": "You don't have access to this route",
   "nochange": {
     "cost": "You have no right to change the costs!",
     "revenue": "You have no right to change income!",
@@ -206,6 +224,7 @@
     "unit": "Unit"
   },
   "revenues": "Revenues",
+  "revenuesucessfullyentered": "The revenue has been entered successfully!",
   "rights": {
     "er": {
       "error": "ou have no right to change tasks!"
@@ -228,12 +247,16 @@
   "select": {
     "period": "Select period"
   },
+  "shareditemupdated": "Shared item updated!",
+  "shouldienterexpense": " Should I enter the expense?",
+  "shouldienterrevenue": "Should i enter the revenue?",
   "status": {
     "event": {
       "input": "Event status"
     }
   },
   "success": "Success",
+  "successfullyenteredassignment": "Assignment entered successfully!",
   "supplier": "Supplier",
   "task": {
     "finished": "Task completed",
@@ -252,6 +275,7 @@
     },
     "week": "This week"
   },
+  "toentertaskquestion": "Should I enter the assignment?",
   "total": {
     "all": "Total:",
     "costs": "Total expenses",
@@ -289,5 +313,11 @@
     "saveuser": "Save user",
     "selectrole": "Choose role",
     "users": "Users"
-  }
+  },
+  "wanttologout": "Want to log out?",
+  "yesenterexpense": "Yes, enter!",
+  "yesiamsurebutton": "Yes, I am sure!",
+  "youcantchangeschedule": " You are not entitled to schedule corrections!",
+  "youdonthaveaccess": " You do not have access rights!",
+  "youhavenopermission": "You do not have permission to edit expenses!"
 }

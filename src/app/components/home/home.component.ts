@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChange} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 import {ApiCallsService} from "../../service/api-calls.service";
 import {Details, EventDetails} from "../../interfaces/events";
@@ -7,7 +7,6 @@ import * as moment from "moment/moment";
 import {ScheduleDetails} from "../../interfaces/schedule";
 import {AssignmentsDetails} from "../../interfaces/assignments";
 import {TranslateService} from "@ngx-translate/core";
-import {Decimation} from "chart.js";
 import {Subscription} from "rxjs";
 @Component({
   selector: 'app-doma',
@@ -16,22 +15,9 @@ import {Subscription} from "rxjs";
 })
 export class HomeComponent implements OnInit, OnDestroy{
 
-
-upcomingEventsList: EventDetails[] = [];
-monthEventList: EventDetails[] = [];
-
-
-monthTaskList: AssignmentsDetails[] = [];
-monthScheduleList: ScheduleDetails[] = [];
-
-
-  constructor(
-    private authService: AuthService,
-    private apiCalls: ApiCallsService,
-    public translate:   TranslateService,
-    private router: Router
-  ) {
-  }
+  monthEventList: EventDetails[] = [];
+  monthTaskList: AssignmentsDetails[] = [];
+  monthScheduleList: ScheduleDetails[] = [];
   langChangeSubscription: Subscription | undefined;
   eventCalendarData = [];
   date = new Date();
@@ -42,42 +28,44 @@ monthScheduleList: ScheduleDetails[] = [];
   monthNames: Details[] = []
   yearNames: Details[] = this.apiCalls.years;
 
-  // @ts-ignore
+  constructor(
+    private authService: AuthService,
+    private apiCalls: ApiCallsService,
+    public translate:   TranslateService,
+    private router: Router
+  ) {}
+
 
   ngOnInit() {
-
     this.langChangeSubscription = this.translate.onLangChange.subscribe((event: { lang: string }) => {
-      // Perform actions on language change here
-      console.log('Language changed to:', event.lang);
       this.monthNames = this.apiCalls.translateMonths[event.lang || 'en'];
       this.selectedMonth = this.monthNames[this.selectedMonth.id - 1];
     });
     this.monthNames = this.apiCalls.translateMonths[this.translate.currentLang || 'en'];
     this.selectedMonth = this.monthNames[this.selectedMonth.id - 1];
 
-    console.log(this.translate.currentLang,"curren Language"); //this.authService.readLocalStorage('lang') || 'en');
     const date = new Date();
   this.getCalendar(date.getMonth()+1,date.getFullYear(),1);
     this.getMonthEvents();
     this.getMonthTasks();
     this.getMonthSchedule();
   }
+
+
   ngOnDestroy(): void {
-    // Clean up the subscription when the component is destroyed
     if (this.langChangeSubscription) {
       this.langChangeSubscription.unsubscribe();
     }
   }
 
-  logout() {
-    this.authService.logOut();
-  }
+
 
   getCalendar(month: number, year: number, status:number) {
     this.apiCalls.getCalendar(month, year, status).subscribe (data => {
       this.eventCalendarData = data.calendar;
     });
   }
+
 
   dateSelect(day: number) {
     if (day) {
@@ -95,8 +83,8 @@ monthScheduleList: ScheduleDetails[] = [];
       this.router.navigate(['events/list', fromDate, toDate]);
 
     }
-    // this.selectedDay = day;
   }
+
 
   calendarChange(){
     this.selectedDay = 0;
@@ -106,6 +94,7 @@ monthScheduleList: ScheduleDetails[] = [];
     this.getMonthTasks();
     this.getMonthSchedule();
   }
+
 
   changeMonth(direction: number) {
     if (direction === 1) {
@@ -128,9 +117,8 @@ monthScheduleList: ScheduleDetails[] = [];
     this.getMonthEvents();
     this.getMonthTasks();
     this.getMonthSchedule();
-
-
   }
+
 
 getMonthEvents(){
   const start = moment().month(this.activeMonth.id -1).startOf('month').format('YYYY-MM-DD');
@@ -141,6 +129,7 @@ getMonthEvents(){
   );
 }
 
+
 getMonthTasks() {
   const start = moment().month(this.activeMonth.id -1).startOf('month').format('YYYY-MM-DD');
   const end = moment().month(this.activeMonth.id -1).endOf('month').format('YYYY-MM-DD');
@@ -148,6 +137,7 @@ getMonthTasks() {
    this.monthTaskList = data
   })
 }
+
 
 getMonthSchedule(){
   const start = moment().month(this.activeMonth.id -1).startOf('month').format('YYYY-MM-DD');

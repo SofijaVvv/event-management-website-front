@@ -20,14 +20,10 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy{
   filteredEventCostList: EventCostsDetails[] = [];
   searchInput = new FormControl('');
   showInput = false;
-  // costEventList: EventCostsDetails[] = [];
   selectedExpenses: EventCostsDetails = {} as EventCostsDetails;
   newCost: boolean = false;
-
-  filteredOtherCostList: CostsDetails[] = [];
-  costOtherList: CostsDetails[] = [];
   costType = "other";
-
+  appData = this.authService.appData;
 
   filterOptions = [
     {id: 10, name: this.translate.instant('filter.all')},
@@ -36,10 +32,7 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy{
   ]
 
   selectedFilter= new FormControl({id: -1, name: 'All'})
-
-eventExpensesArray: EventCostsDetails[] = [];
-
-
+  eventExpensesArray: EventCostsDetails[] = [];
 
   defaultExpenses: EventCostsDetails = {
     id: 0,
@@ -51,50 +44,51 @@ eventExpensesArray: EventCostsDetails[] = [];
     description: "",
     date: new Date()
   }
-
-
   date = new Date();
   langChangeSubscription: Subscription | undefined;
-  // give data range for current week
+  monthList = this.apiCalls.translateMonths[this.translate.currentLang || 'en'];
+
+
   currentWeek = {
     start: moment().startOf('week').format('YYYY-MM-DD'),
     end: moment().endOf('week').format('YYYY-MM-DD')
   }
+
+
   currentMonth = {
     start: moment().startOf('month').format('YYYY-MM-DD'),
     end: moment().endOf('month').format('YYYY-MM-DD')
   }
+
+
   last14Days = {
     start: moment().subtract(14, 'days').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD')
   }
+
 
   selectedPeriod = {
     start: moment(this.currentMonth.start).format("DD.MM.YYYY"),
     end: moment(this.currentMonth.end).format("DD.MM.YYYY")
   }
 
-  monthList = this.apiCalls.translateMonths[this.translate.currentLang || 'en'];
 
   ngOnInit(): void {
     this.langChangeSubscription = this.translate.onLangChange.subscribe((event: { lang: string }) => {
-      // Perform actions on language change here
-      console.log('Language changed to:', event.lang);
       this.filterOptions = [
         {id: 10, name: this.translate.instant('filter.all')},
         {id: 0, name: this.translate.instant('filter.events.active')},
-        {id: 1, name: this.translate.instant('filter.costs.inactive')},
+        {id: 1, name: this.translate.instant('filter.costs.inactive')}
       ]
       this.selectedFilter.patchValue(
         this.filterOptions[0]
       )
     });
   void this.loadEventCosts(this.currentMonth.start, this.currentMonth.end);
-    console.log(this.appData, "APP DATA")
   }
 
+
   ngOnDestroy(): void {
-    // Clean up the subscription when the component is destroyed
     if (this.langChangeSubscription) {
       this.langChangeSubscription.unsubscribe();
     }
@@ -109,7 +103,7 @@ eventExpensesArray: EventCostsDetails[] = [];
     private router: Router
   ) { }
 
-  appData = this.authService.appData;
+
   filteredCostSearch() {
     this.filteredEventCostList = this.eventExpensesArray;
     const textForSearch = this.searchInput.value || '';
@@ -120,22 +114,16 @@ eventExpensesArray: EventCostsDetails[] = [];
     }
   }
 
+
   async loadEventCosts(fromDate:string, toDate:string) {
     this.eventExpensesArray = [];
     this.spinner.show()
     this.apiCalls.getEventCosts(0, fromDate, toDate).subscribe((data: EventCostsDetails[]) => {
-      // this.costEventList = data
-
-      // console.log("event costs", this.costEventList)
       this.eventExpensesArray.push(...data);
       this.loadOtherCosts(fromDate, toDate).then(otherdata => {
         this.eventExpensesArray.push(...otherdata)
-        console.log("other data", otherdata)
       });
-      console.log("eventExpensesArray", this.eventExpensesArray)
       this.filteredEventCostList = this.eventExpensesArray
-
-
       this.spinner.hide()
     })
 
@@ -147,18 +135,12 @@ eventExpensesArray: EventCostsDetails[] = [];
   }
 
 
-
-
-
-
-
   editCost(event: EventCostsDetails) {
-    console.log(this.appData, "APP DATA EDIT")
     if (!this.appData.can_edit){
       Swal.fire({
         icon: 'error',
-        title: 'Access denied',
-        text: 'You do not have permission to edit expenses!',
+        title: this.translate.instant('accessdenied'),
+        text:  this.translate.instant('youhavenopermission'),
       })
       return;
     }
@@ -166,43 +148,28 @@ eventExpensesArray: EventCostsDetails[] = [];
     if (event.event_id){
       this.router.navigate(['/events/input', event.event_id]).then(r => console.log('ok - vracam se doma'));
     } else {
-      console.log(event, "edit cost")
     this.selectedExpenses = event;
     this.showInput = true;
     }
-
   }
 
+
   closeExpenses(event : EventCostsDetails){
-    console.log(event, "event povratni")
     if (event.id < 0){
       this.showInput = false;
       return;
     }
     this.loadEventCosts(this.currentMonth.start, this.currentMonth.end);
-    // if (this.newCost){
-    //   this.eventExpensesArray.push(event)
-    //   // sort costList by id
-    //   this.eventExpensesArray.sort((a, b) => a.id - b.id);
-    // } else {
-    //   console.log(event, "povracaj update event")
-    //   this.eventExpensesArray.findIndex((cost, index) => {
-    //     if (cost.id === event.id){
-    //       this.eventExpensesArray[index] = event;
-    //       console.log("izmjena", this.eventExpensesArray[index])
-    //     }
-    //   })
-    // }
     this.showInput = false;
   }
 
+
   addCost() {
-    console.log("addCost")
     this.newCost = true;
     this.selectedExpenses = JSON.parse(JSON.stringify(this.defaultExpenses));
-
     this.showInput = true;
   }
+
 
   filterCosts() {
     this.filteredEventCostList = this.eventExpensesArray;
@@ -215,12 +182,14 @@ eventExpensesArray: EventCostsDetails[] = [];
       this.filteredEventCostList = this.eventExpensesArray;
     }
   }
+
+
   loadWeekEvents() {
     this.selectedPeriod.start = moment(this.currentWeek.start).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(this.currentWeek.end).format("DD.MM.YYYY");
-
     this.loadEventCosts(this.currentWeek.start, this.currentWeek.end);
   }
+
 
   loadMonthEvents() {
     this.selectedPeriod.start = moment(this.currentMonth.start).format("DD.MM.YYYY");
@@ -228,11 +197,13 @@ eventExpensesArray: EventCostsDetails[] = [];
     this.loadEventCosts(this.currentMonth.start, this.currentMonth.end);
   }
 
+
   loadLast14DaysEvents() {
     this.selectedPeriod.start = moment(this.last14Days.start).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(this.last14Days.end).format("DD.MM.YYYY");
     this.loadEventCosts(this.last14Days.start, this.last14Days.end);
   }
+
 
   loadSelectedMonthEvents(month: number) {
     const start = moment().month(month).startOf('month').format('YYYY-MM-DD');
@@ -243,22 +214,22 @@ eventExpensesArray: EventCostsDetails[] = [];
     this.loadEventCosts(start, end);
   }
 
+
   downloadExcel() {
     Swal.fire({
-      title: 'Odjava',
-      text: "Da kreiram Excel izvjestaj??",
+      title:this.translate.instant('download'),
+      text: this.translate.instant('create'),
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Da, kreiraj!',
-      cancelButtonText: 'Exit'
+      confirmButtonText: this.translate.instant('accept.yes'),
+      cancelButtonText: this.translate.instant('cancel.button')
     }).then((result: any ) => {
       if (result.isConfirmed) {
         const fromDate = moment(this.selectedPeriod.start, 'DD.MM.YYYY').format('YYYY-MM-DD');
         const toDate = moment(this.selectedPeriod.end, 'DD.MM.YYYY').format('YYYY-MM-DD');
         this.apiCalls.downloadExcelFile(this.appData.application,0, fromDate, toDate, 'eng').subscribe((data: any) => {
-          console.log(data, "data")
           const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
           const url = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
@@ -266,13 +237,11 @@ eventExpensesArray: EventCostsDetails[] = [];
           link.download = `Events_${fromDate}_${toDate}.xlsx`;
           link.click();
           window.URL.revokeObjectURL(url);
-
         })
-
       }
     })
-
-
-
   }
+
+
+
 }

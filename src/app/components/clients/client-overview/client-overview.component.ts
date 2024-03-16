@@ -3,9 +3,8 @@ import {ApiCallsService} from "../../../service/api-calls.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../service/auth.service";
-import {Router} from "@angular/router";
 import {IClient} from "../../../interfaces/client";
-import {FormControl, isFormControl} from "@angular/forms";
+import {FormControl} from "@angular/forms";
 import Swal from "sweetalert2";
 
 @Component({
@@ -40,25 +39,25 @@ export class ClientOverviewComponent implements OnInit {
     private spinner: NgxSpinnerService,
     public translate: TranslateService,
     public authService: AuthService,
-    private router: Router
   ) { }
 
 
   ngOnInit(): void {
     this.loadClients();
-
   }
+
+
   appData = this.authService.appData;
+
   loadClients() {
-    console.log("loading clients", this.appData)
     this.spinner.show()
     this.apiCalls.getClients().subscribe((data: IClient[]) => {
       this.clientList = data
       this.filteredClientlist = data
       this.spinner.hide()
     })
-
   }
+
 
   filterClientsSearch() {
     this.filteredClientlist = this.clientList;
@@ -74,20 +73,20 @@ export class ClientOverviewComponent implements OnInit {
     }
   }
 
+
   closeClientInput(client: IClient) {
     this.showInput = false;
     if (client.id) {
       this.loadClients();
     }
-
   }
+
 
   newClient() {
       this.selectedClient = JSON.parse(JSON.stringify(this.defaultClient));
     this.showInput = true;
-    console.log("hello", this.selectedClient)
-
   }
+
 
   editClient(client: IClient) {
     if (!this.appData.can_edit){

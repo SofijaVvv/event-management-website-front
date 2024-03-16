@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, finalize, Observable, of} from "rxjs";
-
-import Swal from "sweetalert2";
-import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 import {IUser} from "../interfaces/user";
 import {IRoles} from "../interfaces/roles";
-import {IPrivilegesRoles} from "../interfaces/privileges_roles";
 import {AssignmentsDetails} from "../interfaces/assignments";
 import {Details, EventDetails} from "../interfaces/events";
 import {ScheduleDetails} from "../interfaces/schedule";
@@ -18,17 +14,16 @@ import {IClient} from "../interfaces/client";
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiCallsService {
+
+  API_SERVIS = 'http://192.168.31.96:3000'
+  isOpenedMainMenu = true
+  headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-  ) { }
-
-  // API_SERVIS = 'http://localhost:3000'
-  API_SERVIS = 'http://192.168.31.96:3000'
-
-
+  ) {}
 
 
   isTextNumber(text: string | null | undefined){
@@ -39,9 +34,6 @@ export class ApiCallsService {
   }
 
 
-  isOpenedMainMenu = true
-  // API_SERVIS = 'http://localhost:3000'
-  headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
   public months : Details[] = [
     {id: 1, name: 'January'},
     {id: 2, name: 'February'},
@@ -56,6 +48,7 @@ export class ApiCallsService {
     {id: 11, name: 'November'},
     {id: 12, name: 'December'}
   ]
+
 
   public translateMonths : any = {
     en: [
@@ -95,6 +88,7 @@ export class ApiCallsService {
 
   ]
 
+
   public timelist = [
     {id: 6, name: '06:00'},        {id: 7, name: '07:00'},
     {id: 8, name: '08:00'},        {id: 9, name: '09:00'},
@@ -108,22 +102,16 @@ export class ApiCallsService {
     {id: 24, name: '00:00'}, ]
 
 
-
-
-  // ADIMIN PART
   login(loginInfo:string): Observable<any>{
     const url = this.API_SERVIS + '/login'
     return this.http.post<any>(url,loginInfo,{headers: this.headers})
       .pipe(catchError((e: any): Observable<any> => {
-          console.log(e,"error")
           return of(e);
         }),
         finalize(() => {
-          console.log("zavrseno logovanje")
         }));
   }
 
-  //////////////////USER/////////////////////
 
   userList():Observable<any>{
     return this.http.get<IUser>(this.API_SERVIS + '/admin/user/list')
@@ -134,6 +122,7 @@ export class ApiCallsService {
         finalize(() => {
         }));
   }
+
 
   createUser(userInfo:string): Observable<any>{
     const url = this.API_SERVIS + '/admin/user/create'
@@ -146,6 +135,7 @@ export class ApiCallsService {
         }));
   }
 
+
   editUser(userInfo:string): Observable<any>{
     const url = this.API_SERVIS + "/admin/user/edit"
     return this.http.post<IUser>(url,userInfo,{headers: this.headers})
@@ -157,10 +147,6 @@ export class ApiCallsService {
         }));
   }
 
-  ////////////////////////////////////////////////
-
-
-  //////////////////ROLES/////////////////////
 
   roleList():Observable<any>{
     return this.http.get<IRoles>(this.API_SERVIS + '/admin/roles')
@@ -183,20 +169,9 @@ export class ApiCallsService {
         }))
   }
 
-  editRole(role:string):Observable<any>{
-    const url = this.API_SERVIS + "/admin/roles/edit"
-    return this.http.post<IRoles>(url,role, {headers: this.headers})
-      .pipe(catchError((e:any):Observable<any> => {
-          return of(e)
-        }),
-        finalize(() => {
-
-        }))
-  }
 
   rolesPrivilagesList(roles_id:number):Observable<any>{
     const url = `${this.API_SERVIS}/admin/roles_privileges/${roles_id}`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -230,22 +205,9 @@ export class ApiCallsService {
         }))
   }
 
-  ////////////////////////////////////////////////
-  //////////////////SHARED/////////////////////
-  getSharedUsers():Observable<any>{
-    const url = `${this.API_SERVIS}/shared/users`
-    console.log(url,"url")
-    return this.http.get<any>(url)
-      .pipe(catchError((e:any):Observable<any> => {
-          return of(e)
-        }),
-        finalize(() => {
 
-        }))
-  }
   getSharedLocations():Observable<any>{
     const url = `${this.API_SERVIS}/shared/locations`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -254,10 +216,10 @@ export class ApiCallsService {
 
         }))
   }
+
 
   getSharedEventTypes():Observable<any>{
     const url = `${this.API_SERVIS}/shared/event_types`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -266,10 +228,10 @@ export class ApiCallsService {
 
         }))
   }
+
 
   getSharedEventStatuses():Observable<any>{
     const url = `${this.API_SERVIS}/shared/event_statuses`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -278,10 +240,10 @@ export class ApiCallsService {
 
         }))
   }
+
 
   getSharedClients():Observable<any>{
     const url = `${this.API_SERVIS}/shared/clients`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -291,9 +253,9 @@ export class ApiCallsService {
         }))
   }
 
+
   getSharedRevenuesTypes():Observable<any>{
     const url = `${this.API_SERVIS}/shared/revenue_types`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -306,7 +268,6 @@ export class ApiCallsService {
 
   getUnits():Observable<any>{
     const url = `${this.API_SERVIS}/shared/units`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -316,11 +277,9 @@ export class ApiCallsService {
         }))
   }
 
-  ////////////////////////////////////////////////
-  //////////////////ASSIGNMENTS/////////////////////
+
   getAssignments(event_id: number = 0, fromDate:string, toDate:string):Observable<any>{
     const url = `${this.API_SERVIS}/assignments/list/${event_id}/${fromDate}/${toDate}`
-    console.log(url,"url")
     return this.http.get<AssignmentsDetails[]>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -330,11 +289,9 @@ export class ApiCallsService {
         }))
   }
 
-////////////////////////////////////////////////
-  //////////////////SHEDULE/////////////////////
+
   getSchedules(event_id: number = 0, fromDate:string, toDate:string):Observable<any>{
     const url = `${this.API_SERVIS}/schedule/list/${event_id}/${fromDate}/${toDate}`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -344,11 +301,9 @@ export class ApiCallsService {
         }))
   }
 
-  ////////////////////////////////////////////////
-  //////////////////REVENUES/////////////////////
+
   getRevenues(event_id: number = 0, fromDate: string, toDate:string):Observable<any>{
     const url = `${this.API_SERVIS}/revenue/list/${event_id}/${fromDate}/${toDate}`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -359,11 +314,8 @@ export class ApiCallsService {
   }
 
 
-  ////////////////////////////////////////////////
-  //////////////////COSTS/////////////////////
   getEventCosts(event_id: number = 0, fromDate: string, toDate:string):Observable<any>{
     const url = `${this.API_SERVIS}/cost/events/${event_id}/${fromDate}/${toDate}`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -372,11 +324,10 @@ export class ApiCallsService {
 
         }))
   }
+
 
   getOtherCosts(fromDate: string, toDate:string):Observable<any>{
-    console.log(fromDate, toDate, "fromDate, toDate")
     const url = `${this.API_SERVIS}/cost/other/${fromDate}/${toDate}`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -386,12 +337,9 @@ export class ApiCallsService {
         }))
   }
 
-
-  ///////////////////////EVENTS////////////////////////
 
   getCalendar(month:number, year:number, status:number):Observable<any>{
     const url = `${this.API_SERVIS}/events/calendar/${month}/${year}/${status}`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -401,9 +349,9 @@ export class ApiCallsService {
         }))
   }
 
+
   getEventListById(event_id: number = 0, fromDate:string, toDate: string):Observable<any>{
     const url = this.API_SERVIS + `/events/list/${event_id}/${fromDate}/${toDate}`
-    console.log(url,"url")
     return this.http.get<any>(url)
       .pipe(catchError((e:any):Observable<any> => {
           return of(e)
@@ -425,6 +373,7 @@ export class ApiCallsService {
         }))
   }
 
+
   addAssignment(podaci: string):Observable<any>{
     const url = this.API_SERVIS + "/assignments/add"
     return this.http.post<AssignmentsDetails>(url,podaci, {headers: this.headers})
@@ -436,6 +385,7 @@ export class ApiCallsService {
         }))
   }
 
+
   addSchedule(podaci: string):Observable<any>{
     const url = this.API_SERVIS + "/schedule/add"
     return this.http.post<ScheduleDetails>(url,podaci, {headers: this.headers})
@@ -443,9 +393,10 @@ export class ApiCallsService {
           return of(e)
         }),
         finalize(() => {
-
         }))
   }
+
+
   addRevenue(podaci: string):Observable<any>{
     const url = this.API_SERVIS + "/revenue/add"
     return this.http.post<RevenuesDetails>(url,podaci, {headers: this.headers})
@@ -457,6 +408,7 @@ export class ApiCallsService {
         }))
   }
 
+
   getPriorities():Observable<any>{
     return this.http.get<Details[]>(this.API_SERVIS + '/assignments/priorities')
 
@@ -467,6 +419,7 @@ export class ApiCallsService {
         }));
   }
 
+
   getCostTypes():Observable<any>{
     return this.http.get<Details[]>(this.API_SERVIS + '/shared/costs_types')
       .pipe(catchError((e: any): Observable<any> => {
@@ -476,6 +429,7 @@ export class ApiCallsService {
         }));
   }
 
+
   getClientTypes():Observable<any>{
     return this.http.get<Details[]>(this.API_SERVIS + '/shared/type_of_client')
       .pipe(catchError((e: any): Observable<any> => {
@@ -484,7 +438,6 @@ export class ApiCallsService {
         finalize(() => {
         }));
   }
-
 
 
   addOtherCosts(podaci: string):Observable<any>{
@@ -498,6 +451,7 @@ export class ApiCallsService {
         }))
   }
 
+
   addEventCosts(podaci: string):Observable<any>{
     const url = this.API_SERVIS + "/cost/events/add"
     return this.http.post<CostsDetails>(url,podaci, {headers: this.headers})
@@ -508,6 +462,8 @@ export class ApiCallsService {
 
         }))
   }
+
+
   addClient(podaci: string):Observable<any>{
     const url = this.API_SERVIS + "/client/add"
     return this.http.post<IClient>(url,podaci, {headers: this.headers})
@@ -519,6 +475,7 @@ export class ApiCallsService {
         }))
   }
 
+
   getClients(client_id:number = 0):Observable<any>{
     return this.http.get<IClient[]>(this.API_SERVIS + `/client/${client_id}`)
       .pipe(catchError((e: any): Observable<any> => {
@@ -527,6 +484,7 @@ export class ApiCallsService {
         finalize(() => {
         }));
   }
+
 
   getAnalisysData(fromDate:string, toDate:string):Observable<any>{
     return this.http.get<any>(this.API_SERVIS + `/analisys/${fromDate}/${toDate}`)
@@ -537,6 +495,7 @@ export class ApiCallsService {
         }));
   }
 
+
   getAnalisysDataTotals(fromDate:string, toDate:string):Observable<any>{
     return this.http.get<any>(this.API_SERVIS + `/analisys/total/${fromDate}/${toDate}`)
       .pipe(catchError((e: any): Observable<any> => {
@@ -545,6 +504,7 @@ export class ApiCallsService {
         finalize(() => {
         }));
   }
+
 
   getAnalisysRevenueData(fromDate:string, toDate:string):Observable<any>{
     return this.http.get<any>(this.API_SERVIS + `/analisys/revenues/total/${fromDate}/${toDate}`)
@@ -556,12 +516,11 @@ export class ApiCallsService {
   }
 
 
-
-
   downloadExcelFile(app:string, event_id: number = 0, fromDate:string, toDate: string, language:string) : Observable<Blob> {
     const url = this.API_SERVIS + `/${app}/excel/${event_id}/${fromDate}/${toDate}/${language}`
     return this.http.get(url, { responseType: 'blob' });
   }
+
 
   sharedUpdate(podaci: string):Observable<any>{
     const url = this.API_SERVIS + "/shared/update"

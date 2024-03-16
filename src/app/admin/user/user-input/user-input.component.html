@@ -1,4 +1,3 @@
-<!--<button (click)="closeUserInput()" class="px-10 py-4 bg-blue-600 m-4 text-white rounded"  >Back</button>-->
 
 
 <form [formGroup]="userForm" class="m-10  p-10 rounded-[30px] bg-[#A5D1F3]/70 border border-blue-300">
@@ -26,18 +25,12 @@
       placeholder= '{{"users.selectrole" | translate}}'
     [items]="roleList"
     [virtualScroll]="true"
-    [clearable]="false"
-    >
+    [clearable]="false">
       <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
         <div>{{item.name}}</div>
       </ng-template>
     </ng-select>
   </div>
-
-<!--  <div class="flex items-center mb-4">-->
-<!--    <input formControlName="activity" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">-->
-<!--    <label  class="ms-2 text-sm font-medium text-black ">activity</label>-->
-<!--  </div>-->
 
   <div class="flex justify-between items-center">
     <label class="switch text-sm flex items-center">
@@ -47,28 +40,20 @@
         <span  *ngIf="userForm.get('activity')?.value" class="text-[#0e4166] text-sm">{{ "active" | translate }}</span>
         <span  *ngIf="!userForm.get('activity')?.value" class="text-white text-sm">{{"inactive" | translate}}</span>
       </div>
-
     </label>
+
     <div>
-      <button  class="mt-10 text-white font-family button-bg   focus:outline-none
-    font-medium rounded-lg text-sm  px-5 py-2.5 text-center "
-                (click)="resetPassword()"
-               *ngIf="userForInput.id">
-        {{ "users.resetpass" | translate}}
-      </button>
+      <button  class="mt-10 text-white font-family button-bg   focus:outline-none font-medium rounded-lg text-sm  px-5 py-2.5 text-center"
+               (click)="resetPassword()" *ngIf="userForInput.id">{{ "users.resetpass" | translate}}</button>
     </div>
 
     <div class="flex gap-5 ">
-      <button type="submit" class="mt-10 text-white font-family button-bg   focus:outline-none
-    font-medium rounded-lg text-sm  px-5 py-2.5 text-center "
+      <button type="submit" class="mt-10 text-white font-family button-bg   focus:outline-none font-medium rounded-lg text-sm  px-5 py-2.5 text-center"
               [disabled]="userForm.invalid"
               (click)="onSubmit()" >{{"users.saveuser" | translate}}</button>
-      <button *ngIf="!userForInput.id" class="mt-10 text-white font-family bg-red-600
-    font-medium rounded-lg text-sm  px-5 py-2.5 text-center "
+      <button *ngIf="!userForInput.id" class="mt-10 text-white font-family bg-red-600 font-medium rounded-lg text-sm  px-5 py-2.5 text-center"
               (click)="goBack()" >{{ "back" | translate}}</button>
-
     </div>
-
   </div>
 
 

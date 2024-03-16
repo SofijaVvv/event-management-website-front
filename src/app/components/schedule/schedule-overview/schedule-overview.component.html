@@ -1,12 +1,9 @@
 <div  class="flex flex-col overflow-auto  bg-[#EDF0F5FF] w-full h-screen select-none">
 
-
-
   <div class="flex items-center justify-between p-3 pl-4 pr-4 bg-white border-b border-b-gray-300">
     <div>
       <div class=" text-xl text-[#0E4166FF] font-family font-medium">{{'schedules' | translate}}</div>
     </div>
-
 
     <div class="flex items-center justify-center shadow bg-white rounded " >
       <button mat-button [matMenuTriggerFor]="menu">
@@ -14,7 +11,9 @@
         <div class=" underline decoration-blue-300  decoration-1  font-family text-[#275C85FF]">Select period
         </div>
       </button>
+
       <mat-menu #menu="matMenu">
+
         <button mat-menu-item (click)="loadWeekEvents()">
           <mat-icon> bar_chart</mat-icon>
           <div>{{'timeline.week' | translate}}</div>
@@ -36,6 +35,7 @@
           <mat-icon> bar_chart</mat-icon>
           <span>{{'timeline.select.month' | translate}}</span>
         </button>
+
         <mat-menu #months>
           <button mat-menu-item *ngFor="let month of monthList" (click)="loadSelectedMonthEvents(month.id -1)">
             <mat-icon>calendar_today</mat-icon>
@@ -43,9 +43,7 @@
           </button>
         </mat-menu>
 
-
       </mat-menu>
-
     </div>
 
 

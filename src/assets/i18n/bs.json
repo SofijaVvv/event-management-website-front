@@ -1,4 +1,9 @@
 {
+  "accept": {
+    "yes": "Da, kreiraj!"
+  },
+  "accessdenied": "Pristup zabranjen!",
+  "accessdenied!": "Pristup zabranjen!",
   "active": "Aktivan",
   "add": {
     "expense": "Dodaj Trošak",
@@ -7,6 +12,7 @@
   "analyse": {
     "data": "Analizirajte svoje podatke"
   },
+  "areyousureyouwanttologout": "Da li ste sigurni da želite da izađete iz programa?",
   "assignment": {
     "priority": "Prioritet"
   },
@@ -38,6 +44,7 @@
       "event": "Troškovi Po Događaju"
     }
   },
+  "create": "Da kreiram Excel izvjestaj??",
   "date": {
     "input": "Datum"
   },
@@ -65,9 +72,7 @@
     }
   },
   "desc": "Opis",
-  "download": {
-    "excel": "Preuzmite Excel datoteku"
-  },
+  "download": "Preuzimanje",
   "e": {
     "costs": "Troškovi Događaja",
     "date": "Datum Događaja",
@@ -76,7 +81,17 @@
   "enter": {
     "event": "Da,upiši!"
   },
+  "enterassigment": "Upis zadatka",
+  "enterexpense": "Upis troška ",
+  "enterrevenue": "Upiši prihod",
+  "entertheassignment": "Upis zadatka",
+  "entertheassignmentquestion": "Da upišem zadatak?",
+  "entervalidcostvalue": "Unesite ispravnu vrednost troška.",
   "error": "Greška",
+  "errorwhenenteringassigment": "Greška prilikom upisa zadatka!",
+  "errorwhileenteringexpense": "Greška prilikom upisa troška!",
+  "errorwhileenteringrevenue": "Greška pri unosu prihoda!",
+  "errorwhileenteringtheassignmentt": "Greška prilikom upisa zadatka",
   "es": {
     "event": {
       "status": "Status"
@@ -105,6 +120,7 @@
     "type": "Tip troška"
   },
   "expenses": "Troškovi",
+  "expensesucessfullyentered": "Trošak je uspješno upisan!",
   "filter": {
     "active": "Aktivan",
     "all": "Sve",
@@ -147,6 +163,7 @@
     }
   },
   "name": "Ime",
+  "nameisrequired": "Ime je obavezno!",
   "new": {
     "expense": "Novi trošak",
     "revenue": {
@@ -156,6 +173,7 @@
   "no": {
     "change": "Ne mozete mijenjati zavrseni zadatak!"
   },
+  "noaccesstoroute!": "Nemate pristup ovoj ruti",
   "nochange": {
     "cost": "Nemate prava da mijenjate troskove!",
     "revenue": "Nemate prava da mijenjate prihode!",
@@ -206,6 +224,7 @@
     "unit": "Jedinica"
   },
   "revenues": "Prihodi",
+  "revenuesucessfullyentered": "Prihod je uspešno unet!",
   "rights": {
     "er": {
       "error": "Nemate prava da mijenjate zadatke!"
@@ -228,12 +247,16 @@
   "select": {
     "period": "Izaberite period"
   },
+  "shareditemupdated": "Deljena stavka je ažurirana!",
+  "shouldienterexpense": "Da upišem trošak?",
+  "shouldienterrevenue": "Da upišem prihod?",
   "status": {
     "event": {
       "input": "Status događaja"
     }
   },
   "success": "Uspješno",
+  "successfullyenteredassignment": "Uspješno unijet zadatak!",
   "supplier": "Dobavljač",
   "task": {
     "finished": "Zadatak je završen",
@@ -252,6 +275,7 @@
     },
     "week": "Ove nedjelje"
   },
+  "toentertaskquestion": "Da upišem zadatak?",
   "total": {
     "all": "Ukupno:",
     "costs": "Ukupni troškovi",
@@ -289,5 +313,11 @@
     "saveuser": "Sačuvaj korisnika",
     "selectrole": "Izaberi ulogu",
     "users": "Korisnici"
-  }
+  },
+  "wanttologout": "Želite da se odjavite?",
+  "yesenterexpense": "Da, upiši!",
+  "yesiamsurebutton": "Da siguran sam!",
+  "youcantchangeschedule": "Nemate pravo ispravke rasporeda!",
+  "youdonthaveaccess": "Nemate pravo pristupa!",
+  "youhavenopermission": "Nemate dozvolu za uređivanje troškova!"
 }

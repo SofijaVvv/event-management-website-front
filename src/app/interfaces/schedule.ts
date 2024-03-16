@@ -1,6 +1,5 @@
 import {Details} from "./events";
 
-
 export interface ScheduleDetails {
   id: number;
   event_id: number;

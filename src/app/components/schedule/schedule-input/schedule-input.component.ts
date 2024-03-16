@@ -3,6 +3,7 @@ import {ScheduleDetails} from "../../../interfaces/schedule";
 import {FormBuilder, Validators} from "@angular/forms";
 import {ApiCallsService} from "../../../service/api-calls.service";
 import Swal from "sweetalert2";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-schedule-input',
@@ -14,7 +15,6 @@ export class ScheduleInputComponent implements OnInit{
   @Output() closeSchedule = new EventEmitter<ScheduleDetails>();
 
 
-  // @ts-ignore
   formEditSchedule = this.fb.group({
     id: [0],
     description: ['', Validators.required],
@@ -28,11 +28,10 @@ export class ScheduleInputComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     public apiCalls: ApiCallsService,
-
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-
     this.formEditSchedule.patchValue({
       id: this.scheduleForInput.id,
       description: this.scheduleForInput.description,
@@ -43,23 +42,22 @@ export class ScheduleInputComponent implements OnInit{
     });
     }
 
+
 closeScheduleForm(){
     this.closeSchedule.emit({id:-1} as ScheduleDetails);
 }
 
 
-
   saveSchedule() {
-    console.log(this.formEditSchedule.value)
     Swal.fire({
-      title: 'Upis taska',
-      text: "Da upišem task?",
+      title: this.translate.instant('enterassigment'),
+      text: this.translate.instant('toentertaskquestion'),
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#894CB2',
       cancelButtonColor: '#',
-      confirmButtonText: 'Da,upiši!',
-      cancelButtonText: 'Nazad na program'
+      confirmButtonText: this.translate.instant('accept.yes'),
+      cancelButtonText: this.translate.instant('cancel.button')
     }).then((result) => {
       if (result.isConfirmed) {
         const forInsert = JSON.parse(JSON.stringify(this.formEditSchedule.value))
@@ -69,29 +67,23 @@ closeScheduleForm(){
             console.log(data)
             if (data.error){
               void Swal.fire({
-                title: 'Greška',
-                text: "Greška prilikom upisa taska",
+                title: this.translate.instant('error'),
+                text: this.translate.instant('errorwhenenteringassigment'),
                 icon: 'error',
                 confirmButtonColor: '#894CB2',
               })
-
             } else {
               void Swal.fire({
-                title: 'Uspeh',
-                text: "Uspešno upisan task",
+                title: this.translate.instant('success'),
+                text: this.translate.instant('successfullyenteredassignment'),
                 icon: 'success',
                 confirmButtonColor: '#894CB2',
               })
               this.closeSchedule.emit(data['message']);
             }
-
           }
-
         )
-
-
       }
-
     })
   }
 

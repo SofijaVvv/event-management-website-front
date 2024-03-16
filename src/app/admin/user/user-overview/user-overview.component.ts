@@ -5,7 +5,6 @@ import {animate, style, transition, trigger} from "@angular/animations";
 import {NgxSpinnerService} from "ngx-spinner";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../service/auth.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-pregled-korisnika',
@@ -23,9 +22,14 @@ import {Router} from "@angular/router";
     ])
   ]
 })
+
+
 export class UserOverviewComponent implements OnInit{
 userList: IUser[] = []
 fileteredUserList: IUser[] = []
+  showInput = false;
+  search_input = ""
+  isNewUser = false
 
   selectedUser: IUser = {
     id: 0,
@@ -39,7 +43,6 @@ fileteredUserList: IUser[] = []
     company_id: 1
   } as IUser
 
-  showInput = false;
 
   defaultUser: IUser = {
     id: 0,
@@ -53,20 +56,13 @@ fileteredUserList: IUser[] = []
     company_id: 1
   }
 
-  search_input = ""
-  isNewUser = false
-
-
-
 
   constructor(
     private apiCalls: ApiCallsService,
     private spinner: NgxSpinnerService,
     public translate: TranslateService,
     public authService: AuthService,
-    private router: Router
   ) { }
-
 
 
   ngOnInit(): void {
@@ -74,10 +70,8 @@ fileteredUserList: IUser[] = []
   }
 
 
-
   async loadUsers() {
     void this.spinner.show()
-    console.log("loadUsers")
    this.apiCalls.userList().subscribe((data: IUser[]) => {
           this.userList = data
           this.fileteredUserList = data
@@ -86,21 +80,20 @@ fileteredUserList: IUser[] = []
        this.showInput = true;
      }
           this.spinner.hide()
-      console.log(data)
     })
     this.fileteredUserList = this.userList
   }
 
+
   newUser() {
-    console.log("noviOperater")
     this.selectedUser = JSON.parse(JSON.stringify(this.defaultUser))
   }
+
+
 getListOfUsers() {
     this.apiCalls.userList().subscribe((data: IUser[]) => {
       this.userList = data
       this.fileteredUserList = data
-
-      console.log(data)
     })
     this.fileteredUserList = this.userList
   }
@@ -112,23 +105,20 @@ closeUserInput(event:any) {
     }
     if (this.userList.length > 0){
       this.selectedUser = this.userList[0]
-
     }
     this.isNewUser = false;
     this.showInput = false;
 }
 
+
 editUser(user: IUser) {
-    // this.selectedUser = JSON.parse(JSON.stringify(user))
     this.selectedUser = user
-    // this.showInput = true;
   }
 
-  changeLanguage(jezik: string) {
-    this.translate.use(jezik);
+  changeLanguage(language: string) {
+    this.translate.use(language);
 
   }
-
 
 
   filterUsers() {
@@ -137,10 +127,10 @@ editUser(user: IUser) {
     })
   }
 
+
   logOut() {
     this.authService.logOut()
   }
-
 
 
 }

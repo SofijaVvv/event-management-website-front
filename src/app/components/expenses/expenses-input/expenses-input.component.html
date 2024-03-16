@@ -5,7 +5,6 @@
       <div *ngIf="!expenseForInput.id" class="p-2 text-2xl">{{'new.expense' | translate}}</div>
       <div *ngIf="expenseForInput.id" class="p-2 text-2xl">{{'old.expense' | translate}}</div>
 
-
       <div class="flex h-10 items-center justify-end relative w-full mb-2" *ngIf="costType=='other'">
         <div class="flex relative items-center ">
           <label class="block text-sm text-[#104166] mr-3  ">Date</label>
@@ -30,13 +29,10 @@
           <input matInput [matDatepicker]="picker" id="prvipiker" formControlName="date" (dateChange)="dateChanged()" >
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <!--          <button mat-button (click)="picker.open()" ></button>-->
       </div>
 
 
-
       <div class="flex gap-2 " >
-
         <div class="flex flex-col  w-1/2" >
           <label class="text-sm text-[#104166]  mr-2">{{'supplier' | translate}}</label>
           <ng-select class=" custom-select w-full"
@@ -49,7 +45,6 @@
           >
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
               <div>{{item.name}}</div>
-              <!--        <div>{{item.naziv}}</div>-->
             </ng-template>
           </ng-select>
         </div>
@@ -66,7 +61,6 @@
           >
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
               <div>{{item.name}}</div>
-              <!--        <div>{{item.naziv}}</div>-->
             </ng-template>
           </ng-select>
         </div>
@@ -77,37 +71,20 @@
             <input class="border py-1 border-gray-300 rounded text-right pr-2" formControlName="amount">
           </div>
         </div>
-
       </div>
-
-
-
 
       <div  class="w-full pt-2 flex-1">
         <label  class="block text-sm text-[#104166] font-family   " >{{'desc' | translate}}</label>
         <textarea class="border w-full border-gray-400  p-2 rounded-[6px] outline-none " formControlName="description"></textarea>
       </div>
-
-
     </div>
-
-
-
   </form>
 
 
-
       <div class="flex w-full justify-center gap-2 mt-4 ">
-
         <button class=" w-full py-2 px-4 bg-blue-500 text-white  rounded-[6px]" (click)="saveExpense()" >{{'save.button' | translate}} </button>
-
         <button class=" w-full p-3 bg-red-500 text-white  rounded-[6px]" (click)="closeExpenseForm()" >{{'cancel.button' | translate}} </button>
-
-
       </div>
-
-
-
 </div>
 
 

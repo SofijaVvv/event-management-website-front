@@ -1,13 +1,10 @@
 
 
-  <div    class="flex flex-col md:min-w-[1300px]">
-
-
+  <div    class="flex  flex-col md:min-w-[1300px]">
     <nav class="  w-full  h-[65px] bg-[#0e4166]">
       <div class=" flex  items-center  mx-auto p-2">
-
         <div  class="flex items-center  ">
-          <svg width="190px" height="40px" viewBox="0 0 190 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <svg width="190px" height="40px" viewBox="0 0 190 50" version="1.1" xmlns="http://www.w3.org/2000/svg" >
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
               <g id="Group" transform="translate(1.000000, 1.000000)">
                 <g>
@@ -24,30 +21,32 @@
               </g>
             </g>
           </svg>
-
         </div>
-        <div class="flex  md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse mt-2">
+
+        <div class="flex  md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse mr-4 mt-2">
           <button type="button" class="text-white  font-medium rounded-lg text-sm px-4 py-2 text-center " (click)="logOut()" >
             {{"logout" | translate}}</button>
           <ul class="text-white flex gap-5 items-center justify-end bg-[#0e4166]">
-            <li class="cursor-pointer hover:underline hover:text-amber-600 " (click)="changeLanguage('en')">EN</li>
-            <li class="cursor-pointer hover:underline hover:text-amber-600 " (click)="changeLanguage('bs')">ME</li>
+            <li class="cursor-pointer hover:underline hover:text-blue-300 " (click)="changeLanguage('en')">EN</li>
+            <li class="cursor-pointer hover:underline hover:text-blue-300 " (click)="changeLanguage('bs')">ME</li>
           </ul>
         </div>
+
         <div class="items-center   flex flex-1 justify-center" >
           <ul class="flex flex-row font-medium">
             <li>
               <a  routerLink="/admin/user" class="block py-2 px-3 text-blue-300" aria-current="page">{{ "users.users" | translate }}</a>
             </li>
             <li>
-              <a routerLink="/admin/roles-privileges" class="block py-2 px-3 text-white hover:text-blue-300">
-                {{"users.roles" | translate}}</a>
+              <a routerLink="/admin/roles-privileges" class="block py-2 px-3 text-white hover:text-blue-300">{{"users.roles" | translate}}</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-        <div class="flex-1 flex srednji  ">
+
+
+        <div class="flex-1 flex middle">
                   <div *ngIf="!isNewUser" class="flex flex-col h-full gradient   w-2/5 p-3 gap-4">
                     <div class="flex justify-between">
                       <input type="text" placeholder="{{'search' | translate}}"
@@ -57,6 +56,7 @@
                       <button *ngIf="authService.appData.can_edit" (click)="isNewUser=true; newUser()"
                               class=" px-5 rounded-lg text-white py-2.5 button-bg">{{"users.newuser" | translate  }}</button>
                     </div>
+
                     <div class=" overflow-y-scroll flex-1 h-full mt-2 ">
                       <div *ngFor="let user of fileteredUserList" class=" w-full  p-1 ">
                         <a
@@ -72,8 +72,8 @@
                       </div>
                     </div>
                   </div>
-                <div class="flex flex-col w-full h-full  items-center  relative">
 
+                <div class="flex flex-col w-full h-full  items-center  relative">
                     <div  [@input]="" class="absolute left-0 top-0  w-full h-full gradient md:hidden">
                       <app-user-input (closeInput)="closeUserInput($event)" [userForInput]="selectedUser"  ></app-user-input>
                     </div>

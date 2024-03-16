@@ -4,6 +4,7 @@
     <div class=" flex flex-col h-full w-full ">
       <div *ngIf="!taskForInput.id" class="p-2 text-2xl">{{'task.new' | translate}}</div>
       <div *ngIf="taskForInput.id" class="p-2 text-2xl">{{'assignments' | translate}}</div>
+
       <div  class="w-full p-2 flex-1">
         <label  class="block text-sm text-[#104166] font-family">{{'desc' | translate}}</label>
         <textarea class="border w-full border-gray-400  p-2 rounded-[6px] outline-none " formControlName="description"></textarea>
@@ -17,9 +18,9 @@
             <input class="w-4 h-4 text-blue-600 bg-white border-white rounded "  type="checkbox" formControlName="status" [checked]="taskForInput.status">
               <span class="slider"></span>
             </label>
-
           </div>
         </div>
+
         <div class="flex  items-center w-1/2">
           <label class="text-sm text-[#104166]  mr-2">{{'assignment.priority' | translate}}<sup class="text-red-800">*</sup></label>
           <ng-select class=" custom-select w-full"
@@ -28,31 +29,21 @@
                      placeholder="Choose user"
                      formControlName="priority"
                      [virtualScroll]="true"
-                     [clearable]="false"
-          >
+                     [clearable]="false">
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
               <div>{{item.name}}</div>
-              <!--        <div>{{item.naziv}}</div>-->
             </ng-template>
           </ng-select>
         </div>
       </div>
 
       <div class="flex w-full justify-center gap-2 mt-4 ">
-
           <button class=" w-full py-2 px-4 bg-blue-500 text-white  rounded-[6px]" (click)="saveTask()" [disabled]="formEditTask.invalid" >{{'save.button' | translate}} </button>
-
           <button class=" w-full p-3 bg-red-500 text-white  rounded-[6px]" (click)="closeTaskForm()" >{{'cancel.button' | translate}} </button>
-
-
       </div>
 
     </div>
-
-
-
   </form>
-
 </div>
 
 

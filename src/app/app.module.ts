@@ -7,7 +7,6 @@ import {InterceptorService} from "./service/interceptor.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-
 import {MatNativeDateModule} from "@angular/material/core";
 import {NgSelectModule} from "@ng-select/ng-select";
 import { JwtModule } from "@auth0/angular-jwt";
@@ -15,7 +14,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
-
 import { TouchEventsDirective } from './directives/touch-events.directive';
 import {NgChartsModule} from "ng2-charts";
 import { LoginComponent } from './components/login/login.component';
@@ -25,8 +23,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { UserInputComponent } from './admin/user/user-input/user-input.component';
 import { UserOverviewComponent } from './admin/user/user-overview/user-overview.component';
 import {NgxSpinnerModule} from "ngx-spinner";
-import { AdminPageComponent } from './admin/admin-page/admin-page.component';
-import { RolesPrivilegesOverviewComponent } from './admin/roles-privileges/roles/roles-privileges-overview/roles-privileges-overview.component';
+import { RolesPrivilegesOverviewComponent } from './admin/roles-privileges/roles-privileges-overview/roles-privileges-overview.component';
 import { ErrorComponent } from './error/error.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { EventOverviewComponent } from './components/events/event-overview/event-overview.component';
@@ -44,7 +41,6 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTabsModule} from "@angular/material/tabs";
-import { SharedInputComponent } from './components/shared/shared-input/shared-input.component';
 import { SharedOverviewComponent } from './components/shared/shared-overview/shared-overview.component';
 
 
@@ -60,7 +56,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     UserInputComponent,
     UserOverviewComponent,
-    AdminPageComponent,
     RolesPrivilegesOverviewComponent,
     ErrorComponent,
     MainMenuComponent,
@@ -76,7 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ClientOverviewComponent,
     ExpensesOverviewComponent,
     AnalysisComponent,
-    SharedInputComponent,
     SharedOverviewComponent,
   ],
     imports: [

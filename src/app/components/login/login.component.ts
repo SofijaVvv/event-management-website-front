@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {ApiCallsService} from "../../service/api-calls.service";
 import {Router} from "@angular/router";
@@ -7,19 +7,17 @@ import Swal from "sweetalert2";
 import {TranslateService} from "@ngx-translate/core";
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass']
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent implements AfterViewInit, OnInit{
 @ViewChild('email') email!: ElementRef ;
 @ViewChild('otp') otp!: ElementRef ;
 @ViewChild('password') password!: ElementRef ;
 
-constructor
-(
+constructor (
   private fb: FormBuilder,
   private apiPoziviServis: ApiCallsService,
   private router: Router,
@@ -38,17 +36,21 @@ ngOnInit() {
   this.authServis.directLogoutUser()
 }
 
+
 ngAfterViewInit() {
-  this.email.nativeElement.focus();
+  // this.email.nativeElement.focus();
 }
+
 
   onEmailEnter() {
     this.password.nativeElement.focus();
   }
 
+
   onPasswordEnter() {
     this.otp.nativeElement.focus();
   }
+
 
   async setOperator(data: any) {
       this.authServis.setOperatorData(data).then((result: any) => {
@@ -60,28 +62,18 @@ ngAfterViewInit() {
             this.router.navigate(['/assignments/overview'])
           } else
           this.router.navigate(['/home'])
-
         }
-     }
-    )
-
+     });
   }
 
+
  login (){
-
-
-
   const loginInfo = JSON.stringify(this.formLogin.value)
-  console.log("prije podatake", loginInfo)
-
   this.apiPoziviServis.login(loginInfo).subscribe((data: any) => {
-console.log("povratno:", data)
     if (data.token) {
-      console.log("ja sam iz login", data)
       this.authServis.saveToLocalStorage('token', data.token)
       this.authServis.saveToLocalStorage('user', JSON.stringify(data))
       void this.setOperator(data)
-
     } else {
       void Swal.fire({
           title: this.translate.instant('error'),
@@ -89,25 +81,20 @@ console.log("povratno:", data)
           icon: "warning",
           showConfirmButton: false,
           timer: 2000
-        })
+        });
     }
-
-
-
-  })
+  });
 }
-
-
 
 
   onKeyUp() {
       this.login();
   }
 
-changeLanguage(jezik: string) {
-  localStorage.setItem('lang', jezik)
-  this.translate.use(jezik);
 
+changeLanguage(language: string) {
+  localStorage.setItem('lang', language)
+  this.translate.use(language);
 }
 
 }

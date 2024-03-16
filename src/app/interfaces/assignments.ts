@@ -10,9 +10,7 @@ export interface IAssignments {
   podsjetnik: string,
   datum_kreiranja: string,
   datum_zavrsetka: string,
-
 }
-
 
 export interface AssignmentsDetails {
   id: number,

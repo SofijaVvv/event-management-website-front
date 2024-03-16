@@ -2,6 +2,7 @@
   <div class="w-full p-4 flex flex-col  bg-white border-b">
         <div class="text-xl text-[#0E4166FF] font-family font-medium" >{{'events.details' | translate }}</div>
   </div>
+
 <div class="flex  w-full h-full flex-1 ">
   <div class="flex  flex-col p-5 w-full  overflow-auto middle ">
     <div class="  w-full  rounded-lg flex flex-col gap-5 ">
@@ -19,14 +20,17 @@
             <div class="w-1/3">{{ 'assignment.priority' | translate }}</div>
           </div>
         </div>
+
         <div (click)="editTask(assignment)" class="flex flex-row p-2 text-center font-family items-center border-b justify-between cursor-pointer hover:bg-gray-100" *ngFor="let assignment of assignmentList ">
           <div class="w-1/3  ">{{assignment.description}}</div>
           <div class="w-1/3 flex items-center justify-center" *ngIf="assignment.status" >
-            <svg  fill="#77bb41" width="25" height="25"  id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve" ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;} </style> <g> <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,20c-4.5,0-8-3.5-8-8s3.5-8,8-8s8,3.5,8,8 S16.5,20,12,20z"></path> <polygon points="9.8,16.8 6.1,13.2 7.5,11.7 9.8,14 15.5,7.9 17,9.3 "></polygon> </g> <rect class="st0" width="24" height="24"></rect> </g></svg>
+            <svg  fill="#77bb41" width="25" height="25"  id="Layer_1" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;} </style> <g> <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,20c-4.5,0-8-3.5-8-8s3.5-8,8-8s8,3.5,8,8 S16.5,20,12,20z"></path> <polygon points="9.8,16.8 6.1,13.2 7.5,11.7 9.8,14 15.5,7.9 17,9.3 "></polygon> </g> <rect class="st0" width="24" height="24"></rect> </g></svg>
           </div>
+
           <div class="w-1/3 flex items-center justify-center" *ngIf="!assignment.status" >
-            <svg fill="#00BBF0"  width="25" height="25" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;} </style> <path d="M11.7,2c-0.1,0-0.1,0-0.2,0c0,0,0,0-0.1,0v0c-0.2,0-0.3,0-0.5,0l0.2,2c0.4,0,0.9,0,1.3,0c4,0.3,7.3,3.5,7.5,7.6 c0.2,4.4-3.2,8.2-7.6,8.4c0,0-0.1,0-0.2,0c-0.3,0-0.7,0-1,0L11,22c0.4,0,0.8,0,1.3,0c0.1,0,0.3,0,0.4,0v0c5.4-0.4,9.5-5,9.3-10.4 c-0.2-5.1-4.3-9.1-9.3-9.5v0c0,0,0,0,0,0c-0.2,0-0.3,0-0.5,0C12,2,11.9,2,11.7,2z M8.2,2.7C7.7,3,7.2,3.2,6.7,3.5l1.1,1.7 C8.1,5,8.5,4.8,8.9,4.6L8.2,2.7z M4.5,5.4c-0.4,0.4-0.7,0.9-1,1.3l1.7,1C5.4,7.4,5.7,7.1,6,6.7L4.5,5.4z M15.4,8.4l-4.6,5.2 l-2.7-2.1L7,13.2l4.2,3.2l5.8-6.6L15.4,8.4z M2.4,9c-0.2,0.5-0.3,1.1-0.3,1.6l2,0.3c0.1-0.4,0.1-0.9,0.3-1.3L2.4,9z M4.1,13l-2,0.2 c0,0.1,0,0.2,0,0.3c0.1,0.4,0.2,0.9,0.3,1.3l1.9-0.6c-0.1-0.3-0.2-0.7-0.2-1.1L4.1,13z M5.2,16.2l-1.7,1.1c0.3,0.5,0.6,0.9,1,1.3 L6,17.3C5.7,16.9,5.4,16.6,5.2,16.2z M7.8,18.8l-1.1,1.7c0.5,0.3,1,0.5,1.5,0.8l0.8-1.8C8.5,19.2,8.1,19,7.8,18.8z"></path> <rect class="st0" width="24" height="24"></rect> </g></svg>
+            <svg fill="#00BBF0"  width="25" height="25" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;} </style> <path d="M11.7,2c-0.1,0-0.1,0-0.2,0c0,0,0,0-0.1,0v0c-0.2,0-0.3,0-0.5,0l0.2,2c0.4,0,0.9,0,1.3,0c4,0.3,7.3,3.5,7.5,7.6 c0.2,4.4-3.2,8.2-7.6,8.4c0,0-0.1,0-0.2,0c-0.3,0-0.7,0-1,0L11,22c0.4,0,0.8,0,1.3,0c0.1,0,0.3,0,0.4,0v0c5.4-0.4,9.5-5,9.3-10.4 c-0.2-5.1-4.3-9.1-9.3-9.5v0c0,0,0,0,0,0c-0.2,0-0.3,0-0.5,0C12,2,11.9,2,11.7,2z M8.2,2.7C7.7,3,7.2,3.2,6.7,3.5l1.1,1.7 C8.1,5,8.5,4.8,8.9,4.6L8.2,2.7z M4.5,5.4c-0.4,0.4-0.7,0.9-1,1.3l1.7,1C5.4,7.4,5.7,7.1,6,6.7L4.5,5.4z M15.4,8.4l-4.6,5.2 l-2.7-2.1L7,13.2l4.2,3.2l5.8-6.6L15.4,8.4z M2.4,9c-0.2,0.5-0.3,1.1-0.3,1.6l2,0.3c0.1-0.4,0.1-0.9,0.3-1.3L2.4,9z M4.1,13l-2,0.2 c0,0.1,0,0.2,0,0.3c0.1,0.4,0.2,0.9,0.3,1.3l1.9-0.6c-0.1-0.3-0.2-0.7-0.2-1.1L4.1,13z M5.2,16.2l-1.7,1.1c0.3,0.5,0.6,0.9,1,1.3 L6,17.3C5.7,16.9,5.4,16.6,5.2,16.2z M7.8,18.8l-1.1,1.7c0.5,0.3,1,0.5,1.5,0.8l0.8-1.8C8.5,19.2,8.1,19,7.8,18.8z"></path> <rect class="st0" width="24" height="24"></rect> </g></svg>
           </div>
+
           <div class="w-1/3 items-center justify-center flex  text-sm gap-3 " >
             <svg *ngIf="assignment.priority.id === 3" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 16.99V17M12 7V14M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#DC2625" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
             <div [ngClass]="{'px-3 py-0.5 bg-green-200   text-green-600 rounded-[100px]' : assignment.priority.id === 1,'px-4 py-1 bg-yellow-200/80  text-yellow-600 rounded-full' : assignment.priority.id === 2, 'px-[12px] py-[3px] bg-red-200  text-red-600 rounded-[120px]' : assignment.priority.id === 3}" >{{ assignment.priority.name }}</div>
@@ -40,6 +44,7 @@
           <div class=" p-2 text-lg font-family text-color border-b font-bold ">{{ 'schedules' | translate }}</div>
             <button *ngIf="editEventData.id && appData.can_edit" class=" px-2 h-7 border border-gray-900 rounded-3xl hover:border-none hover:bg-blue-500 hover:text-white " (click)="addSchedule()" >+</button>
             </div>
+
           <div class="flex text-center flex-row text-sm text-blue-500  p-1 justify-between">
             <div class="w-1/3">{{ 'desc' | translate }}</div>
             <div class="w-1/3">{{ 'time.start' | translate }}</div>
@@ -52,8 +57,6 @@
             <div class="w-1/3 ">{{schedule.start_time.name}}</div>
             <div class="w-1/3 ">{{schedule.end_time.name}}</div>
           </div>
-
-
       </div>
 
       <div class="w-full flex bg-white p-4 rounded-[15px] flex-col shadow-lg">
@@ -62,6 +65,7 @@
             <div class=" p-2 text-lg font-family text-color border-b font-bold ">{{ 'revenues' | translate }}</div>
             <button *ngIf="editEventData.id && appData.can_edit" class=" px-2 h-7 border border-gray-900 rounded-3xl hover:border-none hover:bg-blue-500 hover:text-white " (click)="addRevenue()" >+</button>
           </div>
+
           <div class="flex text-center flex-row text-sm text-blue-400 p-1 justify-between">
             <div class="w-1/6 ">{{ 'revenue.type' | translate }}</div>
             <div class="w-1/6 ">{{ 'revenue.unit' | translate }}</div>
@@ -86,6 +90,7 @@
             <div class=" p-2 text-lg font-family text-color border-b font-bold ">{{'expenses' | translate}}</div>
             <button *ngIf="editEventData.id && appData.can_edit" class=" px-2 h-7 border border-gray-900 rounded-3xl hover:border-none hover:bg-blue-500 hover:text-white " (click)="addNewExpense()">+</button>
           </div>
+
           <div class="flex text-center flex-row text-sm text-blue-400 p-1 justify-between">
             <div class="w-1/4"> {{'desc' | translate}}</div>
             <div class="w-1/4 ">{{'expense.type' | translate}}</div>
@@ -101,29 +106,24 @@
           <div class="w-1/4">{{cost.amount | number: '1.2-2'}}</div>
         </div>
       </div>
-
-
-
-
-
     </div>
-
-
   </div>
+
+
   <div class="flex-col flex  p-5 gap-5">
     <div class=" flex flex-col   rounded-[15px] p-6  bg-white min-h-[350px] shadow-lg">
       <div class="text-lg font-bold border-b  border-[#275C85]/30  p-4 font-family">{{'event.input' | translate}}</div>
       <form [formGroup]="formEditEvent" class="flex flex-col   gap-6  w-full p-4 text-sm ">
-
         <div class="flex w-full items-center gap-4">
+
           <div class="flex w-40 h-10 items-center relative " >
             <div class="flex flex-col relative">
               <label class="block text-sm text-[#104166]   ">{{'date.input' | translate}}</label>
               <input class="p-2 border border-gray-400 rounded  w-full" [ngModel]="selectedPickerDate" [ngModelOptions]="{standalone: true}" readonly>
-              <div class="absolute inset-y-0 right-4 top-5 flex items-center pl-3  cursor-pointer"
-                   (click)="picker.open()">
+
+              <div class="absolute inset-y-0 right-4 top-5 flex items-center pl-3  cursor-pointer" (click)="picker.open()">
                 <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1"
-                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                     xmlns="http://www.w3.org/2000/svg">
                   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="Ikone" transform="translate(-28.000000, -936.000000)" fill="#8E4584"
                        fill-rule="nonzero">
@@ -140,10 +140,7 @@
               <input matInput [matDatepicker]="picker" id="prvipiker" formControlName="date" (dateChange)="dateChanged()" >
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <!--          <button mat-button (click)="picker.open()" ></button>-->
           </div>
-
-
 
           <div class="flex-1 ">
             <label  class="block text-sm text-[#104166]   ">
@@ -154,19 +151,15 @@
                        placeholder="Choose user"
                        formControlName="location"
                        [virtualScroll]="true"
-                       [clearable]="false"
-            >
+                       [clearable]="false">
               <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
                 <div>{{item.name}}</div>
-                <!--        <div>{{item.naziv}}</div>-->
               </ng-template>
             </ng-select>
           </div>
-
-
-
         </div>
-        <div class="  w-full">
+
+        <div class=" w-full">
           <label  class="block text-sm font-family text-[#104166]   ">
             {{'client' | translate}}<sup class="text-red-800">*</sup></label>
           <ng-select class=" custom-select"
@@ -175,14 +168,13 @@
                      placeholder="Choose user"
                      formControlName="client"
                      [virtualScroll]="true"
-                     [clearable]="false"
-          >
+                     [clearable]="false">
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
               <div>{{item.name}}</div>
-              <!--        <div>{{item.naziv}}</div>-->
             </ng-template>
           </ng-select>
         </div>
+
         <div class="flex  gap-4 min-w-96 w-96">
 
           <div class="w-20" >
@@ -193,15 +185,14 @@
                        bindLabel="name"
                        placeholder="Odaberite komitenta"
                        [virtualScroll]="true"
-                       [clearable]="false"
-            >
+                       [clearable]="false">
               <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
                 <div>{{item.name}}</div>
-                <!--        <div>{{item.naziv}}</div>-->
               </ng-template>
             </ng-select>
           </div>
-          <div class=" w-36 ">
+
+          <div class=" w-36">
             <label  class="block text-sm font-family text-[#104166]   ">
               {{'event.type.input' | translate}}<sup class="text-red-800">*</sup></label>
             <ng-select class=" custom-select"
@@ -210,15 +201,14 @@
                        placeholder="Choose user"
                        formControlName="type_of_event"
                        [virtualScroll]="true"
-                       [clearable]="false"
-            >
+                       [clearable]="false">
               <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
                 <div>{{item.name}}</div>
-                <!--        <div>{{item.naziv}}</div>-->
               </ng-template>
             </ng-select>
           </div>
-          <div class=" w-36  ">
+
+          <div class=" w-36">
             <label  class="block text-sm font-family text-[#104166]   ">
               {{'status.event.input' | translate}}<sup class="text-red-800">*</sup></label>
             <ng-select class=" custom-select"
@@ -227,19 +217,17 @@
                        placeholder="Choose user"
                        formControlName="status_event"
                        [virtualScroll]="true"
-                       [clearable]="false"
-            >
+                       [clearable]="false">
               <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
                 <div>{{item.name}}</div>
-                <!--        <div>{{item.naziv}}</div>-->
               </ng-template>
             </ng-select>
           </div>
         </div>
+
         <div  class="w-full flex items-center">
           <label  class="block text-sm text-[#104166] font-family  flex-1 " >{{'number.participants.input' | translate}}</label>
           <input class="border  border-gray-400  p-2 rounded-[6px] outline-none w-1/3 text-right" type="text" formControlName="number_of_participants">
-<!--          <textarea class="border w-full border-gray-400  p-2 rounded-[6px] outline-none " formControlName="description"></textarea>-->
         </div>
 
         <div  class="w-full flex-1">
@@ -247,15 +235,14 @@
           <textarea class="border w-full border-gray-400  p-2 rounded-[6px] outline-none " formControlName="description"></textarea>
         </div>
 
-
-
-
       </form>
+
       <div class="flex flex-col p-4 ">
         <button *ngIf="appData.can_edit" class="w-full p-3 bg-color-2 text-white  rounded-[6px]" (click)="saveEvent()">{{'save.button' | translate}} </button>
-
       </div>
     </div>
+
+
     <div class="w-full bg-white p-4 rounded-[15px] flex flex-col shadow-lg ">
       <div class=" flex flex-col">
               <table class="w-full border-spacing-0 border-collapse">
@@ -274,10 +261,11 @@
                 </tr>
               </table>
       </div>
-
     </div>
   </div>
 </div>
+
+
   <div *ngIf="showTask" class="fixed top-0 left-0 w-full h-full bg-gray-400/60 flex items-center z-[100]" >
 
     <app-task-input class="w-full h-full" [taskForInput]="selectedTask" (closeTask)="closeTasks($event)" > </app-task-input>

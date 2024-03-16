@@ -3,12 +3,10 @@
 
 <div class="flex relative flex-col">
 
-<!--  navbar-->
   <nav class="  w-full  h-[65px] bg-[#0e4166]">
     <div class=" flex  items-center  mx-auto p-2">
-
       <div  class="flex items-center  ">
-        <svg width="190px" height="40px" viewBox="0 0 190 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="190px" height="40px" viewBox="0 0 190 50" version="1.1" xmlns="http://www.w3.org/2000/svg" >
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Group" transform="translate(1.000000, 1.000000)">
               <g>
@@ -25,15 +23,16 @@
             </g>
           </g>
         </svg>
-
       </div>
-      <div class="flex  md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse mt-2">
-        <button type="button" class="text-white  font-medium rounded-lg text-sm px-4 py-2 text-center " (click)="logOut()" >{{"logout" | translate}}</button>
-        <ul class="text-white flex gap-5 items-center justify-end bg-[#0e4166]">
-          <li class="cursor-pointer hover:underline hover:text-amber-600 " (click)="changeLanguage('en')">EN</li>
-          <li class="cursor-pointer hover:underline hover:text-amber-600 " (click)="changeLanguage('bs')">ME</li>
+
+      <div class="flex  md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse mr-4 mt-2">
+        <button type="button" class="text-white  font-medium rounded-lg text-sm px-4 py-2 mr-4 text-center hover:text-blue-300 " (click)="logOut()" >{{"logout" | translate}}</button>
+        <ul class="text-white  flex gap-5 items-center justify-end bg-[#0e4166]">
+          <li class="cursor-pointer hover:underline hover:text-blue-300 " (click)="changeLanguage('en')">EN</li>
+          <li class="cursor-pointer hover:underline hover:text-blue-300 " (click)="changeLanguage('bs')">ME</li>
         </ul>
       </div>
+
       <div class="items-center   flex flex-1 justify-center " >
         <ul class="flex flex-row font-medium">
           <li>
@@ -48,13 +47,8 @@
   </nav>
 
 
-<!--  Uloge & privilegije-->
-
-
   <div class="flex flex-row  flex-1 ">
-    <!--left-->
-    <div class="gradient border-r border-white h-screen   w-2/4  flex flex-col srednji">
-
+    <div class="gradient border-r border-white h-screen   w-2/4  flex flex-col middle">
       <div class="flex  m-4 justify-between items-center ">
         <input type="text" placeholder="{{'search' | translate}}"
                [(ngModel)]="search_input"
@@ -64,21 +58,14 @@
       </div>
 
       <div  class="flex-1  cursor-pointer p-4 flex gap-4 flex-col overflow-y-auto">
-        <div (click)="selectRole(role)" *ngFor="let role of filteredRoleList"
-             [ngClass]="{'selected-role': role.id === selectedRole.id}"
-             class=" p-4 border border-white bg-white/80 text-gray-900 rounded-lg shadow flex flex-row justify-between ">
-          <h5  class="text-xl  tracking-tight text-[#0e4166] font-family uppercase"
-
-          >{{ role.name }}</h5>
-
+        <div (click)="selectRole(role)" *ngFor="let role of filteredRoleList" [ngClass]="{'selected-role': role.id === selectedRole.id}" class=" p-4 border border-white bg-white/80 text-gray-900 rounded-lg shadow flex flex-row justify-between ">
+          <h5  class="text-xl  tracking-tight text-[#0e4166] font-family uppercase">{{ role.name }}</h5>
         </div>
       </div>
-
-
     </div>
-    <!--  right-->
-    <div class="gradient w-full flex srednji" >
 
+
+    <div class="gradient w-full flex middle" >
       <div class="flex flex-col    rounded w-full p-4">
         <div class="flex justify-end w-full">
           <button class=" px-8 py-2 button-bg rounded-lg text-white mb-4" (click)="savePrivileges()">
@@ -101,12 +88,8 @@
                     </div>
             </div>
           </div>
-
         </div>
-
       </div>
-
-
     </div>
 
 

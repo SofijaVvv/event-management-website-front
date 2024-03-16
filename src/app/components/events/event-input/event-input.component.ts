@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import {ApiCallsService} from "../../../service/api-calls.service";
 import {ActivatedRoute} from "@angular/router";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -40,7 +40,6 @@ export class EventInputComponent implements OnInit {
   }
 
   selectedExpense: EventCostsDetails = JSON.parse(JSON.stringify(this.defaultExpense));
-
   ///expenses
 
 
@@ -59,9 +58,7 @@ export class EventInputComponent implements OnInit {
   }
 
   selectedRevenue: RevenuesDetails = JSON.parse(JSON.stringify(this.defaultRevenue));
-
   ///revenue
-
 
 
   //schedule
@@ -78,17 +75,13 @@ export class EventInputComponent implements OnInit {
     date: '',
   }
   selectedSchedule: ScheduleDetails = JSON.parse(JSON.stringify(this.defaultSchedule));
-
-
   //schedule
-
-
-
 
 
 // tasks0
   showTask = false;
   newTask = false;
+
   defaultTask = {
     id: 0,
     description: "",
@@ -99,9 +92,8 @@ export class EventInputComponent implements OnInit {
     created_date: new Date(),
     end_date: new Date(),
   }
+
   selectedTask: AssignmentsDetails = JSON.parse(JSON.stringify(this.defaultTask));
-
-
   totalExpense = 0;
   totalRevenue = 0;
 // tasks
@@ -119,10 +111,7 @@ export class EventInputComponent implements OnInit {
 
   appData = this.authServis.appData;
 
-  // editEventID = 0
-
   editEventData: EventDetails = {} as EventDetails
-
   locationsList: Details[] = []
   statusList: Details[] = []
   typeList: Details[] = []
@@ -132,7 +121,6 @@ export class EventInputComponent implements OnInit {
   revenueList: RevenuesDetails[] = []
   costList: EventCostsDetails[] = []
 
-  eventDate: string = moment().format('DD.MM.YYYY')
 
   selectedPickerDate = ""
   defaultEvent: EventDetails = {
@@ -167,19 +155,13 @@ export class EventInputComponent implements OnInit {
 
 
   async ngOnInit() {
-    console.log("event input", typeof this.assignmentList)
     this._adapter.setLocale('sr-Latn');
 
-
-
-    console.log(this.editEventID, "u onit");
     let eventData: EventDetails = {} as EventDetails;
     if (this.editEventID) {
-      console.log(this.editEventID, "event id")
       void this.loadEvents((this.editEventID))
       this.editEventData = await this.loadEvents((this.editEventID));
 
-      console.log(this.editEventData, "edit event data")
       this.formEditEvent.patchValue({
         id: this.editEventData.id,
         date: moment(this.editEventData.date, 'DD.MM.YYYY').toDate(),
@@ -194,14 +176,10 @@ export class EventInputComponent implements OnInit {
 
       })
       this.dateChanged()
-
       this.assignmentList = await this.loadAssignment((this.editEventID)) ;
       this.scheduleList = await this.loadSchedule((this.editEventID));
       this.revenueList = await this.loadRevenue((this.editEventID));
       this.costList = await this.loadCost((this.editEventID));
-
-
-
 
     } else {
       this.editEventData = JSON.parse(JSON.stringify(this.defaultEvent))
@@ -214,7 +192,6 @@ export class EventInputComponent implements OnInit {
         type_of_event: this.editEventData.type_of_event,
         client: this.editEventData.client,
         user: this.editEventData.user,
-
       })
       this.dateChanged()
     }
@@ -231,11 +208,8 @@ export class EventInputComponent implements OnInit {
     this.typeList = types;
     this.clientList = clients;
 
-
     this.calculateTotal()
     this.spinner.hide();
-
-
   }
 
 
@@ -249,38 +223,47 @@ export class EventInputComponent implements OnInit {
     return firstValueFrom(this.apiCalls.getSharedLocations());
   }
 
+
   loadStatus(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getSharedEventStatuses());
   }
+
 
   loadType(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getSharedEventTypes());
   }
 
+
   loadClients(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getSharedClients());
   }
+
 
   loadAssignment(event_id: number): Promise<AssignmentsDetails[]> {
     return firstValueFrom(this.apiCalls.getAssignments(event_id, 'x', 'y'));
   }
 
+
   loadSchedule(event_id: number): Promise<ScheduleDetails[]> {
     return firstValueFrom(this.apiCalls.getSchedules(event_id, 'x', 'y'));
   }
+
+
   loadRevenue(event_id: number): Promise<RevenuesDetails[]> {
     return firstValueFrom(this.apiCalls.getRevenues(event_id, 'x', 'y'));
   }
+
+
   loadCost(event_id: number): Promise<EventCostsDetails[]> {
     return firstValueFrom(this.apiCalls.getEventCosts(event_id, 'x', 'y'));
   }
+
 
   dateChanged(){
     const dateChange = this.formEditEvent.value.date ? this.formEditEvent.value.date : new Date();
     this.selectedPickerDate = dateChange.getDate().toString().padStart(2, '0') + '.' + (dateChange.getMonth()+1).toString().padStart(2, '0') +  '.' + dateChange.getFullYear();
 
   }
-
 
 
   saveEvent() {
@@ -295,23 +278,18 @@ export class EventInputComponent implements OnInit {
       cancelButtonText: this.translate.instant('backto.event')
     }).then((result) => {
       if (result.isConfirmed) {
-        const mjesec = this.formEditEvent.value.date?.getMonth()
+        const month = this.formEditEvent.value.date?.getMonth()
         let tmp = this.formEditEvent.value.date?.getFullYear() + "-" +
-          (mjesec! +1).toString().padStart(2, '0') + '-'
+          (month! +1).toString().padStart(2, '0') + '-'
           + this.formEditEvent.value.date?.getDate().toString().padStart(2, '0');
-        console.log(tmp, "tmp")
         let datum=  new Date(tmp)
         datum.setUTCHours(0);
         this.formEditEvent.patchValue({
           date: datum
         })
-        console.log(this.formEditEvent.value)
-        // }
         let forInsert = JSON.parse(JSON.stringify(this.formEditEvent.value))
-        // zaSlanje.datum = datum
         this.apiCalls.addEvent(forInsert).subscribe(
           (data) => {
-            console.log(data)
             if (data.error){
               Swal.fire({
                 title: this.translate.instant('error.er.event'),
@@ -335,8 +313,8 @@ export class EventInputComponent implements OnInit {
     })
   }
 
+
    closeTasks(event : AssignmentsDetails){
-     console.log(event, "event povratni")
      if (event.id < 0){
        this.showTask = false;
        return;
@@ -345,16 +323,15 @@ export class EventInputComponent implements OnInit {
 
       this.assignmentList.push(event)
     } else {
-      console.log(event, "povracaj update event")
       this.assignmentList.findIndex((task, index) => {
         if (task.id === event.id){
           this.assignmentList[index] = event;
-          console.log("izmjena", this.assignmentList[index])
         }
       })
     }
     this.showTask = false;
   }
+
 
  calculateTotal(){
     let total = 0;
@@ -367,11 +344,7 @@ export class EventInputComponent implements OnInit {
       total += revenue.amount * revenue.quantity
     })
     this.totalRevenue = total;
-    console.log(this.totalExpense, this.totalRevenue, "totali")
  }
-
-
-
 
 
   editTask(task: AssignmentsDetails){
@@ -396,6 +369,7 @@ export class EventInputComponent implements OnInit {
     this.selectedTask = task;
     this.showTask = true;
   }
+
 
   addTask(){
     if(!this.appData.can_edit){
@@ -425,6 +399,7 @@ export class EventInputComponent implements OnInit {
     this.showSchedule = true;
   }
 
+
   addSchedule(){
     if(!this.appData.can_edit){
       Swal.fire({
@@ -439,7 +414,8 @@ export class EventInputComponent implements OnInit {
     console.log("add schedule", this.selectedSchedule)
     this.showSchedule = true;
   }
-////////REVENUE////////
+
+
   addRevenue(){
     if(!this.appData.can_edit){
       Swal.fire({
@@ -453,8 +429,9 @@ export class EventInputComponent implements OnInit {
     this.selectedRevenue = JSON.parse(JSON.stringify(this.defaultRevenue));
     this.showRevenue = true;
   }
+
+
 closeExpenses(event : EventCostsDetails){
-  console.log(event, "event povratni")
   if (event.id < 0){
     this.showExpense = false;
     return;
@@ -462,7 +439,6 @@ closeExpenses(event : EventCostsDetails){
   if (this.newExpense){
     this.costList.push(event)
   } else {
-    console.log(event, "povracaj update event")
     this.costList.findIndex((cost, index) => {
       if (cost.id === event.id){
         this.costList[index] = event;
@@ -474,9 +450,7 @@ closeExpenses(event : EventCostsDetails){
 }
 
 
-
   closeRevenue(event : RevenuesDetails){
-    console.log(event, "event povratni")
     if (event.id < 0){
       this.showRevenue = false;
       return;
@@ -484,21 +458,18 @@ closeExpenses(event : EventCostsDetails){
     if (this.newRevenue){
       this.revenueList.push(event)
     } else {
-      console.log(event, "povracaj update event")
       this.revenueList.findIndex((revenue, index) => {
         if (revenue.id === event.id){
           this.revenueList[index] = event;
-          console.log("izmjena", this.revenueList[index])
         }
       })
     }
     this.calculateTotal()
     this.showRevenue = false;
   }
-  ////////REVENUE////////
+
 
   closeSchedule(event : ScheduleDetails){
-    console.log(event, "event povratni")
     if (event.id < 0){
       this.showSchedule = false;
       return;
@@ -506,11 +477,9 @@ closeExpenses(event : EventCostsDetails){
     if (this.newSchedule){
       this.scheduleList.push(event)
     } else {
-      console.log(event, "povracaj update event")
       this.scheduleList.findIndex((schedule, index) => {
         if (schedule.id === event.id){
           this.scheduleList[index] = event;
-          console.log("izmjena", this.scheduleList[index])
         }
       })
     }
@@ -528,7 +497,6 @@ editRevenue(revenue: RevenuesDetails){
   }
     this.newRevenue = false;
   this.selectedRevenue = revenue;
-  console.log(revenue, "revenue za edit")
   this.showRevenue = true;
 }
 
@@ -543,7 +511,6 @@ addNewExpense(){
   }
   this.newExpense = true;
   this.selectedExpense = JSON.parse(JSON.stringify(this.defaultExpense));
-  console.log("add expense", this.selectedExpense)
   this.showExpense = true;
 }
 
@@ -558,9 +525,7 @@ editExpense(expense : EventCostsDetails){
   }
   this.newExpense = false;
   this.selectedExpense = expense
-  console.log("add expense", this.selectedExpense)
   this.showExpense = true;
-
 }
 
 }

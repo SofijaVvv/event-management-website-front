@@ -11,6 +11,12 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class MainMenuComponent implements OnInit{
   @Output () zatvoriPregled = new EventEmitter<boolean>();
+
+  activeMenu = this._authServis.appData.route;
+  currentOperator = this._authServis.operaterData
+  currentLanguage = this._authServis.readLocalStorage('lang') || 'en'
+
+
   constructor(
     public _authServis: AuthService,
     private router: Router,
@@ -18,17 +24,13 @@ export class MainMenuComponent implements OnInit{
     private translate: TranslateService
   ) { }
 
-  activeMenu = this._authServis.appData.route;
-  currentOperator = this._authServis.operaterData
-  currentLanguage = this._authServis.readLocalStorage('lang') || 'en'
 
   ngOnInit() {
     const language  =  this._authServis.readLocalStorage('lang') || 'en'
     this.translate.use(language);
-    console.log("jezik : ", language)
     this.activeMenu = this._authServis.readLocalStorage('active_menu') || this._authServis.appData.route
-    console.log(this.activeMenu, "active menu")
   }
+
 
   canShowRoute(route: string): boolean {
     if (this._authServis.operaterData === undefined) {
@@ -42,7 +44,6 @@ export class MainMenuComponent implements OnInit{
       return hasRoute.can_view
     }
     return false
-
   }
 
 
@@ -50,15 +51,13 @@ export class MainMenuComponent implements OnInit{
     this.activeMenu = whichMenu
     this._authServis.saveToLocalStorage('active_menu', whichMenu)
     void this.router.navigate([whichMenu])
-    // this.zatvoriPregled.emit(true);
-    console.log(this._authServis.operaterData.userdata, "operater data")
   }
 
-  changeLanguage(lang: string) {
 
-    this._authServis.saveToLocalStorage('lang', lang)
-    this.currentLanguage = lang
-    this.translate.use(lang);
+  changeLanguage(language: string) {
+    this._authServis.saveToLocalStorage('lang', language)
+    this.currentLanguage = language
+    this.translate.use(language);
   }
 
 }

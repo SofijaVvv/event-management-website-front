@@ -3,10 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./components/home/home.component";
 import {LoginComponent} from "./components/login/login.component";
 import {UserOverviewComponent} from "./admin/user/user-overview/user-overview.component";
-
-
-import {RolesPrivilegesOverviewComponent} from "./admin/roles-privileges/roles/roles-privileges-overview/roles-privileges-overview.component";
-
+import {RolesPrivilegesOverviewComponent} from "./admin/roles-privileges/roles-privileges-overview/roles-privileges-overview.component";
 import {AuthService} from "./service/auth.service";
 import {ErrorComponent} from "./error/error.component";
 import {EventOverviewComponent} from "./components/events/event-overview/event-overview.component";

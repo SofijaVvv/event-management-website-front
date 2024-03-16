@@ -4,13 +4,16 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {ApiCallsService} from "../../../service/api-calls.service";
 import {Details} from "../../../interfaces/events";
 import {firstValueFrom} from "rxjs";
-import * as moment from "moment";
 import Swal from "sweetalert2";
+import {TranslateService} from "@ngx-translate/core";
+
 @Component({
   selector: 'app-revenue-input',
   templateUrl: './revenue-input.component.html',
   styleUrls: ['./revenue-input.component.sass']
 })
+
+
 export class RevenueInputComponent implements OnInit{
   @Input() revenueForInput: RevenuesDetails = {} as RevenuesDetails;
   @Output() closeRevenue = new EventEmitter<RevenuesDetails>();
@@ -33,18 +36,17 @@ export class RevenueInputComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     public apiCalls: ApiCallsService,
+    private translate: TranslateService,
   ) {}
 
-  async ngOnInit(): Promise<void> {
 
+  async ngOnInit(): Promise<void> {
     this.unitsList = await this.loadUnits();
     this.revenueTypesList = await this.loadRevenueTypes();
     if (this.revenueForInput.id === 0) {
       this.revenueForInput.type_of_revenue = this.revenueTypesList[0];
       this.revenueForInput.unit = this.unitsList[0];
     }
-
-
     this.formEditRevenue.patchValue({
       id: this.revenueForInput.id,
       user: this.revenueForInput.user,
@@ -54,28 +56,29 @@ export class RevenueInputComponent implements OnInit{
       quantity: this.revenueForInput.quantity,
       unit: this.revenueForInput.unit,
     });
-
   }
+
 
   loadUnits(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getUnits());
   }
 
+
   loadRevenueTypes(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getSharedRevenuesTypes());
   }
+
 
   colseRevenueForm() {
     this.closeRevenue.emit({id:-1} as RevenuesDetails);
   }
 
-saveRevenue() {
-    console.log(this.formEditRevenue.value);
 
+saveRevenue() {
     if (!this.apiCalls.isTextNumber(this.formEditRevenue.value.amount?.toString()) || this.formEditRevenue.value.amount === 0) {
       Swal.fire({
-        title: 'Greška',
-        text: 'Unesite ispravnu vrednost za iznos',
+        title: this.translate.instant('error'),
+        text:  this.translate.instant('entervalidcostvalue'),
         icon: 'error',
         confirmButtonColor: '#894CB2',
       });
@@ -83,8 +86,8 @@ saveRevenue() {
     }
     if (!this.apiCalls.isTextNumber(this.formEditRevenue.value.quantity?.toString()) || this.formEditRevenue.value.quantity === 0) {
       Swal.fire({
-        title: 'Greška',
-        text: 'Unesite ispravnu vrednost za količinu',
+        title: this.translate.instant('error'),
+        text:  this.translate.instant('entervalidcostvalue'),
         icon: 'error',
         confirmButtonColor: '#894CB2',
       });
@@ -92,16 +95,15 @@ saveRevenue() {
     }
 
 
-
   Swal.fire({
-    title: 'Upis događaja',
-    text: "Da upišem događaj?",
+    title: this.translate.instant('enterrevenue'),
+    text: this.translate.instant('shouldienterrevenue'),
     icon: 'question',
     showCancelButton: true,
     confirmButtonColor: '#894CB2',
     cancelButtonColor: '#',
-    confirmButtonText: 'Da,upiši!',
-    cancelButtonText: 'Nazad na program'
+    confirmButtonText: this.translate.instant('yesenterexpense'),
+    cancelButtonText: this.translate.instant('cancel.button')
   }).then((result) => {
     if (result.isConfirmed) {
      const dataForInput = JSON.stringify(this.formEditRevenue.value);
@@ -109,26 +111,22 @@ saveRevenue() {
         console.log(response);
         if (response.error) {
           Swal.fire({
-            title: 'Greška',
-            text: 'Greška prilik  upisa događaja',
+            title: this.translate.instant('error'),
+            text: this.translate.instant('errorwhileenteringrevenue'),
             icon: 'error',
             confirmButtonColor: '#894CB2',
           });
-
         } else {
           Swal.fire({
-            title: 'Uspeh',
-            text: 'Uspešno upisan događaj',
+            title: this.translate.instant('success'),
+            text: this.translate.instant('revenuesucessfullyentered'),
             icon: 'success',
             confirmButtonColor: '#894CB2',
           });
           this.closeRevenue.emit(this.formEditRevenue.value as RevenuesDetails);
         }
-
       }
       );
-
-
   }}
   )}
 

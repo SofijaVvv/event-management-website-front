@@ -6,12 +6,9 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {ApiCallsService} from "../../../service/api-calls.service";
 import {EventDetails} from "../../../interfaces/events";
 import {animate, style, transition, trigger} from "@angular/animations";
-import {AssignmentsDetails} from "../../../interfaces/assignments";
 import {FormControl} from "@angular/forms";
 import * as moment from "moment/moment";
 import Swal from "sweetalert2";
-
-
 
 
 @Component({
@@ -29,42 +26,46 @@ import Swal from "sweetalert2";
       ])
     ])
   ]
-
 })
+
+
 export class EventOverviewComponent implements OnInit{
 
   receivedFromDate = this.activate_route.snapshot.paramMap.get('fromDate') || '';
   receivedToDate = this.activate_route.snapshot.paramMap.get('toDate') || '';
-
-eventList: EventDetails[] = []
-filteredEventlist: EventDetails[] = []
+  eventList: EventDetails[] = []
+  filteredEventlist: EventDetails[] = []
   selectedEvent: EventDetails = {} as EventDetails;
-searchInput = new FormControl('')
-filterDate = new FormControl('')
-
-
+  searchInput = new FormControl('')
+  filterDate = new FormControl('')
   date = new Date();
-  // give data range for current week
+
+  monthList = this.apiCalls.translateMonths[this.translate.currentLang || 'en'];
+  showInput = true;
+
   currentWeek = {
     start: moment().startOf('week').format('YYYY-MM-DD'),
     end: moment().endOf('week').format('YYYY-MM-DD')
   }
+
+
   currentMonth = {
     start: moment().startOf('month').format('YYYY-MM-DD'),
     end: moment().endOf('month').format('YYYY-MM-DD')
   }
+
+
   last14Days = {
     start: moment().subtract(14, 'days').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD')
   }
 
+
   selectedPeriod = {
     start: moment(this.currentMonth.start).format("DD.MM.YYYY"),
     end: moment(this.currentMonth.end).format("DD.MM.YYYY")
   }
-  monthList = this.apiCalls.translateMonths[this.translate.currentLang || 'en'];
-  showEvents = true;
-  showInput = true;
+
 
   constructor(
     private activate_route: ActivatedRoute,
@@ -78,7 +79,6 @@ filterDate = new FormControl('')
   appData = this.authService.appData;
 
 ngOnInit(): void {
-  console.log("receivedFromDate", this.receivedFromDate, "receivedToDate", this.receivedToDate)
   if (this.receivedFromDate !== 'x' && this.receivedToDate !== 'x'){
     this.selectedPeriod.start = moment(this.receivedFromDate).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(this.receivedToDate).format("DD.MM.YYYY");
@@ -87,13 +87,12 @@ ngOnInit(): void {
     this.selectedPeriod.start = moment(this.currentMonth.start).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(this.currentMonth.end).format("DD.MM.YYYY");
     void this.loadEvents(this.currentMonth.start, this.currentMonth.end)
-
   }
 }
 
+
   async loadEvents(fromDate: string, toDate: string) {
     void this.spinner.show()
-    console.log("loadUsers")
     this.apiCalls.getEventListById(0,fromDate, toDate).subscribe((data: EventDetails[]) => {
       this.eventList = data
       this.filteredEventlist = data
@@ -107,14 +106,15 @@ ngOnInit(): void {
     this.filteredEventlist = this.eventList
   }
 
+
   onClickEvent(event: EventDetails){
     this.selectedEvent = event
-    console.log(event)
     this.router.navigate(['/events/input', event.id]).then(r => console.log('ok - vracam se doma'));
   }
 
+
   addEvent(){
-this.router.navigate(['/events/input', 0]).then(r => console.log('ok - vracam se doma'));
+    this.router.navigate(['/events/input', 0]).then(r => console.log('ok - vracam se doma'));
 
   }
 
@@ -129,24 +129,14 @@ this.router.navigate(['/events/input', 0]).then(r => console.log('ok - vracam se
     }
   }
 
-  filterEventDate() {
-    this.filteredEventlist = this.eventList;
-    const dateForDearch = this.filterDate.value || '';
-    if (dateForDearch){
-      this.filteredEventlist = this.eventList.filter(event =>
-       event.date.getDay().toString().includes(dateForDearch) ||
-        event.date.getMonth().toString().includes(dateForDearch) ||
-        event.date.getFullYear().toString().includes(dateForDearch)
-      )
-    }
-  }
 
   loadWeekEvents() {
     this.selectedPeriod.start = moment(this.currentWeek.start).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(this.currentWeek.end).format("DD.MM.YYYY");
 
-    this.loadEvents(this.currentWeek.start, this.currentWeek.end);
+    void this.loadEvents(this.currentWeek.start, this.currentWeek.end);
   }
+
 
   loadMonthEvents() {
     this.selectedPeriod.start = moment(this.currentMonth.start).format("DD.MM.YYYY");
@@ -154,11 +144,13 @@ this.router.navigate(['/events/input', 0]).then(r => console.log('ok - vracam se
     this.loadEvents(this.currentMonth.start, this.currentMonth.end);
   }
 
+
   loadLast14DaysEvents() {
     this.selectedPeriod.start = moment(this.last14Days.start).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(this.last14Days.end).format("DD.MM.YYYY");
     this.loadEvents(this.last14Days.start, this.last14Days.end);
   }
+
 
   loadSelectedMonthEvents(month: number) {
     const start = moment().month(month).startOf('month').format('YYYY-MM-DD');
@@ -169,16 +161,17 @@ this.router.navigate(['/events/input', 0]).then(r => console.log('ok - vracam se
     this.loadEvents(start, end);
   }
 
-  downloadExcel() {
+
+  downloadEventExcel() {
     Swal.fire({
-      title: 'Odjava',
-      text: "Da kreiram Excel izvjestaj??",
+      title:this.translate.instant('download'),
+      text: this.translate.instant('create'),
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Da, kreiraj!',
-      cancelButtonText: 'Exit'
+      confirmButtonText: this.translate.instant('accept.yes'),
+      cancelButtonText: this.translate.instant('cancel.button')
     }).then((result: any ) => {
       if (result.isConfirmed) {
         const fromDate = moment(this.selectedPeriod.start, 'DD.MM.YYYY').format('YYYY-MM-DD');
@@ -192,14 +185,9 @@ this.router.navigate(['/events/input', 0]).then(r => console.log('ok - vracam se
           link.download = `Events_${fromDate}_${toDate}.xlsx`;
           link.click();
           window.URL.revokeObjectURL(url);
-
         })
-
       }
     })
-
-
-
   }
 
 

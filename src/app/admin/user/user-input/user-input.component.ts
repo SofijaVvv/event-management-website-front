@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {IUser} from "../../../interfaces/user";
 import {ApiCallsService} from "../../../service/api-calls.service";
 import {FormBuilder, Validators} from "@angular/forms";
@@ -7,17 +7,16 @@ import Swal from "sweetalert2";
 import {NgxSpinnerService} from "ngx-spinner";
 import {TranslateService} from "@ngx-translate/core";
 
-interface ngOnChanges {
-}
 
 @Component({
   selector: 'app-user-input',
   templateUrl: './user-input.component.html',
   styleUrls: ['./user-input.component.sass']
 })
-export class UserInputComponent implements ngOnChanges{
+export class UserInputComponent implements OnChanges{
   @Output() closeInput =   new EventEmitter<boolean>();
   @Input() userForInput: IUser   = {} as IUser
+
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -28,20 +27,12 @@ export class UserInputComponent implements ngOnChanges{
   ) { }
 
 
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['userForInput']) {
       console.log(this.userForInput);
       this.loadRoleList()
     }
   }
-  // ngOnInit(): void {
-  //   this.loadRoleList()
-  //   console.log(this.userForInput, "userForInput")
-  //
-  //
-  //
-  // }
 
 
 roleList: IRoles[] = []

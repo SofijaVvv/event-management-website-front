@@ -4,7 +4,6 @@ export interface IPrivilegesRoles {
   roles_id: number;
   app_id: number;
   privileges_name: string;
-  // app_name: string;
 }
 
 export interface IPrivilegesResponse {

@@ -1,4 +1,9 @@
 {
+  "accept": {
+    "yes": ""
+  },
+  "accessdenied": "",
+  "accessdenied!": "",
   "active": "",
   "add": {
     "expense": "",
@@ -7,6 +12,7 @@
   "analyse": {
     "data": ""
   },
+  "areyousureyouwanttologout": "",
   "assignment": {
     "priority": ""
   },
@@ -38,6 +44,7 @@
       "event": ""
     }
   },
+  "create": "",
   "date": {
     "input": ""
   },
@@ -65,9 +72,7 @@
     }
   },
   "desc": "",
-  "download": {
-    "excel": ""
-  },
+  "download": "",
   "e": {
     "costs": "",
     "date": "",
@@ -76,7 +81,17 @@
   "enter": {
     "event": ""
   },
+  "enterassigment": "",
+  "enterexpense": "",
+  "enterrevenue": "",
+  "entertheassignment": "",
+  "entertheassignmentquestion": "",
+  "entervalidcostvalue": "",
   "error": "",
+  "errorwhenenteringassigment": "",
+  "errorwhileenteringexpense": "",
+  "errorwhileenteringrevenue": "",
+  "errorwhileenteringtheassignmentt": "",
   "es": {
     "event": {
       "status": ""
@@ -105,6 +120,7 @@
     "type": ""
   },
   "expenses": "",
+  "expensesucessfullyentered": "",
   "filter": {
     "active": "",
     "all": "",
@@ -147,6 +163,7 @@
     }
   },
   "name": "",
+  "nameisrequired": "",
   "new": {
     "expense": "",
     "revenue": {
@@ -156,6 +173,7 @@
   "no": {
     "change": ""
   },
+  "noaccesstoroute!": "",
   "nochange": {
     "cost": "",
     "revenue": "",
@@ -206,6 +224,7 @@
     "unit": ""
   },
   "revenues": "",
+  "revenuesucessfullyentered": "",
   "rights": {
     "er": {
       "error": ""
@@ -228,12 +247,16 @@
   "select": {
     "period": ""
   },
+  "shareditemupdated": "",
+  "shouldienterexpense": "",
+  "shouldienterrevenue": "",
   "status": {
     "event": {
       "input": ""
     }
   },
   "success": "",
+  "successfullyenteredassignment": "",
   "supplier": "",
   "task": {
     "finished": "",
@@ -252,6 +275,7 @@
     },
     "week": ""
   },
+  "toentertaskquestion": "",
   "total": {
     "all": "",
     "costs": "",
@@ -289,5 +313,11 @@
     "saveuser": "",
     "selectrole": "",
     "users": ""
-  }
+  },
+  "wanttologout": "",
+  "yesenterexpense": "",
+  "yesiamsurebutton": "",
+  "youcantchangeschedule": "",
+  "youdonthaveaccess": "",
+  "youhavenopermission": ""
 }

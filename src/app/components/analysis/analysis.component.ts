@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Chart , ChartConfiguration, ChartData, ChartType} from "chart.js";
+import {ChartConfiguration, ChartData, ChartType} from "chart.js";
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import {ApiCallsService} from "../../service/api-calls.service";
 import {BaseChartDirective} from "ng2-charts";
 import * as moment from "moment";
 import {EventDetails} from "../../interfaces/events";
 import {CostsDetails, EventCostsDetails} from "../../interfaces/costs";
-import {RevenuesAnalisysDetails, RevenuesDetails} from "../../interfaces/revenues";
+import {RevenuesAnalisysDetails} from "../../interfaces/revenues";
 import {TranslateService} from "@ngx-translate/core";
 import {Subscription} from "rxjs";
 @Component({
@@ -32,7 +32,6 @@ tabRevenueData: RevenuesAnalisysDetails[] = [];
   ) {
   }
   ngOnDestroy(): void {
-    // Clean up the subscription when the component is destroyed
     if (this.langChangeSubscription) {
       this.langChangeSubscription.unsubscribe();
     }
@@ -44,9 +43,6 @@ finalAnalisysData = {
     revenuePerEvent: 0,
     costPerEvent: 0,
   participantsPerEvent: 0,
-
-
-
 }
 
   private langChangeSubscription: Subscription | undefined;
@@ -59,7 +55,6 @@ finalAnalisysData = {
   };
 
   date = new Date();
-  // give data range for current week
   currentWeek = {
     start: moment().startOf('week').format('YYYY-MM-DD'),
     end: moment().endOf('week').format('YYYY-MM-DD')
@@ -83,26 +78,17 @@ finalAnalisysData = {
     this.loadTabData( this.currentWeek.start, this.currentWeek.end);
 
     this.langChangeSubscription = this.translate.onLangChange.subscribe((event: { lang: string }) => {
-      // Perform actions on language change here
       this.chart!.options!.plugins!.title!.text = this.translate.instant('event.diagram');
-      console.log('Language changed to:', event.lang, this.chart!.options!.plugins!.title!.text);
       this.chart!.options = this.barChartOptions;
       this.chart!.update();
       this.chart!.render();
     });
-
-
-
-
   }
 
 
   public barChartOptions: ChartConfiguration['options'] = {
     aspectRatio: 2,
 
-    // responsive: true,
-    // indexAxis: 'y',
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {},
       y: {}
@@ -135,10 +121,8 @@ finalAnalisysData = {
   ];
   public barChartData: ChartData<'bar'> = {
     labels: [],
-    // labels: [''],
     datasets: []
   };
-
 
 
   getAnalysisData(fromDate: string, toDate: string) {
@@ -146,10 +130,8 @@ finalAnalisysData = {
     this.selectedPeriod.start = moment(fromDate).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(toDate).format("DD.MM.YYYY");
 
-    console.log(this.selectedPeriod, "this.selectedPeriod")
     this.apiCalls.getAnalisysData(fromDate, toDate).subscribe((data: any) => {
       this.analysisData = data.message;
-      console.log(data);
       this.barChartData.datasets = []
       this.barChartData.labels = this.analysisData.dates;
       this.barChartData.datasets.push({
@@ -167,29 +149,23 @@ finalAnalisysData = {
       this.chart!.options!.plugins!.title!.text = this.translate.instant('event.diagram');
       this.chart?.update();
       this.chart!.render();
-
-
-
-
     });
   }
+
 
   sumAnalysisData() {
     const totalRevenue = this.analysisData.totalRevenues.reduce((a: number, b: number) => a + b, 0);
     const totalCost = this.analysisData.totalCosts.reduce((a: number, b: number) => a + b, 0);
-    console.log(totalRevenue, totalCost, "totalRevenue, totalCost")
-
     return {totalRevenue, totalCost}
-
   }
+
 
   analyseWeek() {
     this.getAnalysisData(this.currentWeek.start, this.currentWeek.end);
     this.analyseWeekTotals();
     this.loadTabData( this.currentWeek.start, this.currentWeek.end);
-
-
   }
+
 
   analyseMonth() {
     this.getAnalysisData(this.currentMonth.start, this.currentMonth.end);
@@ -197,16 +173,17 @@ finalAnalisysData = {
     this.loadTabData( this.currentMonth.start, this.currentMonth.end);
   }
 
+
   analyseLast14Days() {
     this.getAnalysisData(this.last14Days.start, this.last14Days.end);
     this.analyseLast14DaysTotals();
     this.loadTabData( this.last14Days.start, this.last14Days.end);
   }
 
+
   analyseCustom(month: number) {
     const start = moment().month(month).startOf('month').format('YYYY-MM-DD');
     const end = moment().month(month).endOf('month').format('YYYY-MM-DD');
-    console.log(start, end, "start, end")
     this.getAnalysisData(start, end);
     this.analyseCustomTotals(month);
     this.loadTabData( start, end);
@@ -214,12 +191,12 @@ finalAnalisysData = {
 
   getAnalysisDataTotal(fromDate: string, toDate: string) {
     this.apiCalls.getAnalisysDataTotals(fromDate, toDate).subscribe((data: any) => {
-      console.log(data,"hjhsdkdhskjdshkdshkdjshdskjhdskjdshkjh");
       this.analisysDataTotals = data.message;
       this.sumPerParticipans();
-
     });
   }
+
+
     analyseWeekTotals() {
       this.getAnalysisDataTotal(this.currentWeek.start, this.currentWeek.end);
     }
@@ -239,24 +216,22 @@ finalAnalisysData = {
       this.getAnalysisDataTotal(start, end);
     }
 
+
 loadTabData(startDate:string, endDate:string) {
   this.apiCalls.getEventListById(0, startDate, endDate).subscribe((data: EventDetails[]) => {
     this.tabEventData = data;
-    console.log(this.tabEventData, "tabEventData")
   });
   this.apiCalls.getEventCosts(0, startDate, endDate).subscribe((data: EventCostsDetails[]) => {
     this.tabEventCostData = data;
-    console.log(this.tabEventCostData, "tabEventCostData")
   });
   this.apiCalls.getOtherCosts(startDate, endDate).subscribe((data: CostsDetails[]) => {
     this.tabCostData = data;
-    console.log(this.tabCostData, "tabCostData")
   });
   this.apiCalls.getAnalisysRevenueData(startDate, endDate).subscribe((data: RevenuesAnalisysDetails[]) => {
         this.tabRevenueData = data;
-        console.log(this.tabRevenueData, "tabRevenueData")
       });
 }
+
 
 sumPerParticipans() {
   this.finalAnalisysData.revenuePerPerticipant = this.analisysDataTotals.total_revenue / 0 ? 1 : this.analisysDataTotals.number_of_participants ;
