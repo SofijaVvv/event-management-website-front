@@ -1,25 +1,18 @@
+<div class="w-full min-h-screen flex">
+  <div
+    class="w-60 text text-gray-300 left-0 top-0 min-h-screen z-50 border-r-2 border-[#894CB2]"
+    *ngIf="apiCalls.isOpenedMainMenu && _authServis.getToken()"
+  >
+    <app-main-menu (zatvoriPregled)="closeMainMenu($event)"></app-main-menu>
+  </div>
 
-
-<!-- TODO: Translate -->
-<!-- TODO: Kada se klikne add user, dodaj overlay(disable da korisnik ne moze da select nekog iz liste) preko liste i dodaj cancel dugme kod inputa-->
-<!-- TODO: ngClass za language buttons, kada se odabere jezik da se oznaci-->
-<!-- TODO: promijeni spinner-->
-
-
-
-
-  <div class="w-full min-h-screen   flex " >
-
-    <div class="w-60 text text-gray-300  left-0 top-0 min-h-screen z-50 border-r-2 border-[#894CB2]"
-         *ngIf="apiCalls.isOpenedMainMenu && _authServis.getToken() ">
-      <app-main-menu (zatvoriPregled) = "closeMainMenu($event)"></app-main-menu>
-    </div>
-
-    <div class="flex-1 h-full">
-      <router-outlet></router-outlet>
-    </div>
-    <ngx-spinner size="large" bdColor="rgba(190,190,190,0.5)"
-                 template='
+  <div class="flex-1 h-full">
+    <router-outlet></router-outlet>
+  </div>
+  <ngx-spinner
+    size="large"
+    bdColor="rgba(190,190,190,0.5)"
+    template='
           <div class="relative w-[236px] ">
           <img src="assets/spinner.png" alt="">
           <div class="flex absolute right-0">
@@ -39,10 +32,6 @@
           </g>
           </svg>
 </div>
-</div>'></ngx-spinner>
-  </div>
-
-
-
-
-
+</div>'
+  ></ngx-spinner>
+</div>

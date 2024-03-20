@@ -1,59 +1,59 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { EventCostsDetails} from "../../../interfaces/costs";
-import {FormBuilder, Validators} from "@angular/forms";
-import {ApiCallsService} from "../../../service/api-calls.service";
-import {Details} from "../../../interfaces/events";
-import {firstValueFrom} from "rxjs";
-import Swal from "sweetalert2";
-import * as moment from "moment";
-import {TranslateService} from "@ngx-translate/core";
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventCostsDetails } from '../../../interfaces/costs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ApiCallsService } from '../../../service/api-calls.service';
+import { Details } from '../../../interfaces/events';
+import { firstValueFrom } from 'rxjs';
+import Swal from 'sweetalert2';
+import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-expenses-input',
   templateUrl: './expenses-input.component.html',
-  styleUrls: ['./expenses-input.component.sass']
+  styleUrls: ['./expenses-input.component.sass'],
 })
-export class ExpensesInputComponent implements OnInit{
+export class ExpensesInputComponent implements OnInit {
   @Input() expenseForInput: EventCostsDetails = {} as EventCostsDetails;
-  @Input() costType: String = "event";
+  @Input() costType: String = 'event';
   @Output() closeExpense = new EventEmitter<EventCostsDetails>();
 
   clientList: Details[] = [];
   costTypesList: Details[] = [];
-  selectedPickerDate = ""
+  selectedPickerDate = '';
 
   formEditExpense = this.fb.group({
     id: [0],
     event_id: [0],
-    user: {id: -1, name: ""},
+    user: { id: -1, name: '' },
     date: [new Date(), Validators.required],
     amount: [0, Validators.required],
-    type_of_cost: [{id: -1, name: ""}, Validators.required],
-    client: [{id: -1, name: ""}, Validators.required],
-    description: [""],
+    type_of_cost: [{ id: -1, name: '' }, Validators.required],
+    client: [{ id: -1, name: '' }, Validators.required],
+    description: [''],
   });
-
 
   constructor(
     private fb: FormBuilder,
     public apiCalls: ApiCallsService,
     private translate: TranslateService,
-  ) { }
-
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.clientList = await this.loadClients();
     this.costTypesList = await this.loadCostTypes();
 
     if (this.expenseForInput.id === 0) {
-      this.expenseForInput.type_of_cost = {id: -1, name: ""};
-      this.expenseForInput.client = {id: -1, name: ""};
+      this.expenseForInput.type_of_cost = { id: -1, name: '' };
+      this.expenseForInput.client = { id: -1, name: '' };
     }
     if (this.expenseForInput.id !== 0) {
-      this.selectedPickerDate = moment(this.expenseForInput.date, 'DD.MM.YYYY').format('DD.MM.YYYY')
+      this.selectedPickerDate = moment(
+        this.expenseForInput.date,
+        'DD.MM.YYYY',
+      ).format('DD.MM.YYYY');
     } else {
-      this.selectedPickerDate = moment(new Date()).format('DD.MM.YYYY')
+      this.selectedPickerDate = moment(new Date()).format('DD.MM.YYYY');
     }
 
     this.formEditExpense.patchValue({
@@ -68,34 +68,34 @@ export class ExpensesInputComponent implements OnInit{
     });
   }
 
-
   loadClients(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getSharedClients());
   }
-
 
   loadCostTypes(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getCostTypes());
   }
 
-
   closeExpenseForm() {
-    this.closeExpense.emit({id: -1} as  EventCostsDetails);
+    this.closeExpense.emit({ id: -1 } as EventCostsDetails);
   }
-
 
   saveExpense() {
     const expense = this.formEditExpense.value;
-    if (!this.apiCalls.isTextNumber(this.formEditExpense.value.amount?.toString()) || this.formEditExpense.value.amount === 0){
+    if (
+      !this.apiCalls.isTextNumber(
+        this.formEditExpense.value.amount?.toString(),
+      ) ||
+      this.formEditExpense.value.amount === 0
+    ) {
       Swal.fire({
         title: this.translate.instant('error'),
-        text:  this.translate.instant('entervalidcostvalue'),
+        text: this.translate.instant('entervalidcostvalue'),
         icon: 'error',
         confirmButtonColor: '#894CB2',
       });
       return;
     }
-
 
     Swal.fire({
       title: this.translate.instant('enterexpense'),
@@ -105,23 +105,28 @@ export class ExpensesInputComponent implements OnInit{
       confirmButtonColor: '#894CB2',
       cancelButtonColor: '#',
       confirmButtonText: this.translate.instant('yesenterexpense'),
-      cancelButtonText: this.translate.instant('cancel.button')
+      cancelButtonText: this.translate.instant('cancel.button'),
     }).then((result) => {
       if (result.isConfirmed) {
-        if (expense.event_id === 0){
+        if (expense.event_id === 0) {
           expense.event_id = null;
         }
-        const mjesec = this.formEditExpense.value.date?.getMonth()
-        let tmp = this.formEditExpense.value.date?.getFullYear() + "-" +
-          (mjesec! +1).toString().padStart(2, '0') + '-'
-          + this.formEditExpense.value.date?.getDate().toString().padStart(2, '0');
-        let datum=  new Date(tmp)
+        const mjesec = this.formEditExpense.value.date?.getMonth();
+        let tmp =
+          this.formEditExpense.value.date?.getFullYear() +
+          '-' +
+          (mjesec! + 1).toString().padStart(2, '0') +
+          '-' +
+          this.formEditExpense.value.date
+            ?.getDate()
+            .toString()
+            .padStart(2, '0');
+        let datum = new Date(tmp);
         datum.setUTCHours(0);
         expense.date = datum;
 
-
         const dataForInput = JSON.stringify(expense);
-        if (this.costType === "event") {
+        if (this.costType === 'event') {
           this.apiCalls.addEventCosts(dataForInput).subscribe((response) => {
             if (response.error) {
               Swal.fire({
@@ -138,7 +143,7 @@ export class ExpensesInputComponent implements OnInit{
                 icon: 'success',
                 confirmButtonColor: '#894CB2',
               });
-              console.log(expense, "expense", response, "response")
+              console.log(expense, 'expense', response, 'response');
               this.closeExpense.emit(response.message as EventCostsDetails);
             }
           });
@@ -163,14 +168,19 @@ export class ExpensesInputComponent implements OnInit{
             }
           });
         }
-      }}
-    )
+      }
+    });
   }
-
 
   dateChanged() {
-    const dateChange = this.formEditExpense.value.date ? this.formEditExpense.value.date : new Date();
-    this.selectedPickerDate = dateChange.getDate().toString().padStart(2, '0') + '.' + (dateChange.getMonth() + 1).toString().padStart(2, '0') + '.' + dateChange.getFullYear();
+    const dateChange = this.formEditExpense.value.date
+      ? this.formEditExpense.value.date
+      : new Date();
+    this.selectedPickerDate =
+      dateChange.getDate().toString().padStart(2, '0') +
+      '.' +
+      (dateChange.getMonth() + 1).toString().padStart(2, '0') +
+      '.' +
+      dateChange.getFullYear();
   }
-
-  }
+}

@@ -1,146 +1,263 @@
-<div class="bg-color  w-full h-screen" >
-<div class="flex flex-col h-full select-none  ">
-      <div class="flex items-center justify-between p-3 pl-4 pr-4 bg-white border-b border-b-gray-300">
-        <div>
-          <div class=" text-xl text-[#0E4166FF] font-family font-medium">{{'s.shared' | translate}}</div>
+<div class="bg-color w-full h-screen">
+  <div class="flex flex-col h-full select-none">
+    <div
+      class="flex items-center justify-between p-3 pl-4 pr-4 bg-white border-b border-b-gray-300"
+    >
+      <div>
+        <div class="text-xl text-[#0E4166FF] font-family font-medium">
+          {{ "s.shared" | translate }}
         </div>
       </div>
+    </div>
 
-      <div class="max-h-[calc(100vh-53px)] gap-5 p-4 grid  flex-1 w-full    md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[33%_33%_33%] sm:grid-cols-[1fr] ">
-        <div class="bg-white shadow-lg rounded-[15px]  p-2 flex flex-col  ">
-
-           <div class="border-b items-center border-b-gray-300 h-12 flex justify-between  w-full ">
-             <div class="text p-2 font-bold font-family  ">
-               {{'lo.location' | translate}}
-             </div>
-             <button class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400  " (click)="updateShared('Location', defaultSharedItem)">+</button>
-           </div>
-          <div class="middle cursor-pointer ">
-            <div *ngFor="let location of locationList"  (click)="updateShared('Location', location)" >
-              <div class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100 " >
-                  <div class="text-sm text-blue-500 font-family ">{{location.name}}</div>
-              </div>
-            </div>
+    <div
+      class="max-h-[calc(100vh-53px)] gap-5 p-4 grid flex-1 w-full md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[33%_33%_33%] sm:grid-cols-[1fr]"
+    >
+      <div class="bg-white shadow-lg rounded-[15px] p-2 flex flex-col">
+        <div
+          class="border-b items-center border-b-gray-300 h-12 flex justify-between w-full"
+        >
+          <div class="text p-2 font-bold font-family">
+            {{ "lo.location" | translate }}
           </div>
+          <button
+            class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400"
+            (click)="updateShared('Location', defaultSharedItem)"
+          >
+            +
+          </button>
         </div>
-
-        <div class="bg-white shadow-lg rounded-[15px]  p-2 flex flex-col ">
-          <div class="border-b items-center border-b-gray-300 h-12 flex justify-between  w-full ">
-            <div class="text p-2 font-bold font-family  ">
-              {{'et.event.type' | translate}}
-            </div>
-            <button class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400  "  (click)="updateShared('Event Type', defaultSharedItem)">+</button>
-          </div>
-          <div class="middle cursor-pointer ">
-          <div *ngFor="let event of eventTypesList"  (click)="updateShared('Event Type', event)">
-            <div class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100 " >
-              <div class="text-sm text-blue-500 font-family ">{{event.name}}</div>
-            </div>
-          </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-lg rounded-[15px]  p-2 flex flex-col ">
-          <div class="border-b items-center border-b-gray-300 h-12 flex justify-between  w-full ">
-            <div class="text p-2 font-family  ">
-              {{'es.event.status' | translate}}
-            </div>
-            <button class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400  "  (click)="updateShared('Status Type', defaultSharedItem)">+</button>
-          </div>
-
-          <div class="middle cursor-pointer ">
-            <div *ngFor="let status of statusList" (click)="updateShared('Event Status', status)">
-              <div class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100 ">
-                <div class="text-sm text-blue-500 font-family ">{{ status.name }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-lg rounded-[15px]  p-2 flex flex-col ">
-          <div class="border-b items-center border-b-gray-300 h-12 flex justify-between  w-full ">
-            <div class="text p-2 font-bold font-family  ">
-              {{'cl.type' | translate}}
-            </div>
-            <button class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400  "  (click)="updateShared('Client Type', defaultSharedItem)">+</button>
-          </div>
-
-          <div class="middle cursor-pointer ">
-            <div *ngFor="let client of typeOfClientsList" (click)="updateShared('Client Type', client)">
-              <div class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100 ">
-                <div class="text-sm text-blue-500 font-family ">{{ client.name }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-lg rounded-[15px]  p-2 flex flex-col ">
-          <div class="border-b items-center border-b-gray-300 h-12 flex justify-between  w-full ">
-            <div class="text p-2 font-bold font-family  ">
-              {{'revenue.type' | translate}}
-            </div>
-            <button class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400  " (click)="updateShared('Revenue Type', defaultSharedItem)">+</button>
-          </div>
-
-          <div class="middle cursor-pointer">
-            <div *ngFor="let revenue of revenueTypesList" (click)="updateShared('Revenue Type', revenue)">
-              <div class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100 ">
-                <div class="text-sm text-blue-500 font-family ">{{ revenue.name }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white shadow-lg rounded-[15px]  p-2 flex flex-col ">
-          <div class="border-b items-center border-b-gray-300 h-12 flex justify-between  w-full ">
-            <div class="text p-2 font-bold font-family  ">
-              {{'revenue.unit' | translate}}
-            </div>
-            <button class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400  " (click)="updateShared('Unit Type', defaultSharedItem)">+</button>
-          </div>
-
-         <div class="middle cursor-pointer ">
-          <div *ngFor="let unit of unitsList" (click)="updateShared('Unit Type', unit)">
-            <div class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100 ">
-              <div class="text-sm text-blue-500 font-family ">{{ unit.name }}</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div class="bg-white shadow-lg rounded-[15px]  p-2 flex flex-col h-5/6">
-          <div class="border-b items-center border-b-gray-300 h-12 flex justify-between ">
-            <div class="text p-2 font-bold font-family  ">
-              {{'expense.type' | translate}}
-            </div>
-            <button class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400  "  (click)="updateShared('Expense Type', defaultSharedItem)">+</button>
-          </div>
-
-          <div class="middle cursor-pointer ">
-            <div *ngFor="let cost of costTypesList" (click)="updateShared('Expense Type', cost)">
-              <div class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100 ">
-                <div class="text-sm text-blue-500 font-family ">{{ cost.name }}</div>
+        <div class="middle cursor-pointer">
+          <div
+            *ngFor="let location of locationList"
+            (click)="updateShared('Location', location)"
+          >
+            <div
+              class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
+            >
+              <div class="text-sm text-blue-500 font-family">
+                {{ location.name }}
               </div>
             </div>
           </div>
         </div>
       </div>
-</div>
 
-  <div *ngIf="showInput"   class="fixed top-0 left-0 w-full h-full bg-gray-400/60 flex justify-center items-center z-[100]">
-<div class="bg-white rounded-[15px] shadow-lg w-[500px] h-[200px] p-4">
-  <div class="font-family text text-lg" >{{inputCaption}}</div>
-  <div class="flex mt-2 flex-col">
-    <label class="text-gray-500 font-family text-sm mb-2" >Name</label>
-    <input  [formControl]="inputInput" class="border border-gray-300 p-1.5 rounded" type="text">
+      <div class="bg-white shadow-lg rounded-[15px] p-2 flex flex-col">
+        <div
+          class="border-b items-center border-b-gray-300 h-12 flex justify-between w-full"
+        >
+          <div class="text p-2 font-bold font-family">
+            {{ "et.event.type" | translate }}
+          </div>
+          <button
+            class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400"
+            (click)="updateShared('Event Type', defaultSharedItem)"
+          >
+            +
+          </button>
+        </div>
+        <div class="middle cursor-pointer">
+          <div
+            *ngFor="let event of eventTypesList"
+            (click)="updateShared('Event Type', event)"
+          >
+            <div
+              class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
+            >
+              <div class="text-sm text-blue-500 font-family">
+                {{ event.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="bg-white shadow-lg rounded-[15px] p-2 flex flex-col">
+        <div
+          class="border-b items-center border-b-gray-300 h-12 flex justify-between w-full"
+        >
+          <div class="text p-2 font-family">
+            {{ "es.event.status" | translate }}
+          </div>
+          <button
+            class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400"
+            (click)="updateShared('Status Type', defaultSharedItem)"
+          >
+            +
+          </button>
+        </div>
+
+        <div class="middle cursor-pointer">
+          <div
+            *ngFor="let status of statusList"
+            (click)="updateShared('Event Status', status)"
+          >
+            <div
+              class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
+            >
+              <div class="text-sm text-blue-500 font-family">
+                {{ status.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white shadow-lg rounded-[15px] p-2 flex flex-col">
+        <div
+          class="border-b items-center border-b-gray-300 h-12 flex justify-between w-full"
+        >
+          <div class="text p-2 font-bold font-family">
+            {{ "cl.type" | translate }}
+          </div>
+          <button
+            class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400"
+            (click)="updateShared('Client Type', defaultSharedItem)"
+          >
+            +
+          </button>
+        </div>
+
+        <div class="middle cursor-pointer">
+          <div
+            *ngFor="let client of typeOfClientsList"
+            (click)="updateShared('Client Type', client)"
+          >
+            <div
+              class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
+            >
+              <div class="text-sm text-blue-500 font-family">
+                {{ client.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white shadow-lg rounded-[15px] p-2 flex flex-col">
+        <div
+          class="border-b items-center border-b-gray-300 h-12 flex justify-between w-full"
+        >
+          <div class="text p-2 font-bold font-family">
+            {{ "revenue.type" | translate }}
+          </div>
+          <button
+            class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400"
+            (click)="updateShared('Revenue Type', defaultSharedItem)"
+          >
+            +
+          </button>
+        </div>
+
+        <div class="middle cursor-pointer">
+          <div
+            *ngFor="let revenue of revenueTypesList"
+            (click)="updateShared('Revenue Type', revenue)"
+          >
+            <div
+              class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
+            >
+              <div class="text-sm text-blue-500 font-family">
+                {{ revenue.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white shadow-lg rounded-[15px] p-2 flex flex-col">
+        <div
+          class="border-b items-center border-b-gray-300 h-12 flex justify-between w-full"
+        >
+          <div class="text p-2 font-bold font-family">
+            {{ "revenue.unit" | translate }}
+          </div>
+          <button
+            class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400"
+            (click)="updateShared('Unit Type', defaultSharedItem)"
+          >
+            +
+          </button>
+        </div>
+
+        <div class="middle cursor-pointer">
+          <div
+            *ngFor="let unit of unitsList"
+            (click)="updateShared('Unit Type', unit)"
+          >
+            <div
+              class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
+            >
+              <div class="text-sm text-blue-500 font-family">
+                {{ unit.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white shadow-lg rounded-[15px] p-2 flex flex-col h-5/6">
+        <div
+          class="border-b items-center border-b-gray-300 h-12 flex justify-between"
+        >
+          <div class="text p-2 font-bold font-family">
+            {{ "expense.type" | translate }}
+          </div>
+          <button
+            class="w-8 h-8 rounded-full text-[#0E4166] border border-[#0E4166] hover:border-none hover:text-white hover:bg-blue-400"
+            (click)="updateShared('Expense Type', defaultSharedItem)"
+          >
+            +
+          </button>
+        </div>
+
+        <div class="middle cursor-pointer">
+          <div
+            *ngFor="let cost of costTypesList"
+            (click)="updateShared('Expense Type', cost)"
+          >
+            <div
+              class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
+            >
+              <div class="text-sm text-blue-500 font-family">
+                {{ cost.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<div class="flex justify-center items-center   mt-3 gap-8 ">
-  <button class="px-20 py-3 bg-blue-500 rounded-md text-white" (click)="saveShared()" >{{'save.button' | translate }}</button>
-  <button class="px-20 py-3 bg-red-600 rounded-md text-white" (click)="closeInput()">{{'cancel.button' | translate}}</button>
-</div>
-</div>
+
+  <div
+    *ngIf="showInput"
+    class="fixed top-0 left-0 w-full h-full bg-gray-400/60 flex justify-center items-center z-[100]"
+  >
+    <div class="bg-white rounded-[15px] shadow-lg w-[500px] h-[200px] p-4">
+      <div class="font-family text text-lg">{{ inputCaption }}</div>
+      <div class="flex mt-2 flex-col">
+        <label class="text-gray-500 font-family text-sm mb-2">Name</label>
+        <input
+          [formControl]="inputInput"
+          class="border border-gray-300 p-1.5 rounded"
+          type="text"
+        />
+      </div>
+      <div class="flex justify-center items-center mt-3 gap-8">
+        <button
+          class="px-20 py-3 bg-blue-500 rounded-md text-white"
+          (click)="saveShared()"
+        >
+          {{ "save.button" | translate }}
+        </button>
+        <button
+          class="px-20 py-3 bg-red-600 rounded-md text-white"
+          (click)="closeInput()"
+        >
+          {{ "cancel.button" | translate }}
+        </button>
+      </div>
+    </div>
   </div>
-
-
 </div>

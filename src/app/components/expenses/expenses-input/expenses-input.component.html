@@ -1,93 +1,154 @@
-<div class="flex flex-col w-full h-full   items-center justify-center bg-white   min-w-[500px] p-4 min-h-[300px] rounded-[15px]">
-  <form [formGroup]="formEditExpense" class=" w-full h-full  ">
+<div
+  class="flex flex-col w-full h-full items-center justify-center bg-white min-w-[500px] p-4 min-h-[300px] rounded-[15px]"
+>
+  <form [formGroup]="formEditExpense" class="w-full h-full">
+    <div class="flex flex-col h-full w-full">
+      <div *ngIf="!expenseForInput.id" class="p-2 text-2xl">
+        {{ "new.expense" | translate }}
+      </div>
+      <div *ngIf="expenseForInput.id" class="p-2 text-2xl">
+        {{ "old.expense" | translate }}
+      </div>
 
-    <div class=" flex flex-col h-full w-full ">
-      <div *ngIf="!expenseForInput.id" class="p-2 text-2xl">{{'new.expense' | translate}}</div>
-      <div *ngIf="expenseForInput.id" class="p-2 text-2xl">{{'old.expense' | translate}}</div>
-
-      <div class="flex h-10 items-center justify-end relative w-full mb-2" *ngIf="costType=='other'">
-        <div class="flex relative items-center ">
-          <label class="block text-sm text-[#104166] mr-3  ">Date</label>
-          <input class="p-2 border border-gray-400 rounded  w-full" [ngModel]="selectedPickerDate" [ngModelOptions]="{standalone: true}" readonly>
-          <div class="absolute inset-y-0 right-4 top-0 flex items-center pl-3  cursor-pointer"
-               (click)="picker.open()">
-            <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1"
-                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g id="Ikone" transform="translate(-28.000000, -936.000000)" fill="#8E4584"
-                   fill-rule="nonzero">
-                  <g id="calendar-svgrepo-com-2" transform="translate(28.000000, 936.000000)">
-                    <path d="M16.875,1.125 L14.90625,1.125 L14.90625,0.84375 C14.90625,0.37771875 14.5285312,0 14.0625,0 C13.5964688,0 13.21875,0.37771875 13.21875,0.84375 L13.21875,1.125 L4.78125,1.125 L4.78125,0.84375 C4.78125,0.37771875 4.40353125,0 3.9375,0 C3.47146875,0 3.09375,0.37771875 3.09375,0.84375 L3.09375,1.125 L1.125,1.125 C0.50315625,1.125 0,1.62815625 0,2.25 L0,16.875 C0,17.4968438 0.50315625,18 1.125,18 L16.875,18 C17.4968438,18 18,17.4968438 18,16.875 L18,2.25 C18,1.62815625 17.4968438,1.125 16.875,1.125 Z M5.0625,14.90625 C5.0625,15.0617812 4.93678125,15.1875 4.78125,15.1875 L3.09375,15.1875 C2.93821875,15.1875 2.8125,15.0617812 2.8125,14.90625 L2.8125,13.5 C2.8125,13.3444688 2.93821875,13.21875 3.09375,13.21875 L4.78125,13.21875 C4.93678125,13.21875 5.0625,13.3444688 5.0625,13.5 L5.0625,14.90625 Z M5.0625,11.8125 C5.0625,11.9680312 4.93678125,12.09375 4.78125,12.09375 L3.09375,12.09375 C2.93821875,12.09375 2.8125,11.9680312 2.8125,11.8125 L2.8125,10.40625 C2.8125,10.2507188 2.93821875,10.125 3.09375,10.125 L4.78125,10.125 C4.93678125,10.125 5.0625,10.2507188 5.0625,10.40625 L5.0625,11.8125 Z M5.0625,8.71875 C5.0625,8.87428125 4.93678125,9 4.78125,9 L3.09375,9 C2.93821875,9 2.8125,8.87428125 2.8125,8.71875 L2.8125,7.3125 C2.8125,7.15696875 2.93821875,7.03125 3.09375,7.03125 L4.78125,7.03125 C4.93678125,7.03125 5.0625,7.15696875 5.0625,7.3125 L5.0625,8.71875 Z M8.4375,14.90625 C8.4375,15.0617812 8.31178125,15.1875 8.15625,15.1875 L6.46875,15.1875 C6.31321875,15.1875 6.1875,15.0617812 6.1875,14.90625 L6.1875,13.5 C6.1875,13.3444688 6.31321875,13.21875 6.46875,13.21875 L8.15625,13.21875 C8.31178125,13.21875 8.4375,13.3444688 8.4375,13.5 L8.4375,14.90625 Z M8.4375,11.8125 C8.4375,11.9680312 8.31178125,12.09375 8.15625,12.09375 L6.46875,12.09375 C6.31321875,12.09375 6.1875,11.9680312 6.1875,11.8125 L6.1875,10.40625 C6.1875,10.2507188 6.31321875,10.125 6.46875,10.125 L8.15625,10.125 C8.31178125,10.125 8.4375,10.2507188 8.4375,10.40625 L8.4375,11.8125 Z M8.4375,8.71875 C8.4375,8.87428125 8.31178125,9 8.15625,9 L6.46875,9 C6.31321875,9 6.1875,8.87428125 6.1875,8.71875 L6.1875,7.3125 C6.1875,7.15696875 6.31321875,7.03125 6.46875,7.03125 L8.15625,7.03125 C8.31178125,7.03125 8.4375,7.15696875 8.4375,7.3125 L8.4375,8.71875 Z M11.8125,14.90625 C11.8125,15.0617812 11.6867812,15.1875 11.53125,15.1875 L9.84375,15.1875 C9.68821875,15.1875 9.5625,15.0617812 9.5625,14.90625 L9.5625,13.5 C9.5625,13.3444688 9.68821875,13.21875 9.84375,13.21875 L11.53125,13.21875 C11.6867812,13.21875 11.8125,13.3444688 11.8125,13.5 L11.8125,14.90625 Z M11.8125,11.8125 C11.8125,11.9680312 11.6867812,12.09375 11.53125,12.09375 L9.84375,12.09375 C9.68821875,12.09375 9.5625,11.9680312 9.5625,11.8125 L9.5625,10.40625 C9.5625,10.2507188 9.68821875,10.125 9.84375,10.125 L11.53125,10.125 C11.6867812,10.125 11.8125,10.2507188 11.8125,10.40625 L11.8125,11.8125 Z M11.8125,8.71875 C11.8125,8.87428125 11.6867812,9 11.53125,9 L9.84375,9 C9.68821875,9 9.5625,8.87428125 9.5625,8.71875 L9.5625,7.3125 C9.5625,7.15696875 9.68821875,7.03125 9.84375,7.03125 L11.53125,7.03125 C11.6867812,7.03125 11.8125,7.15696875 11.8125,7.3125 L11.8125,8.71875 Z M15.1875,11.8125 C15.1875,11.9680312 15.0617812,12.09375 14.90625,12.09375 L13.21875,12.09375 C13.0632188,12.09375 12.9375,11.9680312 12.9375,11.8125 L12.9375,10.40625 C12.9375,10.2507188 13.0632188,10.125 13.21875,10.125 L14.90625,10.125 C15.0617812,10.125 15.1875,10.2507188 15.1875,10.40625 L15.1875,11.8125 Z M15.1875,8.71875 C15.1875,8.87428125 15.0617812,9 14.90625,9 L13.21875,9 C13.0632188,9 12.9375,8.87428125 12.9375,8.71875 L12.9375,7.3125 C12.9375,7.15696875 13.0632188,7.03125 13.21875,7.03125 L14.90625,7.03125 C15.0617812,7.03125 15.1875,7.15696875 15.1875,7.3125 L15.1875,8.71875 Z M17.4375,4.21875 L0.5625,4.21875 L0.5625,2.25 C0.5625,1.9395 0.8145,1.6875 1.125,1.6875 L3.09375,1.6875 L3.09375,2.8125 C3.09375,3.27853125 3.47146875,3.65625 3.9375,3.65625 C4.40353125,3.65625 4.78125,3.27853125 4.78125,2.8125 L4.78125,1.6875 L13.21875,1.6875 L13.21875,2.8125 C13.21875,3.27853125 13.5964688,3.65625 14.0625,3.65625 C14.5285312,3.65625 14.90625,3.27853125 14.90625,2.8125 L14.90625,1.6875 L16.875,1.6875 C17.1855,1.6875 17.4375,1.9395 17.4375,2.25 L17.4375,4.21875 Z"
-                          id="Shape"></path>
+      <div
+        class="flex h-10 items-center justify-end relative w-full mb-2"
+        *ngIf="costType == 'other'"
+      >
+        <div class="flex relative items-center">
+          <label class="block text-sm text-[#104166] mr-3">Date</label>
+          <input
+            class="p-2 border border-gray-400 rounded w-full"
+            [ngModel]="selectedPickerDate"
+            [ngModelOptions]="{ standalone: true }"
+            readonly
+          />
+          <div
+            class="absolute inset-y-0 right-4 top-0 flex items-center pl-3 cursor-pointer"
+            (click)="picker.open()"
+          >
+            <svg
+              width="18px"
+              height="18px"
+              viewBox="0 0 18 18"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <g
+                id="Page-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="Ikone"
+                  transform="translate(-28.000000, -936.000000)"
+                  fill="#8E4584"
+                  fill-rule="nonzero"
+                >
+                  <g
+                    id="calendar-svgrepo-com-2"
+                    transform="translate(28.000000, 936.000000)"
+                  >
+                    <path
+                      d="M16.875,1.125 L14.90625,1.125 L14.90625,0.84375 C14.90625,0.37771875 14.5285312,0 14.0625,0 C13.5964688,0 13.21875,0.37771875 13.21875,0.84375 L13.21875,1.125 L4.78125,1.125 L4.78125,0.84375 C4.78125,0.37771875 4.40353125,0 3.9375,0 C3.47146875,0 3.09375,0.37771875 3.09375,0.84375 L3.09375,1.125 L1.125,1.125 C0.50315625,1.125 0,1.62815625 0,2.25 L0,16.875 C0,17.4968438 0.50315625,18 1.125,18 L16.875,18 C17.4968438,18 18,17.4968438 18,16.875 L18,2.25 C18,1.62815625 17.4968438,1.125 16.875,1.125 Z M5.0625,14.90625 C5.0625,15.0617812 4.93678125,15.1875 4.78125,15.1875 L3.09375,15.1875 C2.93821875,15.1875 2.8125,15.0617812 2.8125,14.90625 L2.8125,13.5 C2.8125,13.3444688 2.93821875,13.21875 3.09375,13.21875 L4.78125,13.21875 C4.93678125,13.21875 5.0625,13.3444688 5.0625,13.5 L5.0625,14.90625 Z M5.0625,11.8125 C5.0625,11.9680312 4.93678125,12.09375 4.78125,12.09375 L3.09375,12.09375 C2.93821875,12.09375 2.8125,11.9680312 2.8125,11.8125 L2.8125,10.40625 C2.8125,10.2507188 2.93821875,10.125 3.09375,10.125 L4.78125,10.125 C4.93678125,10.125 5.0625,10.2507188 5.0625,10.40625 L5.0625,11.8125 Z M5.0625,8.71875 C5.0625,8.87428125 4.93678125,9 4.78125,9 L3.09375,9 C2.93821875,9 2.8125,8.87428125 2.8125,8.71875 L2.8125,7.3125 C2.8125,7.15696875 2.93821875,7.03125 3.09375,7.03125 L4.78125,7.03125 C4.93678125,7.03125 5.0625,7.15696875 5.0625,7.3125 L5.0625,8.71875 Z M8.4375,14.90625 C8.4375,15.0617812 8.31178125,15.1875 8.15625,15.1875 L6.46875,15.1875 C6.31321875,15.1875 6.1875,15.0617812 6.1875,14.90625 L6.1875,13.5 C6.1875,13.3444688 6.31321875,13.21875 6.46875,13.21875 L8.15625,13.21875 C8.31178125,13.21875 8.4375,13.3444688 8.4375,13.5 L8.4375,14.90625 Z M8.4375,11.8125 C8.4375,11.9680312 8.31178125,12.09375 8.15625,12.09375 L6.46875,12.09375 C6.31321875,12.09375 6.1875,11.9680312 6.1875,11.8125 L6.1875,10.40625 C6.1875,10.2507188 6.31321875,10.125 6.46875,10.125 L8.15625,10.125 C8.31178125,10.125 8.4375,10.2507188 8.4375,10.40625 L8.4375,11.8125 Z M8.4375,8.71875 C8.4375,8.87428125 8.31178125,9 8.15625,9 L6.46875,9 C6.31321875,9 6.1875,8.87428125 6.1875,8.71875 L6.1875,7.3125 C6.1875,7.15696875 6.31321875,7.03125 6.46875,7.03125 L8.15625,7.03125 C8.31178125,7.03125 8.4375,7.15696875 8.4375,7.3125 L8.4375,8.71875 Z M11.8125,14.90625 C11.8125,15.0617812 11.6867812,15.1875 11.53125,15.1875 L9.84375,15.1875 C9.68821875,15.1875 9.5625,15.0617812 9.5625,14.90625 L9.5625,13.5 C9.5625,13.3444688 9.68821875,13.21875 9.84375,13.21875 L11.53125,13.21875 C11.6867812,13.21875 11.8125,13.3444688 11.8125,13.5 L11.8125,14.90625 Z M11.8125,11.8125 C11.8125,11.9680312 11.6867812,12.09375 11.53125,12.09375 L9.84375,12.09375 C9.68821875,12.09375 9.5625,11.9680312 9.5625,11.8125 L9.5625,10.40625 C9.5625,10.2507188 9.68821875,10.125 9.84375,10.125 L11.53125,10.125 C11.6867812,10.125 11.8125,10.2507188 11.8125,10.40625 L11.8125,11.8125 Z M11.8125,8.71875 C11.8125,8.87428125 11.6867812,9 11.53125,9 L9.84375,9 C9.68821875,9 9.5625,8.87428125 9.5625,8.71875 L9.5625,7.3125 C9.5625,7.15696875 9.68821875,7.03125 9.84375,7.03125 L11.53125,7.03125 C11.6867812,7.03125 11.8125,7.15696875 11.8125,7.3125 L11.8125,8.71875 Z M15.1875,11.8125 C15.1875,11.9680312 15.0617812,12.09375 14.90625,12.09375 L13.21875,12.09375 C13.0632188,12.09375 12.9375,11.9680312 12.9375,11.8125 L12.9375,10.40625 C12.9375,10.2507188 13.0632188,10.125 13.21875,10.125 L14.90625,10.125 C15.0617812,10.125 15.1875,10.2507188 15.1875,10.40625 L15.1875,11.8125 Z M15.1875,8.71875 C15.1875,8.87428125 15.0617812,9 14.90625,9 L13.21875,9 C13.0632188,9 12.9375,8.87428125 12.9375,8.71875 L12.9375,7.3125 C12.9375,7.15696875 13.0632188,7.03125 13.21875,7.03125 L14.90625,7.03125 C15.0617812,7.03125 15.1875,7.15696875 15.1875,7.3125 L15.1875,8.71875 Z M17.4375,4.21875 L0.5625,4.21875 L0.5625,2.25 C0.5625,1.9395 0.8145,1.6875 1.125,1.6875 L3.09375,1.6875 L3.09375,2.8125 C3.09375,3.27853125 3.47146875,3.65625 3.9375,3.65625 C4.40353125,3.65625 4.78125,3.27853125 4.78125,2.8125 L4.78125,1.6875 L13.21875,1.6875 L13.21875,2.8125 C13.21875,3.27853125 13.5964688,3.65625 14.0625,3.65625 C14.5285312,3.65625 14.90625,3.27853125 14.90625,2.8125 L14.90625,1.6875 L16.875,1.6875 C17.1855,1.6875 17.4375,1.9395 17.4375,2.25 L17.4375,4.21875 Z"
+                      id="Shape"
+                    ></path>
                   </g>
                 </g>
               </g>
             </svg>
           </div>
         </div>
-        <mat-form-field style="width:1px;visibility:hidden;">
-          <input matInput [matDatepicker]="picker" id="prvipiker" formControlName="date" (dateChange)="dateChanged()" >
+        <mat-form-field style="width: 1px; visibility: hidden">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            id="prvipiker"
+            formControlName="date"
+            (dateChange)="dateChanged()"
+          />
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
 
-
-      <div class="flex gap-2 " >
-        <div class="flex flex-col  w-1/2" >
-          <label class="text-sm text-[#104166]  mr-2">{{'supplier' | translate}}</label>
-          <ng-select class=" custom-select w-full"
-                     [items]="clientList"
-                     bindLabel="name"
-                     placeholder="End time"
-                     formControlName="client"
-                     [virtualScroll]="true"
-                     [clearable]="false"
+      <div class="flex gap-2">
+        <div class="flex flex-col w-1/2">
+          <label class="text-sm text-[#104166] mr-2">{{
+            "supplier" | translate
+          }}</label>
+          <ng-select
+            class="custom-select w-full"
+            [items]="clientList"
+            bindLabel="name"
+            placeholder="End time"
+            formControlName="client"
+            [virtualScroll]="true"
+            [clearable]="false"
           >
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-              <div>{{item.name}}</div>
+              <div>{{ item.name }}</div>
             </ng-template>
           </ng-select>
         </div>
 
-        <div class="flex flex-col  w-1/2" >
-          <label class="text-sm text-[#104166]  mr-2">{{'cost.type' | translate}}</label>
-          <ng-select class=" custom-select w-full"
-                     [items]="costTypesList"
-                     bindLabel="name"
-                     placeholder="End time"
-                     formControlName="type_of_cost"
-                     [virtualScroll]="true"
-                     [clearable]="false"
+        <div class="flex flex-col w-1/2">
+          <label class="text-sm text-[#104166] mr-2">{{
+            "cost.type" | translate
+          }}</label>
+          <ng-select
+            class="custom-select w-full"
+            [items]="costTypesList"
+            bindLabel="name"
+            placeholder="End time"
+            formControlName="type_of_cost"
+            [virtualScroll]="true"
+            [clearable]="false"
           >
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-              <div>{{item.name}}</div>
+              <div>{{ item.name }}</div>
             </ng-template>
           </ng-select>
         </div>
 
-        <div class="flex ml-2 ">
-          <div class="flex flex-col  w-20">
-            <label class="text-sm text-[#104166]  mr-2 text-right ">{{'cost.price' | translate}}</label>
-            <input class="border py-1 border-gray-300 rounded text-right pr-2" formControlName="amount">
+        <div class="flex ml-2">
+          <div class="flex flex-col w-20">
+            <label class="text-sm text-[#104166] mr-2 text-right">{{
+              "cost.price" | translate
+            }}</label>
+            <input
+              class="border py-1 border-gray-300 rounded text-right pr-2"
+              formControlName="amount"
+            />
           </div>
         </div>
       </div>
 
-      <div  class="w-full pt-2 flex-1">
-        <label  class="block text-sm text-[#104166] font-family   " >{{'desc' | translate}}</label>
-        <textarea class="border w-full border-gray-400  p-2 rounded-[6px] outline-none " formControlName="description"></textarea>
+      <div class="w-full pt-2 flex-1">
+        <label class="block text-sm text-[#104166] font-family">{{
+          "desc" | translate
+        }}</label>
+        <textarea
+          class="border w-full border-gray-400 p-2 rounded-[6px] outline-none"
+          formControlName="description"
+        ></textarea>
       </div>
     </div>
   </form>
 
-
-      <div class="flex w-full justify-center gap-2 mt-4 ">
-        <button class=" w-full py-2 px-4 bg-blue-500 text-white  rounded-[6px]" (click)="saveExpense()" >{{'save.button' | translate}} </button>
-        <button class=" w-full p-3 bg-red-500 text-white  rounded-[6px]" (click)="closeExpenseForm()" >{{'cancel.button' | translate}} </button>
-      </div>
+  <div class="flex w-full justify-center gap-2 mt-4">
+    <button
+      class="w-full py-2 px-4 bg-blue-500 text-white rounded-[6px]"
+      (click)="saveExpense()"
+    >
+      {{ "save.button" | translate }}
+    </button>
+    <button
+      class="w-full p-3 bg-red-500 text-white rounded-[6px]"
+      (click)="closeExpenseForm()"
+    >
+      {{ "cancel.button" | translate }}
+    </button>
+  </div>
 </div>
-
-
-
-
-

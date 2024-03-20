@@ -1,28 +1,36 @@
-import {CUSTOM_ELEMENTS_SCHEMA, importProvidersFrom, NgModule} from '@angular/core';
-import {BrowserModule, HammerModule} from '@angular/platform-browser';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  importProvidersFrom,
+  NgModule,
+} from '@angular/core';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {InterceptorService} from "./service/interceptor.service";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
+import { InterceptorService } from './service/interceptor.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {MatNativeDateModule} from "@angular/material/core";
-import {NgSelectModule} from "@ng-select/ng-select";
-import { JwtModule } from "@auth0/angular-jwt";
-import {MatInputModule} from "@angular/material/input";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatIconModule} from "@angular/material/icon";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { JwtModule } from '@auth0/angular-jwt';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { TouchEventsDirective } from './directives/touch-events.directive';
-import {NgChartsModule} from "ng2-charts";
+import { NgChartsModule } from 'ng2-charts';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UserInputComponent } from './admin/user/user-input/user-input.component';
 import { UserOverviewComponent } from './admin/user/user-overview/user-overview.component';
-import {NgxSpinnerModule} from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { RolesPrivilegesOverviewComponent } from './admin/roles-privileges/roles-privileges-overview/roles-privileges-overview.component';
 import { ErrorComponent } from './error/error.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
@@ -38,12 +46,11 @@ import { ClientInputComponent } from './components/clients/client-input/client-i
 import { ClientOverviewComponent } from './components/clients/client-overview/client-overview.component';
 import { ExpensesOverviewComponent } from './components/expenses/expenses-overview/expenses-overview.component';
 import { AnalysisComponent } from './components/analysis/analysis.component';
-import {MatListModule} from "@angular/material/list";
-import {MatButtonModule} from "@angular/material/button";
-import {MatTabsModule} from "@angular/material/tabs";
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 import { SharedOverviewComponent } from './components/shared/shared-overview/shared-overview.component';
-import {MatTooltipModule} from "@angular/material/tooltip";
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -80,8 +87,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     AppRoutingModule,
     HttpClientModule,
@@ -97,8 +104,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       config: {
         tokenGetter: function tokenGetter() {
           return localStorage.getItem('token');
-        }
-      }
+        },
+      },
     }),
     MatInputModule,
     MatDatepickerModule,
@@ -108,18 +115,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatListModule,
     MatButtonModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
-      multi: true
+      multi: true,
     },
-    importProvidersFrom(HammerModule)
-
+    importProvidersFrom(HammerModule),
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

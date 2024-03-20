@@ -1,144 +1,497 @@
-<div  class="flex flex-col   bg-[#EDF0F5FF] w-full h-screen select-none">
-
-  <div class="flex items-center justify-between p-3 pl-4 pr-4 bg-white border-b border-b-gray-300">
+<div class="flex flex-col bg-[#EDF0F5FF] w-full h-screen select-none">
+  <div
+    class="flex items-center justify-between p-3 pl-4 pr-4 bg-white border-b border-b-gray-300"
+  >
     <div>
-      <div class=" text-xl text-[#0E4166FF] font-family font-medium">{{'schedules' | translate}}</div>
+      <div class="text-xl text-[#0E4166FF] font-family font-medium">
+        {{ "schedules" | translate }}
+      </div>
     </div>
 
-    <div class="flex items-center justify-center shadow bg-white rounded " >
-
-
+    <div class="flex items-center justify-center shadow bg-white rounded">
       <mat-menu #menu="matMenu">
-
         <button mat-menu-item (click)="loadWeekEvents()">
-                        <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
-          <span>{{'timeline.week' | translate}}</span>
+          <svg
+            class="inline-block mr-4 leading-5"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7"
+                stroke="#2B88CC"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+              <rect
+                x="6"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="10.5"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="15"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+            </g>
+          </svg>
+          <span>{{ "timeline.week" | translate }}</span>
         </button>
 
         <button mat-menu-item (click)="loadLast14DaysEvents()">
-                        <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
-          <span>{{'timeline.14days' | translate}}</span>
+          <svg
+            class="inline-block mr-4 leading-5"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7"
+                stroke="#2B88CC"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+              <rect
+                x="6"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="10.5"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="15"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+            </g>
+          </svg>
+          <span>{{ "timeline.14days" | translate }}</span>
         </button>
 
         <button mat-menu-item (click)="loadMonthEvents()">
-                        <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
-          <span>{{'timeline.month' | translate}}</span>
+          <svg
+            class="inline-block mr-4 leading-5"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7"
+                stroke="#2B88CC"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+              <rect
+                x="6"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="10.5"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="15"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+            </g>
+          </svg>
+          <span>{{ "timeline.month" | translate }}</span>
         </button>
-
 
         <mat-divider></mat-divider>
         <button mat-menu-item [matMenuTriggerFor]="months">
-                        <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
-          <span>{{'timeline.select.month' | translate}}</span>
+          <svg
+            class="inline-block mr-4 leading-5"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7"
+                stroke="#2B88CC"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+              <rect
+                x="6"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="10.5"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+              <rect
+                x="15"
+                y="12"
+                width="3"
+                height="3"
+                rx="0.5"
+                fill="#2B88CC"
+              ></rect>
+            </g>
+          </svg>
+          <span>{{ "timeline.select.month" | translate }}</span>
         </button>
 
         <mat-menu #months>
-          <button mat-menu-item *ngFor="let month of monthList" (click)="loadSelectedMonthEvents(month.id -1)">
-            <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
+          <button
+            mat-menu-item
+            *ngFor="let month of monthList"
+            (click)="loadSelectedMonthEvents(month.id - 1)"
+          >
+            <svg
+              class="inline-block mr-4 leading-5"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7"
+                  stroke="#2B88CC"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+                <rect
+                  x="6"
+                  y="12"
+                  width="3"
+                  height="3"
+                  rx="0.5"
+                  fill="#2B88CC"
+                ></rect>
+                <rect
+                  x="10.5"
+                  y="12"
+                  width="3"
+                  height="3"
+                  rx="0.5"
+                  fill="#2B88CC"
+                ></rect>
+                <rect
+                  x="15"
+                  y="12"
+                  width="3"
+                  height="3"
+                  rx="0.5"
+                  fill="#2B88CC"
+                ></rect>
+              </g>
+            </svg>
             <span>{{ month.name }}</span>
           </button>
         </mat-menu>
-
       </mat-menu>
     </div>
-
-
-
   </div>
 
-
-
-  <div class="flex justify-between items-center gap-2 pl-6 mt-2 pr-4  pt-2   ">
+  <div class="flex justify-between items-center gap-2 pl-6 mt-2 pr-4 pt-2">
     <div class="flex items-center gap-2">
-      <div class="w-6 h-6 ">
-        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"  viewBox="0,0,256,256">
-          <g fill="#275c85" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M24.60742,4.04297c-0.26038,-0.00941 -0.52612,0.01117 -0.79297,0.06445l-15.19727,3.03906c-2.09435,0.41947 -3.61719,2.27651 -3.61719,4.41211v24.88281c0,2.13497 1.52301,3.99326 3.61719,4.41211l15.19727,3.03906c1.94433,0.38861 3.74215,-1.00166 4.06055,-2.89258h9.625c3.01977,0 5.5,-2.48023 5.5,-5.5v-22c0,-3.01977 -2.48023,-5.5 -5.5,-5.5h-9.5v-0.46094c0,-1.90506 -1.56991,-3.4302 -3.39258,-3.49609zM24.40234,7.04883c0.33922,-0.06773 0.59766,0.14345 0.59766,0.49023v32.92188c0,0.34679 -0.25873,0.55818 -0.59766,0.49023c0,-0.00065 0,-0.0013 0,-0.00195l-15.19531,-3.03906c-0.00065,0 -0.0013,0 -0.00195,0c-0.71088,-0.14187 -1.20508,-0.74434 -1.20508,-1.46875v-24.88281c0,-0.72441 0.49538,-1.32817 1.20703,-1.4707zM28,11h9.5c1.39823,0 2.5,1.10177 2.5,2.5v22c0,1.39823 -1.10177,2.5 -2.5,2.5h-9.5zM31.5,15c-0.54095,-0.00765 -1.04412,0.27656 -1.31683,0.74381c-0.27271,0.46725 -0.27271,1.04514 0,1.51238c0.27271,0.46725 0.77588,0.75146 1.31683,0.74381h4c0.54095,0.00765 1.04412,-0.27656 1.31683,-0.74381c0.27271,-0.46725 0.27271,-1.04514 0,-1.51238c-0.27271,-0.46725 -0.77588,-0.75146 -1.31683,-0.74381zM12.99805,17.1582c-0.28884,-0.00771 -0.58395,0.06825 -0.8457,0.23438c-0.698,0.445 -0.90298,1.37131 -0.45899,2.07031l2.98828,4.69531l-2.98828,4.69531c-0.444,0.699 -0.23901,1.62531 0.45899,2.07031c0.25,0.158 0.52869,0.23438 0.80469,0.23438c0.495,0 0.98158,-0.24436 1.26758,-0.69336l2.23438,-3.51172l2.23438,3.50977c0.287,0.449 0.77258,0.69531 1.26758,0.69531c0.276,0 0.55273,-0.07437 0.80273,-0.23437c0.698,-0.445 0.90494,-1.37326 0.46094,-2.07227l-2.98633,-4.69336l2.98633,-4.69336c0.444,-0.699 0.23706,-1.62727 -0.46094,-2.07227c-0.697,-0.444 -1.62431,-0.23906 -2.07031,0.46094l-2.23437,3.50977l-2.23438,-3.51172c-0.27812,-0.4375 -0.74517,-0.68052 -1.22656,-0.69336zM31.5,23c-0.54095,-0.00765 -1.04412,0.27656 -1.31683,0.74381c-0.27271,0.46725 -0.27271,1.04514 0,1.51238c0.27271,0.46725 0.77588,0.75146 1.31683,0.74381h4c0.54095,0.00765 1.04412,-0.27656 1.31683,-0.74381c0.27271,-0.46725 0.27271,-1.04514 0,-1.51238c-0.27271,-0.46725 -0.77588,-0.75146 -1.31683,-0.74381zM31.5,31c-0.54095,-0.00765 -1.04412,0.27656 -1.31683,0.74381c-0.27271,0.46725 -0.27271,1.04514 0,1.51238c0.27271,0.46725 0.77588,0.75146 1.31683,0.74381h4c0.54095,0.00765 1.04412,-0.27656 1.31683,-0.74381c0.27271,-0.46725 0.27271,-1.04514 0,-1.51238c-0.27271,-0.46725 -0.77588,-0.75146 -1.31683,-0.74381z"></path></g></g>
+      <div class="w-6 h-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0,0,256,256"
+        >
+          <g
+            fill="#275c85"
+            fill-rule="nonzero"
+            stroke="none"
+            stroke-width="1"
+            stroke-linecap="butt"
+            stroke-linejoin="miter"
+            stroke-miterlimit="10"
+            stroke-dasharray=""
+            stroke-dashoffset="0"
+            font-family="none"
+            font-weight="none"
+            font-size="none"
+            text-anchor="none"
+            style="mix-blend-mode: normal"
+          >
+            <g transform="scale(5.33333,5.33333)">
+              <path
+                d="M24.60742,4.04297c-0.26038,-0.00941 -0.52612,0.01117 -0.79297,0.06445l-15.19727,3.03906c-2.09435,0.41947 -3.61719,2.27651 -3.61719,4.41211v24.88281c0,2.13497 1.52301,3.99326 3.61719,4.41211l15.19727,3.03906c1.94433,0.38861 3.74215,-1.00166 4.06055,-2.89258h9.625c3.01977,0 5.5,-2.48023 5.5,-5.5v-22c0,-3.01977 -2.48023,-5.5 -5.5,-5.5h-9.5v-0.46094c0,-1.90506 -1.56991,-3.4302 -3.39258,-3.49609zM24.40234,7.04883c0.33922,-0.06773 0.59766,0.14345 0.59766,0.49023v32.92188c0,0.34679 -0.25873,0.55818 -0.59766,0.49023c0,-0.00065 0,-0.0013 0,-0.00195l-15.19531,-3.03906c-0.00065,0 -0.0013,0 -0.00195,0c-0.71088,-0.14187 -1.20508,-0.74434 -1.20508,-1.46875v-24.88281c0,-0.72441 0.49538,-1.32817 1.20703,-1.4707zM28,11h9.5c1.39823,0 2.5,1.10177 2.5,2.5v22c0,1.39823 -1.10177,2.5 -2.5,2.5h-9.5zM31.5,15c-0.54095,-0.00765 -1.04412,0.27656 -1.31683,0.74381c-0.27271,0.46725 -0.27271,1.04514 0,1.51238c0.27271,0.46725 0.77588,0.75146 1.31683,0.74381h4c0.54095,0.00765 1.04412,-0.27656 1.31683,-0.74381c0.27271,-0.46725 0.27271,-1.04514 0,-1.51238c-0.27271,-0.46725 -0.77588,-0.75146 -1.31683,-0.74381zM12.99805,17.1582c-0.28884,-0.00771 -0.58395,0.06825 -0.8457,0.23438c-0.698,0.445 -0.90298,1.37131 -0.45899,2.07031l2.98828,4.69531l-2.98828,4.69531c-0.444,0.699 -0.23901,1.62531 0.45899,2.07031c0.25,0.158 0.52869,0.23438 0.80469,0.23438c0.495,0 0.98158,-0.24436 1.26758,-0.69336l2.23438,-3.51172l2.23438,3.50977c0.287,0.449 0.77258,0.69531 1.26758,0.69531c0.276,0 0.55273,-0.07437 0.80273,-0.23437c0.698,-0.445 0.90494,-1.37326 0.46094,-2.07227l-2.98633,-4.69336l2.98633,-4.69336c0.444,-0.699 0.23706,-1.62727 -0.46094,-2.07227c-0.697,-0.444 -1.62431,-0.23906 -2.07031,0.46094l-2.23437,3.50977l-2.23438,-3.51172c-0.27812,-0.4375 -0.74517,-0.68052 -1.22656,-0.69336zM31.5,23c-0.54095,-0.00765 -1.04412,0.27656 -1.31683,0.74381c-0.27271,0.46725 -0.27271,1.04514 0,1.51238c0.27271,0.46725 0.77588,0.75146 1.31683,0.74381h4c0.54095,0.00765 1.04412,-0.27656 1.31683,-0.74381c0.27271,-0.46725 0.27271,-1.04514 0,-1.51238c-0.27271,-0.46725 -0.77588,-0.75146 -1.31683,-0.74381zM31.5,31c-0.54095,-0.00765 -1.04412,0.27656 -1.31683,0.74381c-0.27271,0.46725 -0.27271,1.04514 0,1.51238c0.27271,0.46725 0.77588,0.75146 1.31683,0.74381h4c0.54095,0.00765 1.04412,-0.27656 1.31683,-0.74381c0.27271,-0.46725 0.27271,-1.04514 0,-1.51238c-0.27271,-0.46725 -0.77588,-0.75146 -1.31683,-0.74381z"
+              ></path>
+            </g>
+          </g>
         </svg>
       </div>
-      <a (click)="downloadExcel()" class="font-family text-sm  text-[#275C85FF] hover:underline cursor-pointer border-b-blue-500">{{'download.excel' | translate}}</a>
+      <a
+        (click)="downloadExcel()"
+        class="font-family text-sm text-[#275C85FF] hover:underline cursor-pointer border-b-blue-500"
+        >{{ "download.excel" | translate }}</a
+      >
     </div>
 
-    <div class="flex bg-white p-2 shadow rounded-lg items-center gap-2 cursor-pointer" [matMenuTriggerFor]="menu"  matTooltip = "{{'select.period' | translate}}">
-      <div class="w-6 h-6 ">
-        <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
+    <div
+      class="flex bg-white p-2 shadow rounded-lg items-center gap-2 cursor-pointer"
+      [matMenuTriggerFor]="menu"
+      matTooltip="{{ 'select.period' | translate }}"
+    >
+      <div class="w-6 h-6">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <path
+              d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7"
+              stroke="#2B88CC"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+            <rect
+              x="6"
+              y="12"
+              width="3"
+              height="3"
+              rx="0.5"
+              fill="#2B88CC"
+            ></rect>
+            <rect
+              x="10.5"
+              y="12"
+              width="3"
+              height="3"
+              rx="0.5"
+              fill="#2B88CC"
+            ></rect>
+            <rect
+              x="15"
+              y="12"
+              width="3"
+              height="3"
+              rx="0.5"
+              fill="#2B88CC"
+            ></rect>
+          </g>
+        </svg>
       </div>
-      <div class="text-sm  text-[#2B88CC] mt-1">{{ selectedPeriod.start }} - {{ selectedPeriod.end }}</div>
+      <div class="text-sm text-[#2B88CC] mt-1">
+        {{ selectedPeriod.start }} - {{ selectedPeriod.end }}
+      </div>
     </div>
 
-
-    <div class=" m-2  ">
+    <div class="m-2">
       <div class="relative">
-        <div class="absolute inset-y-0  flex items-center ps-3 ">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        <div class="absolute inset-y-0 flex items-center ps-3">
+          <svg
+            class="w-4 h-4 text-gray-500 dark:text-gray-400"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
           </svg>
         </div>
-        <input (keyup)="filterEventsByKeyword()" type="search" [formControl]="searchInput" class="block w-48 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 " placeholder="{{'search' | translate}}" required>
+        <input
+          (keyup)="filterEventsByKeyword()"
+          type="search"
+          [formControl]="searchInput"
+          class="block w-48 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500"
+          placeholder="{{ 'search' | translate }}"
+          required
+        />
       </div>
     </div>
-
   </div>
 
-
-
-  <div  class="flex flex-col mt-2   pl-4 pr-4 w-full flex-1 overflow-auto gap-3 ">
-
-    <div *ngFor="let event of filteredScheduleList" class="flex relative w-full ">
-
-      <div *ngIf="event.schedules.length" class="flex w-full bg-white p-4 shadow-lg rounded-lg">
-        <div class="w-1/3 p-2 flex flex-col gap-7 justify-center border-r mr-10">
-          <div class="flex  items-center gap-4 ">
-            <div class="text-[18px] font-family text underline">{{ event.client.name }}</div>
-            <div class="text-[12px] text-blue-500 border-blue-500 border px-1.5 py-0.5 rounded-xl ">{{ event.status_event.name }}</div>
+  <div class="flex flex-col mt-2 pl-4 pr-4 w-full flex-1 overflow-auto gap-3">
+    <div
+      *ngFor="let event of filteredScheduleList"
+      class="flex relative w-full"
+    >
+      <div
+        *ngIf="event.schedules.length"
+        class="flex w-full bg-white p-4 shadow-lg rounded-lg"
+      >
+        <div
+          class="w-1/3 p-2 flex flex-col gap-7 justify-center border-r mr-10"
+        >
+          <div class="flex items-center gap-4">
+            <div class="text-[18px] font-family text underline">
+              {{ event.client.name }}
+            </div>
+            <div
+              class="text-[12px] text-blue-500 border-blue-500 border px-1.5 py-0.5 rounded-xl"
+            >
+              {{ event.status_event.name }}
+            </div>
           </div>
 
           <div class="font-family mt-1 flex flex-col gap-2 rounded-lg">
             <div class="flex gap-2 border-b mr-2 pl-2 p-1 items-center">
-              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.6002 8C15.6002 10.2091 13.8541 12 11.7002 12C9.54632 12 7.80023 10.2091 7.80023 8C7.80023 5.79086 9.54632 4 11.7002 4C12.7346 4 13.7266 4.42143 14.4579 5.17157C15.1893 5.92172 15.6002 6.93913 15.6002 8Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12.4502 12C12.4502 11.5858 12.1144 11.25 11.7002 11.25C11.286 11.25 10.9502 11.5858 10.9502 12H12.4502ZM10.9502 18C10.9502 18.4142 11.286 18.75 11.7002 18.75C12.1144 18.75 12.4502 18.4142 12.4502 18H10.9502ZM11.6187 5.66744C11.2069 5.71248 10.9096 6.08279 10.9547 6.49454C10.9997 6.9063 11.37 7.20358 11.7818 7.15854L11.6187 5.66744ZM12.9289 7.85878C13.0873 8.24152 13.526 8.42338 13.9087 8.26499C14.2915 8.1066 14.4733 7.66793 14.3149 7.2852L12.9289 7.85878ZM8.75664 16.7458C9.16856 16.7022 9.46714 16.333 9.42355 15.9211C9.37995 15.5091 9.01069 15.2106 8.59878 15.2542L8.75664 16.7458ZM5.50506 17.006L5.14054 16.3505C5.12276 16.3604 5.10539 16.371 5.08848 16.3823L5.50506 17.006ZM5.07996 18.406L4.49679 18.8776C4.52236 18.9092 4.55046 18.9387 4.5808 18.9658L5.07996 18.406ZM7.59059 19.576L7.75796 18.8449C7.73741 18.8402 7.71668 18.8364 7.69582 18.8334L7.59059 19.576ZM11.7002 20L11.7147 19.2501C11.705 19.2499 11.6953 19.2499 11.6855 19.2501L11.7002 20ZM15.8098 19.575L15.7036 18.8326C15.683 18.8355 15.6625 18.8393 15.6423 18.8439L15.8098 19.575ZM18.3205 18.4L18.8206 18.9588C18.8502 18.9324 18.8776 18.9036 18.9026 18.8728L18.3205 18.4ZM17.8954 17L18.3133 16.3772C18.2956 16.3653 18.2773 16.3542 18.2587 16.3439L17.8954 17ZM14.8004 15.254C14.3885 15.2111 14.0197 15.5103 13.9768 15.9223C13.9338 16.3343 14.233 16.703 14.645 16.746L14.8004 15.254ZM10.9502 12V18H12.4502V12H10.9502ZM11.7818 7.15854C12.2599 7.10624 12.7306 7.37955 12.9289 7.85878L14.3149 7.2852C13.8693 6.20829 12.7794 5.54046 11.6187 5.66744L11.7818 7.15854ZM8.59878 15.2542C7.38605 15.3825 6.21078 15.7553 5.14054 16.3505L5.86958 17.6614C6.76454 17.1637 7.74568 16.8528 8.75664 16.7458L8.59878 15.2542ZM5.08848 16.3823C4.69312 16.6464 4.33099 17.003 4.18732 17.476C4.02851 17.9989 4.18538 18.4925 4.49679 18.8776L5.66313 17.9344C5.62349 17.8854 5.62092 17.8645 5.62303 17.8732C5.6263 17.8866 5.62505 17.9038 5.62258 17.912C5.62168 17.9149 5.62897 17.8885 5.67509 17.8355C5.72168 17.7819 5.79935 17.7113 5.92165 17.6297L5.08848 16.3823ZM4.5808 18.9658C5.39836 19.6948 6.40738 20.1658 7.48536 20.3186L7.69582 18.8334C6.91406 18.7226 6.17836 18.3806 5.57912 17.8462L4.5808 18.9658ZM7.42322 20.3071C8.83135 20.6294 10.2721 20.7781 11.7149 20.7498L11.6855 19.2501C10.3654 19.276 9.04686 19.14 7.75796 18.8449L7.42322 20.3071ZM11.6857 20.7499C13.1285 20.7778 14.5693 20.6288 15.9774 20.306L15.6423 18.8439C14.3534 19.1393 13.0349 19.2757 11.7147 19.2501L11.6857 20.7499ZM15.9161 20.3174C16.9947 20.163 18.0038 19.69 18.8206 18.9588L17.8203 17.8411C17.2215 18.377 16.4858 18.7206 15.7036 18.8326L15.9161 20.3174ZM18.9026 18.8728C19.2151 18.488 19.3719 17.9944 19.2131 17.4715C19.0696 16.9991 18.7081 16.6421 18.3133 16.3772L17.4775 17.6228C17.6 17.705 17.6779 17.776 17.7248 17.83C17.7712 17.8835 17.7787 17.9102 17.7778 17.9075C17.7754 17.8995 17.7741 17.882 17.7775 17.868C17.7798 17.8586 17.7775 17.8788 17.7383 17.9272L18.9026 18.8728ZM18.2587 16.3439C17.188 15.751 16.0127 15.3803 14.8004 15.254L14.645 16.746C15.6556 16.8512 16.6367 17.1603 17.532 17.6561L18.2587 16.3439Z" fill="#000000"></path> </g></svg>
-              <div class="font-family " >{{ event.location.name }}</div>
+              <svg
+                width="20px"
+                height="20px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M15.6002 8C15.6002 10.2091 13.8541 12 11.7002 12C9.54632 12 7.80023 10.2091 7.80023 8C7.80023 5.79086 9.54632 4 11.7002 4C12.7346 4 13.7266 4.42143 14.4579 5.17157C15.1893 5.92172 15.6002 6.93913 15.6002 8Z"
+                    stroke="#000000"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M12.4502 12C12.4502 11.5858 12.1144 11.25 11.7002 11.25C11.286 11.25 10.9502 11.5858 10.9502 12H12.4502ZM10.9502 18C10.9502 18.4142 11.286 18.75 11.7002 18.75C12.1144 18.75 12.4502 18.4142 12.4502 18H10.9502ZM11.6187 5.66744C11.2069 5.71248 10.9096 6.08279 10.9547 6.49454C10.9997 6.9063 11.37 7.20358 11.7818 7.15854L11.6187 5.66744ZM12.9289 7.85878C13.0873 8.24152 13.526 8.42338 13.9087 8.26499C14.2915 8.1066 14.4733 7.66793 14.3149 7.2852L12.9289 7.85878ZM8.75664 16.7458C9.16856 16.7022 9.46714 16.333 9.42355 15.9211C9.37995 15.5091 9.01069 15.2106 8.59878 15.2542L8.75664 16.7458ZM5.50506 17.006L5.14054 16.3505C5.12276 16.3604 5.10539 16.371 5.08848 16.3823L5.50506 17.006ZM5.07996 18.406L4.49679 18.8776C4.52236 18.9092 4.55046 18.9387 4.5808 18.9658L5.07996 18.406ZM7.59059 19.576L7.75796 18.8449C7.73741 18.8402 7.71668 18.8364 7.69582 18.8334L7.59059 19.576ZM11.7002 20L11.7147 19.2501C11.705 19.2499 11.6953 19.2499 11.6855 19.2501L11.7002 20ZM15.8098 19.575L15.7036 18.8326C15.683 18.8355 15.6625 18.8393 15.6423 18.8439L15.8098 19.575ZM18.3205 18.4L18.8206 18.9588C18.8502 18.9324 18.8776 18.9036 18.9026 18.8728L18.3205 18.4ZM17.8954 17L18.3133 16.3772C18.2956 16.3653 18.2773 16.3542 18.2587 16.3439L17.8954 17ZM14.8004 15.254C14.3885 15.2111 14.0197 15.5103 13.9768 15.9223C13.9338 16.3343 14.233 16.703 14.645 16.746L14.8004 15.254ZM10.9502 12V18H12.4502V12H10.9502ZM11.7818 7.15854C12.2599 7.10624 12.7306 7.37955 12.9289 7.85878L14.3149 7.2852C13.8693 6.20829 12.7794 5.54046 11.6187 5.66744L11.7818 7.15854ZM8.59878 15.2542C7.38605 15.3825 6.21078 15.7553 5.14054 16.3505L5.86958 17.6614C6.76454 17.1637 7.74568 16.8528 8.75664 16.7458L8.59878 15.2542ZM5.08848 16.3823C4.69312 16.6464 4.33099 17.003 4.18732 17.476C4.02851 17.9989 4.18538 18.4925 4.49679 18.8776L5.66313 17.9344C5.62349 17.8854 5.62092 17.8645 5.62303 17.8732C5.6263 17.8866 5.62505 17.9038 5.62258 17.912C5.62168 17.9149 5.62897 17.8885 5.67509 17.8355C5.72168 17.7819 5.79935 17.7113 5.92165 17.6297L5.08848 16.3823ZM4.5808 18.9658C5.39836 19.6948 6.40738 20.1658 7.48536 20.3186L7.69582 18.8334C6.91406 18.7226 6.17836 18.3806 5.57912 17.8462L4.5808 18.9658ZM7.42322 20.3071C8.83135 20.6294 10.2721 20.7781 11.7149 20.7498L11.6855 19.2501C10.3654 19.276 9.04686 19.14 7.75796 18.8449L7.42322 20.3071ZM11.6857 20.7499C13.1285 20.7778 14.5693 20.6288 15.9774 20.306L15.6423 18.8439C14.3534 19.1393 13.0349 19.2757 11.7147 19.2501L11.6857 20.7499ZM15.9161 20.3174C16.9947 20.163 18.0038 19.69 18.8206 18.9588L17.8203 17.8411C17.2215 18.377 16.4858 18.7206 15.7036 18.8326L15.9161 20.3174ZM18.9026 18.8728C19.2151 18.488 19.3719 17.9944 19.2131 17.4715C19.0696 16.9991 18.7081 16.6421 18.3133 16.3772L17.4775 17.6228C17.6 17.705 17.6779 17.776 17.7248 17.83C17.7712 17.8835 17.7787 17.9102 17.7778 17.9075C17.7754 17.8995 17.7741 17.882 17.7775 17.868C17.7798 17.8586 17.7775 17.8788 17.7383 17.9272L18.9026 18.8728ZM18.2587 16.3439C17.188 15.751 16.0127 15.3803 14.8004 15.254L14.645 16.746C15.6556 16.8512 16.6367 17.1603 17.532 17.6561L18.2587 16.3439Z"
+                    fill="#000000"
+                  ></path>
+                </g>
+              </svg>
+              <div class="font-family">{{ event.location.name }}</div>
             </div>
 
-            <div class="flex gap-2  pl-2  border-b mr-2 p-1 items-center">
+            <div class="flex gap-2 pl-2 border-b mr-2 p-1 items-center">
               <div class="">{{ event.date }} - {{ event.time.name }}</div>
             </div>
 
-            <div class="flex gap-2  pl-2  border-b mr-2 p-1 items-center">
+            <div class="flex gap-2 pl-2 border-b mr-2 p-1 items-center">
               <div class="text-blue-400">{{ event.description }}</div>
             </div>
 
             <div class="flex gap-2 border-b mr-2 p-1 pl-2 items-center">
-              <div>{{ event.type_of_event.name  }}</div>
+              <div>{{ event.type_of_event.name }}</div>
             </div>
-
-
           </div>
-
         </div>
-        <div class="w-2/3 flex flex-col gap-1.5  p-2 ">
-          <div class="w-full  " *ngFor="let schedule of event.schedules">
-            <div   class=" w-full  flex  gap-3   px-5 py-2 border-b  border-b-gray-200 cursor-pointer ">
-
-              <div class=" text-base font-family  text-[#0e4166] flex-1 ">{{ schedule.description }}</div>
-              <div class="text-base font-family  text-[#0e4166] flex-1">{{schedule.start_time.name}}</div>
-              <div class="text-base font-family  text-[#0e4166] flex-1">{{schedule.end_time.name}}</div>
-              <div class="text-sm flex   justify-center   text-[#2B88CC]">
+        <div class="w-2/3 flex flex-col gap-1.5 p-2">
+          <div class="w-full" *ngFor="let schedule of event.schedules">
+            <div
+              class="w-full flex gap-3 px-5 py-2 border-b border-b-gray-200 cursor-pointer"
+            >
+              <div class="text-base font-family text-[#0e4166] flex-1">
+                {{ schedule.description }}
+              </div>
+              <div class="text-base font-family text-[#0e4166] flex-1">
+                {{ schedule.start_time.name }}
+              </div>
+              <div class="text-base font-family text-[#0e4166] flex-1">
+                {{ schedule.end_time.name }}
+              </div>
+              <div class="text-sm flex justify-center text-[#2B88CC]">
                 <div class="flex flex-col gap-0.5">
                   <div class="text-xs text-gray-500">Operater</div>
                   {{ schedule.user.name }}
                 </div>
               </div>
-
-
-
             </div>
           </div>
         </div>
       </div>
-
-
-
     </div>
-
+  </div>
 </div>
-</div>
-
