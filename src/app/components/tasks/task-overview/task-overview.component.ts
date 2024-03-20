@@ -4,7 +4,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../service/auth.service";
 import {Router} from "@angular/router";
-import {AssignmentsDetails} from "../../../interfaces/assignments";
+import {AssignmentsDetailList, AssignmentsDetails} from "../../../interfaces/assignments";
 import {FormControl} from "@angular/forms";
 import * as moment from "moment";
 import Swal from "sweetalert2";
@@ -18,8 +18,8 @@ import {Subscription} from "rxjs";
 export class TaskOverviewComponent implements OnInit , OnDestroy {
 
   private langChangeSubscription: Subscription | undefined;
-  filteredTaskList: AssignmentsDetails[] = []
-  taskList: AssignmentsDetails[] = []
+  filteredTaskList: AssignmentsDetailList[] = []
+  taskList: AssignmentsDetailList[] = []
   searchInput = new FormControl('')
   appData = this.authServis.appData;
   date = new Date();
@@ -77,7 +77,21 @@ export class TaskOverviewComponent implements OnInit , OnDestroy {
         this.filterOptions[0]
       )
     });
-   this.loadTasks(this.currentMonth.start, this.currentMonth.end)
+    let savedPeriod = this.authServis.readLocalStorage('period')
+    let startPeriod = {
+      start: this.currentMonth.start,
+      end: this.currentMonth.end
+    }
+    if (savedPeriod !== undefined){
+      startPeriod = JSON.parse(savedPeriod || '')
+      this.selectedPeriod.start = moment(startPeriod.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(startPeriod.end).format("DD.MM.YYYY");
+    } else {
+      this.selectedPeriod.start = moment(this.currentMonth.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(this.currentMonth.end).format("DD.MM.YYYY");
+    }
+   this.loadTasks(startPeriod.start, startPeriod.end)
+
   }
 
 
@@ -90,28 +104,45 @@ export class TaskOverviewComponent implements OnInit , OnDestroy {
 
   loadTasks(fromDate: string , toDate: string ) {
     void this.spinner.show()
-    this.apiCalls.getAssignments(0, fromDate, toDate).subscribe((data: AssignmentsDetails[]) => {
+    this.apiCalls.getAssignmentList(0, fromDate, toDate).subscribe((data: AssignmentsDetailList[]) => {
       this.taskList = data
       this.filteredTaskList = data
       void this.spinner.hide()
     })
+    this.authServis.saveToLocalStorage('period', JSON.stringify({start: fromDate, end: toDate}))
   }
 
 
   filterEventsByStatus() {
-    this.filteredTaskList = this.taskList;
+    this.filteredTaskList = JSON.parse(JSON.stringify(this.taskList));
       if (this.selectedFilter.value?.id! < 10 ) {
-        this.filteredTaskList = this.taskList.filter(task => task.status === this.selectedFilter.value?.id!)
+        for (let i = 0; i < this.filteredTaskList.length; i++) {
+             for (let j = 0; j < this.filteredTaskList[i].assignments.length; j++) {
+               if (this.filteredTaskList[i].assignments[j].status !== this.selectedFilter.value?.id!){
+                 this.filteredTaskList[i].assignments.splice(j, 1)
+                 j--
+               }
+             }
+        }
       }
+
   }
 
 
   filterEventsByKeyword(){
     const textForSearch = this.searchInput.value
-    this.filteredTaskList = this.taskList;
-    if (textForSearch){
-      this.filteredTaskList = this.taskList.filter(task => task.description.toLowerCase().includes(textForSearch.toLowerCase()))
+    this.filteredTaskList = JSON.parse(JSON.stringify(this.taskList));
+    if (textForSearch) {
+      for (let i = 0; i < this.filteredTaskList.length; i++) {
+        for (let j = 0; j < this.filteredTaskList[i].assignments.length; j++) {
+          if (!this.filteredTaskList[i].assignments[j].description.toLowerCase().includes(textForSearch!.toLowerCase())) {
+            this.filteredTaskList[i].assignments.splice(j, 1)
+            j--
+          }
+        }
+      }
     }
+
   }
 
 
@@ -160,7 +191,7 @@ export class TaskOverviewComponent implements OnInit , OnDestroy {
 
   downloadExcel() {
     Swal.fire({
-      title: this.translate.instant('download'),
+      title: this.translate.instant('download.base'),
       text: this.translate.instant('create'),
       icon: 'question',
       showCancelButton: true,

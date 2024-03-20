@@ -72,7 +72,10 @@
     }
   },
   "desc": "Description",
-  "download": "Download",
+  "download": {
+    "base": "Download",
+    "excel": "Download excel"
+  },
   "e": {
     "costs": "Event Expenses",
     "date": "Event Date",
@@ -112,8 +115,10 @@
   "events": {
     "add": "Add event",
     "details": "Event details",
+    "error": "Event is not saved!",
     "list": "Event list",
-    "none": "No events found"
+    "none": "No events found",
+    "successfull": "Event is saved!"
   },
   "expense": {
     "amount": "Amount",
@@ -319,5 +324,11 @@
   "yesiamsurebutton": "Yes, I am sure!",
   "youcantchangeschedule": " You are not entitled to schedule corrections!",
   "youdonthaveaccess": " You do not have access rights!",
-  "youhavenopermission": "You do not have permission to edit expenses!"
+  "youhavenopermission": "You do not have permission to edit expenses!",
+  "youhavetochooseclient": "You have to choose client!",
+  "youhavetochooseeventstatus": "You have to choose status of event!",
+  "youhavetochooselocation": "You have to choose location!",
+  "youhavetochoosetime": "You have to choose time!",
+  "youhavetochoosetypeofevent": "You have to choose type of event!",
+  "youhavetoenternumberofperticipants": "You have to enter number of participants!"
 }

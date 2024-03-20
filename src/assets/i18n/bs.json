@@ -72,7 +72,10 @@
     }
   },
   "desc": "Opis",
-  "download": "Preuzimanje",
+  "download": {
+    "base": "Preuzimanje",
+    "excel": "Preuzmite excel"
+  },
   "e": {
     "costs": "Troškovi Događaja",
     "date": "Datum Događaja",
@@ -112,8 +115,10 @@
   "events": {
     "add": "Dodaj događaj",
     "details": "Detalji događaja",
+    "error": "Dogadjaj nije upisan!",
     "list": "Lista događaja",
-    "none": "Nije pronađen nijedan događaj"
+    "none": "Nije pronađen nijedan događaj",
+    "successfull": "Dogadjaj je upisan!"
   },
   "expense": {
     "amount": "Iznos",
@@ -319,5 +324,11 @@
   "yesiamsurebutton": "Da siguran sam!",
   "youcantchangeschedule": "Nemate pravo ispravke rasporeda!",
   "youdonthaveaccess": "Nemate pravo pristupa!",
-  "youhavenopermission": "Nemate dozvolu za uređivanje troškova!"
+  "youhavenopermission": "Nemate dozvolu za uređivanje troškova!",
+  "youhavetochooseclient": "Morate izabrati klijenta!",
+  "youhavetochooseeventstatus": "Morate da izaberete status događaja!",
+  "youhavetochooselocation": "Morate izabrati lokaciju!",
+  "youhavetochoosetime": "Morate izabrati vreme!",
+  "youhavetochoosetypeofevent": "Morate odabrati vrstu događaja!",
+  "youhavetoenternumberofperticipants": "Morate da unesete broj učesnika!"
 }

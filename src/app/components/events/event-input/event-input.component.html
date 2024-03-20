@@ -5,7 +5,7 @@
 
 <div class="flex  w-full h-full flex-1 ">
   <div class="flex  flex-col p-5 w-full  overflow-auto middle ">
-    <div class="  w-full  rounded-lg flex flex-col gap-5 ">
+    <div  class=" w-full  rounded-lg flex flex-col gap-5 ">
 
       <div class=" w-full flex bg-white p-4 rounded-[15px] flex-col text-sm shadow-lg">
         <div class="border-b flex flex-col">
@@ -78,7 +78,7 @@
         <div class="flex flex-row p-2  text-center font-family border-b cursor-pointer justify-between hover:bg-gray-200" *ngFor="let revenue of revenueList" (click)="editRevenue(revenue)" >
           <div class="w-1/6">{{revenue.type_of_revenue.name}}</div>
           <div  class="w-1/6">{{revenue.unit.name}}</div>
-          <div  class="w-1/6">{{revenue.quantity | number: '1.2-2'}}</div>
+          <div  class="w-1/6">{{revenue.quantity}}</div>
           <div class="w-1/6">{{revenue.amount | number: '1.2-2'}}</div>
           <div class="w-1/6">{{revenue.amount * revenue.quantity  | number: '1.2-2'}}</div>
         </div>
@@ -238,7 +238,7 @@
       </form>
 
       <div class="flex flex-col p-4 ">
-        <button *ngIf="appData.can_edit" class="w-full p-3 bg-color-2 text-white  rounded-[6px]" (click)="saveEvent()">{{'save.button' | translate}} </button>
+        <button  [disabled]="formEditEvent.invalid" *ngIf="appData.can_edit" class="w-full p-3 bg-color-2 text-white  rounded-[6px]" (click)="saveEvent()">{{'save.button' | translate}} </button>
       </div>
     </div>
 

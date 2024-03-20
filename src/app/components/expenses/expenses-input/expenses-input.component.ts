@@ -138,7 +138,8 @@ export class ExpensesInputComponent implements OnInit{
                 icon: 'success',
                 confirmButtonColor: '#894CB2',
               });
-              this.closeExpense.emit(expense as EventCostsDetails);
+              console.log(expense, "expense", response, "response")
+              this.closeExpense.emit(response.message as EventCostsDetails);
             }
           });
         } else {
@@ -158,7 +159,7 @@ export class ExpensesInputComponent implements OnInit{
                 icon: 'success',
                 confirmButtonColor: '#894CB2',
               });
-              this.closeExpense.emit(expense as EventCostsDetails);
+              this.closeExpense.emit(response.message as EventCostsDetails);
             }
           });
         }

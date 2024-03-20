@@ -9,6 +9,7 @@ import {CostsDetails, EventCostsDetails} from "../../interfaces/costs";
 import {RevenuesAnalisysDetails} from "../../interfaces/revenues";
 import {TranslateService} from "@ngx-translate/core";
 import {Subscription} from "rxjs";
+import {AuthService} from "../../service/auth.service";
 @Component({
   selector: 'app-analysis',
   templateUrl: './analysis.component.html',
@@ -28,6 +29,7 @@ tabRevenueData: RevenuesAnalisysDetails[] = [];
   constructor(
     public translate: TranslateService,
     public apiCalls: ApiCallsService,
+    private authServis: AuthService
 
   ) {
   }
@@ -72,10 +74,26 @@ finalAnalisysData = {
     end: moment(this.currentWeek.end).format("DD.MM.YYYY")
   }
   ngOnInit(): void {
-    this.getAnalysisData(this.currentWeek.start, this.currentWeek.end);
-    this.analyseWeekTotals();
 
-    this.loadTabData( this.currentWeek.start, this.currentWeek.end);
+
+    let savedPeriod = this.authServis.readLocalStorage('period')
+    let startPeriod = {
+      start: this.currentMonth.start,
+      end: this.currentMonth.end
+    }
+    if (savedPeriod !== undefined){
+      startPeriod = JSON.parse(savedPeriod || '')
+      this.selectedPeriod.start = moment(startPeriod.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(startPeriod.end).format("DD.MM.YYYY");
+    } else {
+      this.selectedPeriod.start = moment(this.currentMonth.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(this.currentMonth.end).format("DD.MM.YYYY");
+    }
+
+    this.getAnalysisData(startPeriod.start, startPeriod.end);
+    this.getAnalysisDataTotal(startPeriod.start, startPeriod.end);
+
+    this.loadTabData( startPeriod.start, startPeriod.end);
 
     this.langChangeSubscription = this.translate.onLangChange.subscribe((event: { lang: string }) => {
       this.chart!.options!.plugins!.title!.text = this.translate.instant('event.diagram');
@@ -230,15 +248,17 @@ loadTabData(startDate:string, endDate:string) {
   this.apiCalls.getAnalisysRevenueData(startDate, endDate).subscribe((data: RevenuesAnalisysDetails[]) => {
         this.tabRevenueData = data;
       });
+  this.authServis.saveToLocalStorage('period', JSON.stringify({start: startDate, end: endDate}))
+
 }
 
 
 sumPerParticipans() {
-  this.finalAnalisysData.revenuePerPerticipant = this.analisysDataTotals.total_revenue / 0 ? 1 : this.analisysDataTotals.number_of_participants ;
-  this.finalAnalisysData.costPerPerticipant = this.analisysDataTotals.total_events_cost / 0 ? 1 : this.analisysDataTotals.number_of_participants ;
-  this.finalAnalisysData.revenuePerEvent = this.analisysDataTotals.total_revenue / 0 ? 1 : this.analisysDataTotals.number_of_events ;
-  this.finalAnalisysData.costPerEvent = this.analisysDataTotals.total_events_cost / 0 ? 1 : this.analisysDataTotals.number_of_events ;
-  this.finalAnalisysData.participantsPerEvent = Math.round(this.analisysDataTotals.number_of_participants / 0 ? 1 : this.analisysDataTotals.number_of_events);
+  this.finalAnalisysData.revenuePerPerticipant = this.analisysDataTotals.total_revenue /  this.analisysDataTotals.number_of_participants ;
+  this.finalAnalisysData.costPerPerticipant = this.analisysDataTotals.total_events_cost /  this.analisysDataTotals.number_of_participants ;
+  this.finalAnalisysData.revenuePerEvent = this.analisysDataTotals.total_revenue /  this.analisysDataTotals.number_of_events ;
+  this.finalAnalisysData.costPerEvent = this.analisysDataTotals.total_events_cost /  this.analisysDataTotals.number_of_events ;
+  this.finalAnalisysData.participantsPerEvent = Math.round(this.analisysDataTotals.number_of_participants /  this.analisysDataTotals.number_of_events);
   }
 
 

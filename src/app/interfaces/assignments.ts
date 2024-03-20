@@ -23,3 +23,19 @@ export interface AssignmentsDetails {
   end_date: Date,
   date: string
 }
+
+
+export interface AssignmentsDetailList {
+  id: number;
+  client: Details;
+  type_of_event: Details;
+  status_event: Details;
+  location: Details;
+  user: Details;
+  description: string;
+  date: Date;
+  time: Details;
+  event_rating: number;
+  number_of_participants: number;
+  assignments: AssignmentsDetails[]
+}

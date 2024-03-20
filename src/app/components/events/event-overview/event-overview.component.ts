@@ -4,11 +4,12 @@ import {AuthService} from "../../../service/auth.service";
 import {TranslateService} from "@ngx-translate/core";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ApiCallsService} from "../../../service/api-calls.service";
-import {EventDetails} from "../../../interfaces/events";
+import {Details, EventDetails} from "../../../interfaces/events";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {FormControl} from "@angular/forms";
 import * as moment from "moment/moment";
 import Swal from "sweetalert2";
+import {firstValueFrom} from "rxjs";
 
 
 @Component({
@@ -31,21 +32,23 @@ import Swal from "sweetalert2";
 
 export class EventOverviewComponent implements OnInit{
 
+  status_event = new FormControl({id: 10, name: 'All'});
+
   receivedFromDate = this.activate_route.snapshot.paramMap.get('fromDate') || '';
   receivedToDate = this.activate_route.snapshot.paramMap.get('toDate') || '';
   eventList: EventDetails[] = []
   filteredEventlist: EventDetails[] = []
   selectedEvent: EventDetails = {} as EventDetails;
   searchInput = new FormControl('')
-  filterDate = new FormControl('')
   date = new Date();
-
+  statusList: Details[] = []
   monthList = this.apiCalls.translateMonths[this.translate.currentLang || 'en'];
   showInput = true;
 
   currentWeek = {
     start: moment().startOf('week').format('YYYY-MM-DD'),
     end: moment().endOf('week').format('YYYY-MM-DD')
+
   }
 
 
@@ -67,6 +70,7 @@ export class EventOverviewComponent implements OnInit{
   }
 
 
+
   constructor(
     private activate_route: ActivatedRoute,
     private apiCalls: ApiCallsService,
@@ -78,7 +82,15 @@ export class EventOverviewComponent implements OnInit{
 
   appData = this.authService.appData;
 
-ngOnInit(): void {
+async ngOnInit(): Promise<void> {
+  let savedPeriod = this.authService.readLocalStorage('period');
+  if (savedPeriod) {
+    const period = JSON.parse(savedPeriod);
+    this.selectedPeriod.start = period.start;
+    this.selectedPeriod.end = period.end;
+    this.receivedFromDate = period.start;
+    this.receivedToDate = period.end;
+  }
   if (this.receivedFromDate !== 'x' && this.receivedToDate !== 'x'){
     this.selectedPeriod.start = moment(this.receivedFromDate).format("DD.MM.YYYY");
     this.selectedPeriod.end = moment(this.receivedToDate).format("DD.MM.YYYY");
@@ -88,6 +100,8 @@ ngOnInit(): void {
     this.selectedPeriod.end = moment(this.currentMonth.end).format("DD.MM.YYYY");
     void this.loadEvents(this.currentMonth.start, this.currentMonth.end)
   }
+  this.statusList = await this.loadStatus();
+  this.statusList.unshift({id: 10, name: this.translate.instant('filter.all')})
 }
 
 
@@ -104,6 +118,8 @@ ngOnInit(): void {
       console.log(data)
     })
     this.filteredEventlist = this.eventList
+    this.authService.saveToLocalStorage('period', JSON.stringify({start: fromDate, end: toDate}))
+
   }
 
 
@@ -119,6 +135,11 @@ ngOnInit(): void {
   }
 
 
+  loadStatus(): Promise<Details[]> {
+    return firstValueFrom(this.apiCalls.getSharedEventStatuses());
+  }
+
+
   filterEventSearch() {
     this.filteredEventlist = this.eventList;
     const textForSearch = this.searchInput.value || '';
@@ -129,6 +150,14 @@ ngOnInit(): void {
     }
   }
 
+filterEventsByStatus() {
+  this.filteredEventlist = this.eventList;
+  let status = this.status_event.value?.id || 10;
+  console.log(status, "status", this.status_event.value)
+  if (status < 10){
+    this.filteredEventlist = this.eventList.filter(event => event.status_event.id === status)
+  }
+}
 
   loadWeekEvents() {
     this.selectedPeriod.start = moment(this.currentWeek.start).format("DD.MM.YYYY");
@@ -164,7 +193,7 @@ ngOnInit(): void {
 
   downloadEventExcel() {
     Swal.fire({
-      title:this.translate.instant('download'),
+      title:this.translate.instant('download.base'),
       text: this.translate.instant('create'),
       icon: 'question',
       showCancelButton: true,

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ScheduleDetails} from "../../../interfaces/schedule";
+import {ScheduleDetails, ScheduleDetailsList} from "../../../interfaces/schedule";
 import {ApiCallsService} from "../../../service/api-calls.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {TranslateService} from "@ngx-translate/core";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import * as moment from "moment";
 import {AuthService} from "../../../service/auth.service";
@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 })
 export class ScheduleOverviewComponent implements OnInit{
 
-  filteredScheduleList: ScheduleDetails[] = [];
+  filteredScheduleList: ScheduleDetailsList[] = [];
   searchInput = new FormControl('')
   appData = this.authService.appData;
   date = new Date();
@@ -56,16 +56,30 @@ export class ScheduleOverviewComponent implements OnInit{
 
 
   ngOnInit(): void {
-   void this.loadSchedules(this.currentMonth.start, this.currentMonth.end)
+    let savedPeriod = this.authService.readLocalStorage('period')
+    let startPeriod = {
+      start: this.currentMonth.start,
+      end: this.currentMonth.end
+    }
+    if (savedPeriod !== undefined){
+      startPeriod = JSON.parse(savedPeriod || '')
+      this.selectedPeriod.start = moment(startPeriod.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(startPeriod.end).format("DD.MM.YYYY");
+    } else {
+      this.selectedPeriod.start = moment(this.currentMonth.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(this.currentMonth.end).format("DD.MM.YYYY");
+    }
+   void this.loadSchedules(startPeriod.start, startPeriod.end)
   }
 
 
   async loadSchedules(fromDate: string, toDate: string) {
     void this.spinner.show()
-    this.apiCalls.getSchedules(0, fromDate, toDate).subscribe((data: ScheduleDetails[]) => {
+    this.apiCalls.getScheduleList(0, fromDate, toDate).subscribe((data: ScheduleDetailsList[]) => {
       this.filteredScheduleList = data
       void this.spinner.hide()
     })
+    this.authService.saveToLocalStorage('period', JSON.stringify({start: fromDate, end: toDate}))
   }
 
 
@@ -120,7 +134,7 @@ export class ScheduleOverviewComponent implements OnInit{
 
   downloadExcel() {
     Swal.fire({
-      title: this.translate.instant('download'),
+      title: this.translate.instant('download.base'),
       text: this.translate.instant('create'),
       icon: 'question',
       showCancelButton: true,

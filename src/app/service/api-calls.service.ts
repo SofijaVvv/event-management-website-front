@@ -17,7 +17,8 @@ import {IClient} from "../interfaces/client";
 
 export class ApiCallsService {
 
-  API_SERVIS = 'http://192.168.31.96:3000'
+  // API_SERVIS = 'http://192.168.31.96:3000'
+  API_SERVIS = 'http://localhost:3000'
   isOpenedMainMenu = true
   headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
 
@@ -289,6 +290,17 @@ export class ApiCallsService {
         }))
   }
 
+  getAssignmentList(event_id: number = 0, fromDate:string, toDate:string):Observable<any>{
+    const url = `${this.API_SERVIS}/assignments/list_events/${event_id}/${fromDate}/${toDate}`
+    return this.http.get<AssignmentsDetails[]>(url)
+      .pipe(catchError((e:any):Observable<any> => {
+          return of(e)
+        }),
+        finalize(() => {
+
+        }))
+  }
+
 
   getSchedules(event_id: number = 0, fromDate:string, toDate:string):Observable<any>{
     const url = `${this.API_SERVIS}/schedule/list/${event_id}/${fromDate}/${toDate}`
@@ -301,6 +313,16 @@ export class ApiCallsService {
         }))
   }
 
+  getScheduleList(event_id: number = 0, fromDate:string, toDate:string):Observable<any>{
+    const url = `${this.API_SERVIS}/schedule/list_events/${event_id}/${fromDate}/${toDate}`
+    return this.http.get<AssignmentsDetails[]>(url)
+      .pipe(catchError((e:any):Observable<any> => {
+          return of(e)
+        }),
+        finalize(() => {
+
+        }))
+  }
 
   getRevenues(event_id: number = 0, fromDate: string, toDate:string):Observable<any>{
     const url = `${this.API_SERVIS}/revenue/list/${event_id}/${fromDate}/${toDate}`

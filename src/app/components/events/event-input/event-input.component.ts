@@ -15,12 +15,15 @@ import Swal from "sweetalert2";
 import {AuthService} from "../../../service/auth.service";
 import {TranslateService} from "@ngx-translate/core";
 
+
 @Component({
   selector: 'app-event-input',
   templateUrl: './event-input.component.html',
   styleUrls: ['./event-input.component.sass']
 })
 export class EventInputComponent implements OnInit {
+
+
 
   editEventID = parseInt(this.activate_route.snapshot.paramMap.get('id') || '');
 
@@ -267,6 +270,71 @@ export class EventInputComponent implements OnInit {
 
 
   saveEvent() {
+
+    if (this.formEditEvent.get('location')?.value!.id === -1){
+      void Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('youhavetochooselocation'),
+        icon: 'error',
+        confirmButtonColor: 'rgba(35,101,150,0.86)',
+      })
+      return;
+    }
+
+
+    if (this.formEditEvent.get('client')?.value!.id === -1){
+      void Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('youhavetochooseclient'),
+        icon: 'error',
+        confirmButtonColor: 'rgba(35,101,150,0.86)',
+      })
+      return;
+    }
+
+    if (this.formEditEvent.get('time')?.value!.id === -1){
+      void Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('youhavetochoosetime'),
+        icon: 'error',
+        confirmButtonColor: 'rgba(35,101,150,0.86)',
+      })
+      return;
+    }
+
+    if (this.formEditEvent.get('type_of_event')?.value!.id === -1){
+      void Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('youhavetochoosetypeofevent'),
+        icon: 'error',
+        confirmButtonColor: 'rgba(35,101,150,0.86)',
+      })
+      return;
+    }
+
+
+    if (this.formEditEvent.get('status_event')?.value!.id === -1){
+      void Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('youhavetochooseeventstatus'),
+        icon: 'error',
+        confirmButtonColor: 'rgba(35,101,150,0.86)',
+      })
+      return;
+    }
+
+    if (this.formEditEvent.get('number_of_participants')?.value === null ||
+      this.formEditEvent.get('number_of_participants')?.value === 0){
+      void Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('youhavetoenternumberofperticipants'),
+        icon: 'error',
+        confirmButtonColor: 'rgba(35,101,150,0.86)',
+      })
+      return;
+    }
+
+
     Swal.fire({
       title: this.translate.instant('save.event'),
       text: this.translate.instant('typein.event'),
@@ -278,6 +346,13 @@ export class EventInputComponent implements OnInit {
       cancelButtonText: this.translate.instant('backto.event')
     }).then((result) => {
       if (result.isConfirmed) {
+
+
+
+
+
+
+
         const month = this.formEditEvent.value.date?.getMonth()
         let tmp = this.formEditEvent.value.date?.getFullYear() + "-" +
           (month! +1).toString().padStart(2, '0') + '-'
@@ -292,15 +367,15 @@ export class EventInputComponent implements OnInit {
           (data) => {
             if (data.error){
               Swal.fire({
-                title: this.translate.instant('error.er.event'),
-                text: this.translate.instant('error.event'),
+                title: this.translate.instant('error'),
+                text: this.translate.instant('events.error'),
                 icon: 'error',
                 confirmButtonColor: 'rgba(35,101,150,0.86)',
               })
             } else {
               Swal.fire({
-                title: this.translate.instant('success.s.event'),
-                text: this.translate.instant('success.event'),
+                title: this.translate.instant('success'),
+                text: this.translate.instant('events.successfull'),
                 icon: 'success',
                 confirmButtonColor: 'rgba(35,101,150,0.86)',
               })
@@ -395,6 +470,7 @@ export class EventInputComponent implements OnInit {
       });
       return;
     }
+    this.newSchedule = false;
     this.selectedSchedule = schedule;
     this.showSchedule = true;
   }
@@ -431,23 +507,7 @@ export class EventInputComponent implements OnInit {
   }
 
 
-closeExpenses(event : EventCostsDetails){
-  if (event.id < 0){
-    this.showExpense = false;
-    return;
-  }
-  if (this.newExpense){
-    this.costList.push(event)
-  } else {
-    this.costList.findIndex((cost, index) => {
-      if (cost.id === event.id){
-        this.costList[index] = event;
-      }
-    })
-  }
-  this.calculateTotal()
-  this.showExpense = false;
-}
+
 
 
   closeRevenue(event : RevenuesDetails){
@@ -459,6 +519,7 @@ closeExpenses(event : EventCostsDetails){
       this.revenueList.push(event)
     } else {
       this.revenueList.findIndex((revenue, index) => {
+        console.log("revenue", revenue, event)
         if (revenue.id === event.id){
           this.revenueList[index] = event;
         }
@@ -515,6 +576,7 @@ addNewExpense(){
 }
 
 editExpense(expense : EventCostsDetails){
+    console.log("edit expense", expense)
   if(!this.appData.can_edit){
     Swal.fire({
       title: this.translate.instant('rights.error'),
@@ -528,4 +590,24 @@ editExpense(expense : EventCostsDetails){
   this.showExpense = true;
 }
 
+
+  closeExpenses(event : EventCostsDetails){
+    console.log("close expenses", event)
+    if (event.id < 0){
+      this.showExpense = false;
+      return;
+    }
+    if (this.newExpense){
+      this.costList.push(event)
+    } else {
+      this.costList.findIndex((cost, index) => {
+        if (cost.id === event.id){
+          this.costList[index] = event;
+        }
+      })
+    }
+    this.calculateTotal()
+    this.showExpense = false;
+  }
 }
+

@@ -6,4 +6,21 @@
   background-color: rgb(14, 65, 102);
 }
 
+.status-1 {
+  @apply bg-green-500 text-gray-700;
+}
+
+.status-2 {
+  @apply bg-red-700 text-white;
+}
+
+.status-else {
+  @apply bg-gray-300 text-gray-700;
+}
+
+.mat-mdc-menu-item-text {
+  display: flex !important;
+  width: 100% !important;
+}
+
 /*# sourceMappingURL=event-overview.component.css.map */

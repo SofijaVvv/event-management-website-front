@@ -84,7 +84,20 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy{
         this.filterOptions[0]
       )
     });
-  void this.loadEventCosts(this.currentMonth.start, this.currentMonth.end);
+    let savedPeriod = this.authService.readLocalStorage('period')
+    let startPeriod = {
+      start: this.currentMonth.start,
+      end: this.currentMonth.end
+    }
+    if (savedPeriod !== undefined){
+      startPeriod = JSON.parse(savedPeriod || '')
+      this.selectedPeriod.start = moment(startPeriod.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(startPeriod.end).format("DD.MM.YYYY");
+    } else {
+      this.selectedPeriod.start = moment(this.currentMonth.start).format("DD.MM.YYYY");
+      this.selectedPeriod.end = moment(this.currentMonth.end).format("DD.MM.YYYY");
+    }
+  void this.loadEventCosts(startPeriod.start, startPeriod.end);
   }
 
 
@@ -126,7 +139,7 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy{
       this.filteredEventCostList = this.eventExpensesArray
       this.spinner.hide()
     })
-
+    this.authService.saveToLocalStorage('period', JSON.stringify({start: fromDate, end: toDate}))
   }
 
 
@@ -217,7 +230,7 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy{
 
   downloadExcel() {
     Swal.fire({
-      title:this.translate.instant('download'),
+      title:this.translate.instant('download.base'),
       text: this.translate.instant('create'),
       icon: 'question',
       showCancelButton: true,

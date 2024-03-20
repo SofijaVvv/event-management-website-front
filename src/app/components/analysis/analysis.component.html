@@ -2,42 +2,42 @@
 
 <div class="flex bg-color h-screen flex-col select-none">
 <div class="flex border-b ml-0.5 bg-white items-center gap-2 p-4 justify-between">
-  <div>
     <div class="text-xl">{{'analyse.data' | translate}}</div>
-    <div class="text-sm  text-[#2B88CC] mt-1">{{ selectedPeriod.start }} - {{ selectedPeriod.end }}</div>
+  <div class="flex gap-2 bg-blue-100 p-2 shadow rounded-lg cursor-pointer" [matMenuTriggerFor]="menu" matTooltip = "{{'select.period' | translate}}">
+    <div class="w-6 h-6 ">
+      <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
+    </div>
+    <div class="text-sm  text-[#2B88CC] mt-1 text-center"  >{{ selectedPeriod.start }} - {{ selectedPeriod.end }}</div>
   </div>
-          <button mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" >
-            <mat-icon class=" text-[#275C85FF]">unfold_more</mat-icon>
-            <div class=" underline decoration-blue-300  decoration-1  font-family text-[#275C85FF]">{{'select.period' | translate}}
-            </div>
 
 
-          </button>
+
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="analyseWeek()">
-              <mat-icon> bar_chart</mat-icon>
-              <div >{{'timeline.week' | translate}}</div>
+                            <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
+              <span >{{'timeline.week' | translate}}</span>
             </button>
 
             <button mat-menu-item (click)="analyseLast14Days()">
-              <mat-icon> bar_chart</mat-icon>
+                            <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
               <span>{{ 'timeline.14days' | translate }}</span>
             </button>
 
             <button mat-menu-item (click)="analyseMonth()">
-              <mat-icon> bar_chart</mat-icon>
+                            <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
               <span>{{'timeline.month' | translate }}</span>
             </button>
 
 
             <mat-divider></mat-divider>
             <button mat-menu-item [matMenuTriggerFor]="months">
-              <mat-icon> bar_chart</mat-icon>
+                            <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
               <span>{{'timeline.select.month' | translate}}</span>
             </button>
             <mat-menu #months>
                 <button mat-menu-item *ngFor="let month of monthList" (click)="analyseCustom(month.id-1)">
-                  <mat-icon>calendar_today</mat-icon>
+                  <svg class="inline-block mr-4 leading-5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="#2B88CC" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#2B88CC"></rect> </g></svg>
+
                   <span>{{month.name}}</span>
                 </button>
             </mat-menu>

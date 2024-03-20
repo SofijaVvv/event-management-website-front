@@ -123,7 +123,7 @@ saveRevenue() {
             icon: 'success',
             confirmButtonColor: '#894CB2',
           });
-          this.closeRevenue.emit(this.formEditRevenue.value as RevenuesDetails);
+          this.closeRevenue.emit(response.message as RevenuesDetails);
         }
       }
       );

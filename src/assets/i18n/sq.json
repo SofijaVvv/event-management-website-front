@@ -72,7 +72,10 @@
     }
   },
   "desc": "",
-  "download": "",
+  "download": {
+    "base": "",
+    "excel": ""
+  },
   "e": {
     "costs": "",
     "date": "",
@@ -112,8 +115,10 @@
   "events": {
     "add": "",
     "details": "",
+    "error": "",
     "list": "",
-    "none": ""
+    "none": "",
+    "successfull": ""
   },
   "expense": {
     "amount": "",
@@ -319,5 +324,11 @@
   "yesiamsurebutton": "",
   "youcantchangeschedule": "",
   "youdonthaveaccess": "",
-  "youhavenopermission": ""
+  "youhavenopermission": "",
+  "youhavetochooseclient": "",
+  "youhavetochooseeventstatus": "",
+  "youhavetochooselocation": "",
+  "youhavetochoosetime": "",
+  "youhavetochoosetypeofevent": "",
+  "youhavetoenternumberofperticipants": ""
 }

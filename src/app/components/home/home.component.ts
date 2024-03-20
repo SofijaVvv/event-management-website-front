@@ -5,7 +5,7 @@ import {Details, EventDetails} from "../../interfaces/events";
 import {Router} from "@angular/router";
 import * as moment from "moment/moment";
 import {ScheduleDetails} from "../../interfaces/schedule";
-import {AssignmentsDetails} from "../../interfaces/assignments";
+import {AssignmentsDetailList, AssignmentsDetails} from "../../interfaces/assignments";
 import {TranslateService} from "@ngx-translate/core";
 import {Subscription} from "rxjs";
 @Component({
@@ -16,7 +16,7 @@ import {Subscription} from "rxjs";
 export class HomeComponent implements OnInit, OnDestroy{
 
   monthEventList: EventDetails[] = [];
-  monthTaskList: AssignmentsDetails[] = [];
+  monthTaskList: AssignmentsDetailList[] = [];
   monthScheduleList: ScheduleDetails[] = [];
   langChangeSubscription: Subscription | undefined;
   eventCalendarData = [];
@@ -133,7 +133,7 @@ getMonthEvents(){
 getMonthTasks() {
   const start = moment().month(this.activeMonth.id -1).startOf('month').format('YYYY-MM-DD');
   const end = moment().month(this.activeMonth.id -1).endOf('month').format('YYYY-MM-DD');
-  this.apiCalls.getAssignments(0, start, end).subscribe((data: AssignmentsDetails[]) => {
+  this.apiCalls.getAssignmentList(0, start, end).subscribe((data: AssignmentsDetailList[]) => {
    this.monthTaskList = data
   })
 }
