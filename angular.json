@@ -16,7 +16,6 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-
           "options": {
             "outputPath": "dist/gland",
             "index": "src/index.html",
@@ -105,11 +104,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "146a1e8d-bed0-401d-b584-97a5ec03c8d2"
+    "analytics": "146a1e8d-bed0-401d-b584-97a5ec03c8d2",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

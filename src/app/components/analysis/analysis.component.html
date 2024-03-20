@@ -642,7 +642,7 @@
             (click)="activeTab = 0"
           >
             <svg
-              [ngClass]="{ 'active-tab-icon': activeTab == 0 }"
+              [ngClass]="{ 'active-tab-icon': activeTab === 0 }"
               fill="#D1D5DB"
               height="24px"
               width="24px"
@@ -678,7 +678,7 @@
             (click)="activeTab = 1"
           >
             <svg
-              [ngClass]="{ 'active-tab-icon': activeTab == 1 }"
+              [ngClass]="{ 'active-tab-icon': activeTab === 1 }"
               fill="#D1D5DB"
               height="22px"
               width="22px"
@@ -714,7 +714,7 @@
             (click)="activeTab = 2"
           >
             <svg
-              [ngClass]="{ 'active-tab-icon': activeTab == 2 }"
+              [ngClass]="{ 'active-tab-icon': activeTab === 2 }"
               class="p-1"
               fill="#D1D5DB"
               height="28px"
