@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Details, EventDetails } from '../../../interfaces/events';
+import {Details} from '../../../interfaces/events';
 import { AssignmentsDetails } from '../../../interfaces/assignments';
-import { FormBuilder, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import { ApiCallsService } from '../../../service/api-calls.service';
 import Swal from 'sweetalert2';
 import { firstValueFrom } from 'rxjs';
@@ -24,6 +24,7 @@ export class TaskInputComponent implements OnInit {
     private translate: TranslateService,
   ) {}
 
+
   formEditTask = this.fb.group({
     id: [0],
     description: ['', Validators.required],
@@ -36,6 +37,7 @@ export class TaskInputComponent implements OnInit {
   });
 
   async ngOnInit(): Promise<void> {
+    this.getUsers();
     this.prioritiesList = await this.getPriorities();
     if (!this.taskForInput.id) {
       this.taskForInput.priority = this.prioritiesList[0];
@@ -50,7 +52,13 @@ export class TaskInputComponent implements OnInit {
       created_date: this.taskForInput.created_date,
       end_date: this.taskForInput.end_date,
     });
+
+
+
+
   }
+
+  listOfUsers: Details[] = [];
 
   closeTaskForm() {
     this.closeTask.emit({ id: -1 } as AssignmentsDetails);
@@ -91,6 +99,22 @@ export class TaskInputComponent implements OnInit {
       }
     });
   }
+
+  getUsers(){
+    this.apiCalls.getUsers().subscribe((data) => {
+      this.listOfUsers = data;
+      if (this.listOfUsers.length > 0) {
+        if (!this.taskForInput.id){
+
+          this.formEditTask.patchValue({user: this.listOfUsers[0] });
+        } else {
+          this.formEditTask.patchValue({user: this.taskForInput.user });
+
+        }
+      }
+    });
+  }
+
 
   getPriorities(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getPriorities());

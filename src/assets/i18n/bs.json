@@ -9,28 +9,55 @@
     "expense": "Dodaj Trošak",
     "role": "Dodaj ulogu"
   },
+  "address": "Adresa ",
   "analyse": {
     "data": "Analizirajte svoje podatke"
   },
+  "analysis": {
+    "no": {
+      "data": "Nema podataka za dati period"
+    }
+  },
   "areyousureyouwanttologout": "Da li ste sigurni da želite da izađete iz programa?",
+  "assignedto": "Dodijeljeno",
   "assignment": {
     "priority": "Prioritet"
   },
   "assignments": "Zadaci",
   "back": "Nazad",
+  "backaccount": "Tekući/Žiro račun",
   "backto": {
     "event": "Nazad na program"
   },
   "c": {
-    "costs": "Troškovi"
+    "costs": "Ostali troškovi"
   },
   "cancel": {
-    "button": "Poništiti"
+    "button": "Otkaži"
   },
+  "city": "Grad",
   "cl": {
     "type": "Tip Komitenta"
   },
   "client": "Komitent",
+  "clientaddress": {
+    "input": "Unesite adresu klijenta!"
+  },
+  "clientcity": {
+    "input": "Unesite grad klijenta!"
+  },
+  "clientemail": {
+    "input": "Unesite email klijenta!"
+  },
+  "clientname": {
+    "input": "Unesite ime klijenta!"
+  },
+  "clientphone": {
+    "input": "Unesite broj telefona klijenta!"
+  },
+  "clientsaved": {
+    "input": "Podaci klijenta su sačuvani!"
+  },
   "cost": {
     "per": {
       "event": "Trošak Po Događaju",
@@ -74,11 +101,11 @@
   "desc": "Opis",
   "download": {
     "base": "Preuzimanje",
-    "excel": "Preuzmite excel"
+    "excel": "Eksportuj u Excel"
   },
   "e": {
-    "costs": "Troškovi Događaja",
-    "date": "Datum Događaja",
+    "costs": "Troškovi događaja",
+    "date": "Datum događaja",
     "event": "Događaji"
   },
   "enter": {
@@ -167,7 +194,7 @@
       "shared": "Šifrarnik"
     }
   },
-  "name": "Ime",
+  "name": "Ime klijenta ",
   "nameisrequired": "Ime je obavezno!",
   "new": {
     "expense": "Novi trošak",
@@ -176,7 +203,13 @@
     }
   },
   "no": {
-    "change": "Ne mozete mijenjati zavrseni zadatak!"
+    "change": "Ne mozete mijenjati zavrseni zadatak!",
+    "events": {
+      "month": "Nema događaja za ovaj mjesec"
+    },
+    "tasks": {
+      "month": "Nema zadataka za ovaj mjesec"
+    }
   },
   "noaccesstoroute!": "Nemate pristup ovoj ruti",
   "nochange": {
@@ -185,6 +218,7 @@
     "schedule": "Nemate prava da mijenjate raspored!",
     "task": "Nemate prava da mijenjate zadatke!"
   },
+  "note": "Bilješka",
   "number": {
     "of": {
       "events": "Broj Događaja"
@@ -240,7 +274,7 @@
     "shared": "Šifrarnik"
   },
   "save": {
-    "button": "Sacuvaj",
+    "button": "Sačuvaj",
     "changes": "Da li želite da sačuvate podatke?",
     "event": "Upis događaja"
   },
@@ -269,7 +303,10 @@
   },
   "time": {
     "end": "Vreme završetka",
-    "input": "Vrijeme",
+    "input": {
+      "end": "Kraj ",
+      "start": "Početak"
+    },
     "start": "Početno vrijeme"
   },
   "timeline": {
@@ -282,13 +319,13 @@
   },
   "toentertaskquestion": "Da upišem zadatak?",
   "total": {
-    "all": "Ukupno:",
-    "costs": "Ukupni troškovi",
+    "all": "Ukupno troškova",
+    "costs": "Ostali troškovi",
     "event": {
-      "costs": "Ukupni troškovi događaja"
+      "costs": "Troškovi događaja"
     },
-    "events": "Ukupni događaji",
-    "participants": "Ukupno učesnika",
+    "events": "Broj događaja",
+    "participants": "Broj učesnika",
     "revenues": "Ukupni prihodi"
   },
   "typein": {

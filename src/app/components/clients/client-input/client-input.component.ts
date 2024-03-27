@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { IClient } from '../../../interfaces/client';
 import { ApiCallsService } from '../../../service/api-calls.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Details } from '../../../interfaces/events';
 import Swal from 'sweetalert2';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-client-input',
@@ -14,6 +15,13 @@ import Swal from 'sweetalert2';
 export class ClientInputComponent implements OnInit {
   @Input() clientForInput: IClient = {} as IClient;
   @Output() closeClient = new EventEmitter<IClient>();
+  @ViewChild('name') name!: ElementRef;
+  @ViewChild('email') email!: ElementRef;
+  @ViewChild('phone') phone!: ElementRef;
+  @ViewChild('address') address!: ElementRef;
+  @ViewChild('bankaccount') bankaccount!: ElementRef;
+  @ViewChild('city') city!: ElementRef;
+  @ViewChild('note') note!: ElementRef;
 
   clientTypeList: Details[] = [];
 
@@ -34,6 +42,7 @@ export class ClientInputComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiCalls: ApiCallsService,
+    public translate: TranslateService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -58,6 +67,12 @@ export class ClientInputComponent implements OnInit {
     });
   }
 
+  focusInput(input: string) {
+    console.log(input, 'input');
+    document.getElementById(input)?.focus();
+  }
+
+
   closeCloseClient() {
     this.closeClient.emit({ id: -1 } as IClient);
   }
@@ -67,6 +82,57 @@ export class ClientInputComponent implements OnInit {
   }
 
   saveClient() {
+
+
+    if (this.formEditClient.get('name')?.value?.trim() == '' || this.formEditClient.get('name')?.value == null) {
+      Swal.fire({
+        title: this.translate.instant('error')  ,
+        text:  this.translate.instant('clientname.input') ,
+        icon: 'error',
+        confirmButtonColor: '#894CB2',
+      });
+      return;
+    }
+    if (this.formEditClient.get('email')?.value?.trim() == '' || this.formEditClient.get('email')?.value == null) {
+      Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('clientemail.input'),
+        icon: 'error',
+        confirmButtonColor: '#894CB2',
+      });
+      return;
+    }
+
+    if (this.formEditClient.get('phone')?.value?.trim() == '' || this.formEditClient.get('phone')?.value == null) {
+      Swal.fire({
+        title: this.translate.instant('error'),
+        text: this.translate.instant('clientphone.input'),
+        icon: 'error',
+        confirmButtonColor: '#894CB2',
+      });
+      return;
+    }
+    if (this.formEditClient.get('address')?.value?.trim() == '' || this.formEditClient.get('address')?.value == null) {
+      Swal.fire({
+        title:  this.translate.instant('error'),
+        text: this.translate.instant('clientaddress.input'),
+        icon: 'error',
+        confirmButtonColor: '#894CB2',
+      });
+      return;
+    }
+
+    if (this.formEditClient.get('city')?.value?.trim() == '' || this.formEditClient.get('city')?.value == null) {
+      Swal.fire({
+        title:  this.translate.instant('error'),
+        text: this.translate.instant('clientcity.input'),
+        icon: 'error',
+        confirmButtonColor: '#894CB2',
+      });
+      return;
+    }
+
+
     Swal.fire({
       title: 'Upis događaja',
       text: 'Da upišem događaj?',
@@ -83,7 +149,7 @@ export class ClientInputComponent implements OnInit {
           .subscribe((res: any) => {
             if (res.error) {
               Swal.fire({
-                title: 'Greška',
+                title:  this.translate.instant('error'),
                 text: res.message,
                 icon: 'error',
                 confirmButtonColor: '#894CB2',
@@ -91,8 +157,8 @@ export class ClientInputComponent implements OnInit {
               return;
             } else {
               Swal.fire({
-                title: 'Uspeh',
-                text: 'Uspešno upisan događaj',
+                title:  this.translate.instant('success'),
+                text: this.translate.instant('clientsaved.input'),
                 icon: 'success',
                 confirmButtonColor: '#894CB2',
               });

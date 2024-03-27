@@ -4,6 +4,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "./service/auth.service";
 import {TranslateService} from "@ngx-translate/core";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -43,7 +44,9 @@ export class AppComponent implements OnInit{
 
       })
     }
-  }
+
+
+ }
 
 
   closeMainMenu(event: any){

@@ -82,6 +82,42 @@ export class ClientOverviewComponent implements OnInit {
     this.showInput = true;
   }
 
+  downloadClientExcel() {
+    Swal.fire({
+      title: this.translate.instant('download.base'),
+      text: this.translate.instant('create'),
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: this.translate.instant('accept.yes'),
+      cancelButtonText: this.translate.instant('cancel.button'),
+    }).then((result: any) => {
+      
+        this.apiCalls
+          .downloadExcelFile(
+            this.appData.application,
+            0,
+            'fromDate',
+            'toDate',
+            'eng',
+          )
+          .subscribe((data: any) => {
+            console.log(data, 'data');
+            const blob = new Blob([data], {
+              type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `ClientsList.xlsx`;
+            link.click();
+            window.URL.revokeObjectURL(url);
+          });
+
+    });
+  }
+
   editClient(client: IClient) {
     if (!this.appData.can_edit) {
       void Swal.fire({

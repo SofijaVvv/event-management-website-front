@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallsService } from '../../../service/api-calls.service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Details, EventDetails } from '../../../interfaces/events';
-import { FormBuilder, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { DateAdapter } from '@angular/material/core';
 import * as moment from 'moment';
@@ -21,6 +21,18 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./event-input.component.sass'],
 })
 export class EventInputComponent implements OnInit {
+
+  constructor(
+    private fb: FormBuilder,
+    public translate: TranslateService,
+    private authServis: AuthService,
+    public apiCalls: ApiCallsService,
+    private activate_route: ActivatedRoute,
+    private spinner: NgxSpinnerService,
+    private _adapter: DateAdapter<any>,
+    private router: Router
+  ) {}
+
   editEventID = parseInt(this.activate_route.snapshot.paramMap.get('id') || '');
 
   ///expenses
@@ -71,7 +83,7 @@ export class EventInputComponent implements OnInit {
     event_id: this.editEventID,
     user: { id: -1, name: '' },
     start_time: { id: 6, name: '06:00' },
-    end_time: { id: 7, name: '07:00' },
+    end_time: { id: 7, name: '06:15' },
     description: '',
     date: '',
   };
@@ -83,6 +95,7 @@ export class EventInputComponent implements OnInit {
   // tasks0
   showTask = false;
   newTask = false;
+
 
   defaultTask = {
     id: 0,
@@ -102,15 +115,6 @@ export class EventInputComponent implements OnInit {
   totalRevenue = 0;
   // tasks
 
-  constructor(
-    private fb: FormBuilder,
-    public translate: TranslateService,
-    private authServis: AuthService,
-    public apiCalls: ApiCallsService,
-    private activate_route: ActivatedRoute,
-    private spinner: NgxSpinnerService,
-    private _adapter: DateAdapter<any>,
-  ) {}
 
   appData = this.authServis.appData;
 
@@ -129,6 +133,7 @@ export class EventInputComponent implements OnInit {
     id: 0,
     date: new Date(),
     time: { id: -1, name: '' },
+    end_time: { id: -1, name: '' },
     client: { id: -1, name: '' },
     type_of_event: { id: -1, name: '' },
     status_event: { id: -1, name: '' },
@@ -143,6 +148,7 @@ export class EventInputComponent implements OnInit {
     id: [0],
     date: [new Date(), Validators.required],
     time: [{ id: -1, name: '' }, Validators.required],
+    end_time: [{ id: -1, name: '' }, Validators.required],
     client: [{ id: -1, name: '' }, Validators.required],
     type_of_event: [{ id: -1, name: '' }, Validators.required],
     status_event: [{ id: -1, name: '' }, Validators.required],
@@ -150,13 +156,13 @@ export class EventInputComponent implements OnInit {
     user: [{ id: -1, name: '' }, Validators.required],
     description: [''],
     event_rating: [0],
-    number_of_participants: [0],
+    number_of_participants: [0, Validators.required],
   });
 
   async ngOnInit() {
     this._adapter.setLocale('sr-Latn');
 
-    let eventData: EventDetails = {} as EventDetails;
+    const eventData: EventDetails = {} as EventDetails;
     if (this.editEventID) {
       void this.loadEvents(this.editEventID);
       this.editEventData = await this.loadEvents(this.editEventID);
@@ -166,6 +172,7 @@ export class EventInputComponent implements OnInit {
         date: moment(this.editEventData.date, 'DD.MM.YYYY').toDate(),
         description: this.editEventData.description,
         time: this.editEventData.time,
+        end_time: this.editEventData.end_time,
         location: this.editEventData.location,
         status_event: this.editEventData.status_event,
         type_of_event: this.editEventData.type_of_event,
@@ -215,6 +222,7 @@ export class EventInputComponent implements OnInit {
   loadLocations(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getSharedLocations());
   }
+
 
   loadStatus(): Promise<Details[]> {
     return firstValueFrom(this.apiCalls.getSharedEventStatuses());
@@ -359,6 +367,11 @@ export class EventInputComponent implements OnInit {
               icon: 'success',
               confirmButtonColor: 'rgba(35,101,150,0.86)',
             });
+            this.editEventData.id = data['message'].id;
+            this.defaultSchedule.event_id = this.editEventData.id;
+            this.defaultTask.event_id = this.editEventData.id;
+            this.defaultRevenue.event_id = this.editEventData.id;
+            this.defaultExpense.event_id = this.editEventData.id;
           }
         });
       }
@@ -366,6 +379,7 @@ export class EventInputComponent implements OnInit {
   }
 
   closeTasks(event: AssignmentsDetails) {
+    console.log('close tasks', event)
     if (event.id < 0) {
       this.showTask = false;
       return;
@@ -404,7 +418,7 @@ export class EventInputComponent implements OnInit {
       });
       return;
     }
-    if (task.status === 1) {
+    if (task.status) {
       Swal.fire({
         title: this.translate.instant('task.finished'),
         text: this.translate.instant('no.change'),

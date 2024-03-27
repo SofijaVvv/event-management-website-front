@@ -283,6 +283,7 @@
         <button
           class="text-white text-sm py-2.5 px-4 rounded-[8px] bg-color-2"
           (click)="addEvent()"
+          *ngIf="appData.can_edit"
         >
           {{ "events.add" | translate }}
         </button>
@@ -482,15 +483,16 @@
         (click)="onClickEvent(event)"
       >
         <div
-          class="relative w-full grid grid-cols-[1fr_1fr_min-content_1fr_min-content] gap-5 items-center px-5 p-3 bg-white border border-gray-200 rounded-lg shadow cursor-pointer"
+          class="relative w-full grid grid-cols-[1fr_1fr_1fr_1fr_min-content] gap-5 items-center px-5 p-3 bg-white border border-gray-200 rounded-lg shadow cursor-pointer"
         >
           <div
             class="h-3 absolute left-0 top-0 rounded-tl-lg text-xs px-2"
             [class.status-1]="event.status_event.id === 1"
             [class.status-2]="event.status_event.id === 2"
-            [class.status-else]="event.status_event.id > 2"
+            [class.status-3]="event.status_event.id === 3"
+            [class.status-4]="event.status_event.id === 4"
+            [class.status-else]="event.status_event.id > 4"
           >
-            <!--          {{ event.status_event.name }}-->
           </div>
 
           <div class="text-base font-family text-[#0e4166]">
@@ -604,7 +606,7 @@
                 </g>
               </g>
             </svg>
-            {{ event.time.name }}
+            <div>{{ event.time.name }} - <span class="text-blue-600">{{ event.end_time.name }}</span></div>
           </div>
 
           <div class="text-sm text-[#2B88CC] flex gap-2 pl-5">

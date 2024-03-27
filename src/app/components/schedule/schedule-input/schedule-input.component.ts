@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ApiCallsService } from '../../../service/api-calls.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import {Details} from "../../../interfaces/events";
 
 @Component({
   selector: 'app-schedule-input',
@@ -19,10 +20,10 @@ export class ScheduleInputComponent implements OnInit {
     description: ['', Validators.required],
     user: { id: -1, name: '' },
     event_id: [0],
-    start_time: { id: 6, name: '06:000' },
-    end_time: { id: 7, name: '07:00' },
+    start_time: { id: 6, name: '06:00' },
+    end_time: { id: 7, name: '06:15' },
   });
-
+  listOfUsers: Details[] = [];
   constructor(
     private fb: FormBuilder,
     public apiCalls: ApiCallsService,
@@ -37,11 +38,28 @@ export class ScheduleInputComponent implements OnInit {
       event_id: this.scheduleForInput.event_id,
       start_time: this.scheduleForInput.start_time,
       end_time: this.scheduleForInput.end_time,
+
     });
+    this.getUsers();
   }
 
   closeScheduleForm() {
     this.closeSchedule.emit({ id: -1 } as ScheduleDetails);
+  }
+
+  getUsers(){
+    this.apiCalls.getUsers().subscribe((data) => {
+      this.listOfUsers = data;
+      if (this.listOfUsers.length > 0) {
+        if (!this.scheduleForInput.id){
+
+          this.formEditSchedule.patchValue({user: this.listOfUsers[0] });
+        } else {
+          this.formEditSchedule.patchValue({user: this.scheduleForInput.user });
+
+        }
+      }
+    });
   }
 
   saveSchedule() {

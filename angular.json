@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gland": {
+    "lgproject": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gland",
+            "outputPath": "dist/lgproject",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -45,8 +45,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "100mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "gland:build:production"
+              "browserTarget": "lgproject:build:production"
             },
             "development": {
-              "browserTarget": "gland:build:development"
+              "browserTarget": "lgproject:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gland:build"
+            "browserTarget": "lgproject:build"
           }
         },
         "test": {

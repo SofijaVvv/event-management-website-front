@@ -9,7 +9,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment/moment';
 import Swal from 'sweetalert2';
-import { firstValueFrom } from 'rxjs';
+import {firstValueFrom, from} from 'rxjs';
 
 @Component({
   selector: 'app-event-overview',
@@ -74,15 +74,16 @@ export class EventOverviewComponent implements OnInit {
   appData = this.authService.appData;
 
   async ngOnInit(): Promise<void> {
-    let savedPeriod = this.authService.readLocalStorage('period');
-    if (savedPeriod) {
-      const period = JSON.parse(savedPeriod);
-      this.selectedPeriod.start = period.start;
-      this.selectedPeriod.end = period.end;
-      this.receivedFromDate = period.start;
-      this.receivedToDate = period.end;
+    const savedPeriod = this.authService.readLocalStorage('period');
+    if (this.receivedFromDate.toString() !== this.receivedToDate.toString()) {
+      if (savedPeriod) {
+        const period = JSON.parse(savedPeriod);
+        this.selectedPeriod.start = period.start;
+        this.selectedPeriod.end = period.end;
+        this.receivedFromDate = period.start;
+        this.receivedToDate = period.end;
+      }
     }
-    if (this.receivedFromDate !== 'x' && this.receivedToDate !== 'x') {
       this.selectedPeriod.start = moment(this.receivedFromDate).format(
         'DD.MM.YYYY',
       );
@@ -90,15 +91,8 @@ export class EventOverviewComponent implements OnInit {
         'DD.MM.YYYY',
       );
       void this.loadEvents(this.receivedFromDate, this.receivedToDate);
-    } else {
-      this.selectedPeriod.start = moment(this.currentMonth.start).format(
-        'DD.MM.YYYY',
-      );
-      this.selectedPeriod.end = moment(this.currentMonth.end).format(
-        'DD.MM.YYYY',
-      );
-      void this.loadEvents(this.currentMonth.start, this.currentMonth.end);
-    }
+
+
     this.statusList = await this.loadStatus();
     this.statusList.unshift({
       id: 10,
@@ -108,6 +102,7 @@ export class EventOverviewComponent implements OnInit {
 
   async loadEvents(fromDate: string, toDate: string) {
     void this.spinner.show();
+    this.status_event.setValue({ id: 10, name: 'All' });
     this.apiCalls
       .getEventListById(0, fromDate, toDate)
       .subscribe((data: EventDetails[]) => {
@@ -121,10 +116,12 @@ export class EventOverviewComponent implements OnInit {
         console.log(data);
       });
     this.filteredEventlist = this.eventList;
-    this.authService.saveToLocalStorage(
-      'period',
-      JSON.stringify({ start: fromDate, end: toDate }),
-    );
+    if (fromDate.toString() !== toDate.toString()) {
+      this.authService.saveToLocalStorage(
+        'period',
+        JSON.stringify({ start: fromDate, end: toDate }),
+      );
+    }
   }
 
   onClickEvent(event: EventDetails) {
@@ -156,7 +153,7 @@ export class EventOverviewComponent implements OnInit {
 
   filterEventsByStatus() {
     this.filteredEventlist = this.eventList;
-    let status = this.status_event.value?.id || 10;
+    const status = this.status_event.value?.id || 10;
     console.log(status, 'status', this.status_event.value);
     if (status < 10) {
       this.filteredEventlist = this.eventList.filter(

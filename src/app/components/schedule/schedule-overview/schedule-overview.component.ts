@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class ScheduleOverviewComponent implements OnInit {
   filteredScheduleList: ScheduleDetailsList[] = [];
+  scheduleList: ScheduleDetailsList[] = [];
   searchInput = new FormControl('');
   appData = this.authService.appData;
   date = new Date();
@@ -53,7 +54,7 @@ export class ScheduleOverviewComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    let savedPeriod = this.authService.readLocalStorage('period');
+    const savedPeriod = this.authService.readLocalStorage('period');
     let startPeriod = {
       start: this.currentMonth.start,
       end: this.currentMonth.end,
@@ -81,6 +82,7 @@ export class ScheduleOverviewComponent implements OnInit {
       .getScheduleList(0, fromDate, toDate)
       .subscribe((data: ScheduleDetailsList[]) => {
         this.filteredScheduleList = data;
+        this.scheduleList = data;
         void this.spinner.hide();
       });
     this.authService.saveToLocalStorage(
@@ -89,13 +91,26 @@ export class ScheduleOverviewComponent implements OnInit {
     );
   }
 
-  filterEventsByKeyword() {
-    this.filteredScheduleList = this.filteredScheduleList.filter((schedule) => {
-      return schedule.description
-        .toLowerCase()
-        .includes(this.searchInput.value!.toLowerCase());
-    });
+    filterEventsByKeyword() {
+    const textForSearch = this.searchInput.value;
+    this.filteredScheduleList = JSON.parse(JSON.stringify(this.scheduleList));
+    if (textForSearch) {
+      for (let i = 0; i < this.filteredScheduleList.length; i++) {
+        for (let j = 0; j < this.filteredScheduleList[i].schedules.length; j++) {
+          if (
+            !this.filteredScheduleList[i].schedules[j].description
+              .toLowerCase()
+              .includes(textForSearch!.toLowerCase())
+          ) {
+            this.filteredScheduleList[i].schedules.splice(j, 1);
+            j--;
+          }
+        }
+      }
+    }
   }
+
+
 
   navigateToEvent(event: ScheduleDetails) {
     if (!this.appData.can_edit) {

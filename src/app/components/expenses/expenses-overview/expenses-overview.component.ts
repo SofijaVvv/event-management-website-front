@@ -20,7 +20,7 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy {
   searchInput = new FormControl('');
   showInput = false;
   selectedExpenses: EventCostsDetails = {} as EventCostsDetails;
-  newCost: boolean = false;
+  newCost = false;
   costType = 'other';
   appData = this.authService.appData;
 
@@ -78,7 +78,7 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy {
         this.selectedFilter.patchValue(this.filterOptions[0]);
       },
     );
-    let savedPeriod = this.authService.readLocalStorage('period');
+    const savedPeriod = this.authService.readLocalStorage('period');
     let startPeriod = {
       start: this.currentMonth.start,
       end: this.currentMonth.end,
@@ -126,6 +126,7 @@ export class ExpensesOverviewComponent implements OnInit, OnDestroy {
 
   async loadEventCosts(fromDate: string, toDate: string) {
     this.eventExpensesArray = [];
+    this.selectedFilter.patchValue({ id: -1, name: 'All' });
     this.spinner.show();
     this.apiCalls
       .getEventCosts(0, fromDate, toDate)

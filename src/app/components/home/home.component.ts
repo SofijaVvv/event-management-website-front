@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           date: day,
         })
         .format('YYYY-MM-DD');
+      this.apiCalls.activeMainMenu = 'events';
       this.router.navigate(['events/list', fromDate, toDate]);
     }
   }
@@ -101,16 +102,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   changeMonth(direction: number) {
+    console.log("direkcija 1 ", direction, this.activeMonth.id, "godina ", this.selectedYear.id)
     if (direction === 1) {
       if (this.activeMonth.id === 12) {
-        this.selectedYear.id++;
+        this.selectedYear = {id: this.selectedYear.id + 1, name: (this.selectedYear.id + 1).toString()}
         this.activeMonth = this.apiCalls.months[0];
       } else {
         this.activeMonth = this.apiCalls.months[this.activeMonth.id];
       }
     } else {
       if (this.activeMonth.id === 1) {
-        this.selectedYear.id--;
+        this.selectedYear = {id: this.selectedYear.id - 1, name: (this.selectedYear.id - 1).toString()};
         this.activeMonth = this.apiCalls.months[11];
       } else {
         this.activeMonth = this.apiCalls.months[this.activeMonth.id - 2];
@@ -125,13 +127,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getMonthEvents() {
     const start = moment()
+      .year(this.selectedYear.id)
       .month(this.activeMonth.id - 1)
       .startOf('month')
       .format('YYYY-MM-DD');
     const end = moment()
+      .year(this.selectedYear.id)
       .month(this.activeMonth.id - 1)
       .endOf('month')
       .format('YYYY-MM-DD');
+    console.log(start, end)
     this.apiCalls
       .getEventListById(0, start, end)
       .subscribe((data: EventDetails[]) => {
@@ -141,10 +146,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getMonthTasks() {
     const start = moment()
+      .year(this.selectedYear.id)
       .month(this.activeMonth.id - 1)
       .startOf('month')
       .format('YYYY-MM-DD');
     const end = moment()
+      .year(this.selectedYear.id)
       .month(this.activeMonth.id - 1)
       .endOf('month')
       .format('YYYY-MM-DD');
@@ -157,10 +164,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getMonthSchedule() {
     const start = moment()
+      .year(this.selectedYear.id)
       .month(this.activeMonth.id - 1)
       .startOf('month')
       .format('YYYY-MM-DD');
     const end = moment()
+      .year(this.selectedYear.id)
       .month(this.activeMonth.id - 1)
       .endOf('month')
       .format('YYYY-MM-DD');

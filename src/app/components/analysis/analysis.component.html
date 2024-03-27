@@ -637,13 +637,13 @@
       >
         <div class="flex justify-center max-h-[44px] gap-2">
           <div
-            class="bg-white p-2 font-family text-sm font-light w-full text-gray-300 flex items-center gap-2 justify-center tab"
+            class="bg-white p-2 font-family text-sm font-light w-full text-gray-500 flex items-center gap-2 justify-center tab"
             [ngClass]="{ 'active-tab': activeTab === 0 }"
             (click)="activeTab = 0"
           >
             <svg
               [ngClass]="{ 'active-tab-icon': activeTab === 0 }"
-              fill="#D1D5DB"
+              fill="#222"
               height="24px"
               width="24px"
               version="1.1"
@@ -652,7 +652,7 @@
               xmlns:xlink="http://www.w3.org/1999/xlink"
               viewBox="-51.2 -51.2 614.40 614.40"
               xml:space="preserve"
-              stroke="#D1D5DB"
+              stroke="#222"
             >
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g
@@ -673,13 +673,13 @@
             {{ "e.event" | translate }}
           </div>
           <div
-            class="bg-white font-family text-sm items-center gap-2 font-light text-gray-300 p-2 w-full flex justify-center tab"
+            class="bg-white font-family text-sm items-center gap-2 font-light text-gray-500 p-2 w-full flex justify-center tab"
             [ngClass]="{ 'active-tab': activeTab === 1 }"
             (click)="activeTab = 1"
           >
             <svg
               [ngClass]="{ 'active-tab-icon': activeTab === 1 }"
-              fill="#D1D5DB"
+              fill="#222"
               height="22px"
               width="22px"
               version="1.1"
@@ -709,14 +709,14 @@
             {{ "e.costs" | translate }}
           </div>
           <div
-            class="bg-white gap-2 items-center text-gray-300 font-family text-sm font-light p-2 w-full flex justify-center tab"
+            class="bg-white gap-2 items-center text-gray-500 font-family text-sm font-light p-2 w-full flex justify-center tab"
             [ngClass]="{ 'active-tab': activeTab === 2 }"
             (click)="activeTab = 2"
           >
             <svg
               [ngClass]="{ 'active-tab-icon': activeTab === 2 }"
               class="p-1"
-              fill="#D1D5DB"
+              fill="#222"
               height="28px"
               width="28px"
               version="1.1"
@@ -769,13 +769,13 @@
           </div>
 
           <div
-            class="bg-white text-gray-300 font-family text-sm font-light gap-2 items-center p-2 w-full flex justify-center tab"
+            class="bg-white text-gray-500 font-family text-sm font-light gap-2 items-center p-2 w-full flex justify-center tab"
             [ngClass]="{ 'active-tab': activeTab === 3 }"
             (click)="activeTab = 3"
           >
             <svg
               [ngClass]="{ 'active-tab-icon': activeTab == 3 }"
-              fill="#D1D5DB"
+              fill="#222"
               height="22px"
               width="22px"
               version="1.1"
@@ -809,11 +809,14 @@
             *ngIf="activeTab == 0"
             class="flex-1 overflow-y-scroll flex-col flex"
           >
+            <div class="h-[400px] flex items-center justify-center text-gray-500" *ngIf="!tabEventData.length">
+              {{ "analysis.no.data" | translate }}
+            </div>
             <div *ngFor="let event of tabEventData">
               <div
                 class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
               >
-                <div class="flex flex-col">
+                <div class="flex flex-col w-1/3">
                   <div class="text-color">{{ event.client.name }}</div>
                   <div class="text-xs text-gray-500">
                     {{ event.type_of_event.name }}
@@ -823,7 +826,7 @@
                   <div class="text-xs text-gray-500 text-center">
                     {{ "e.date" | translate }}
                   </div>
-                  <div class="text-color text-center">{{ event.date }}</div>
+                  <div class="text-color text-sm text-center">{{ event.date }}</div>
                 </div>
                 <div class="flex flex-col">
                   <div class="text-xs text-gray-500">
@@ -838,11 +841,14 @@
           </div>
 
           <div *ngIf="activeTab == 1" class="overflow-y-scroll flex flex-col">
+            <div class="h-[400px] flex items-center justify-center text-gray-500" *ngIf="!tabEventCostData.length">
+              {{ "analysis.no.data" | translate }}
+            </div>
             <div *ngFor="let event of tabEventCostData">
               <div
                 class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
               >
-                <div class="flex flex-col">
+                <div class="flex flex-col w-1/3">
                   <div class="text-color">{{ event.client.name }}</div>
                   <div class="text-xs text-gray-500">
                     {{ event.type_of_cost.name }}
@@ -867,11 +873,14 @@
           </div>
 
           <div *ngIf="activeTab == 2" class="flex-1 overflow-y-scroll">
+            <div class="h-[400px] flex items-center justify-center text-gray-500" *ngIf="!tabCostData.length">
+              {{ "analysis.no.data" | translate }}
+            </div>
             <div *ngFor="let cost of tabCostData">
               <div
                 class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
               >
-                <div class="flex flex-col">
+                <div class="flex flex-col w-1/3">
                   <div class="text-color">{{ cost.client.name }}</div>
                   <div class="text-xs text-gray-500">
                     {{ cost.type_of_cost.name }}
@@ -896,11 +905,14 @@
           </div>
 
           <div *ngIf="activeTab == 3" class="flex-1 overflow-y-scroll">
+            <div class="h-[400px] flex items-center justify-center text-gray-500" *ngIf="!tabRevenueData.length">
+              {{ "analysis.no.data" | translate }}
+            </div>
             <div *ngFor="let revenue of tabRevenueData">
               <div
                 class="flex justify-between items-center p-4 bg-white border-b border-b-blue-100"
               >
-                <div class="flex flex-col">
+                <div class="flex flex-col w-1/3">
                   <div class="text-color">{{ revenue.client }}</div>
                 </div>
                 <div class="flex flex-col">

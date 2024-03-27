@@ -9,15 +9,23 @@
     "expense": "",
     "role": ""
   },
+  "address": "",
   "analyse": {
     "data": ""
   },
+  "analysis": {
+    "no": {
+      "data": ""
+    }
+  },
   "areyousureyouwanttologout": "",
+  "assignedto": "",
   "assignment": {
     "priority": ""
   },
   "assignments": "",
   "back": "",
+  "backaccount": "",
   "backto": {
     "event": ""
   },
@@ -27,10 +35,29 @@
   "cancel": {
     "button": ""
   },
+  "city": "",
   "cl": {
     "type": ""
   },
   "client": "",
+  "clientaddress": {
+    "input": ""
+  },
+  "clientcity": {
+    "input": ""
+  },
+  "clientemail": {
+    "input": ""
+  },
+  "clientname": {
+    "input": ""
+  },
+  "clientphone": {
+    "input": ""
+  },
+  "clientsaved": {
+    "input": ""
+  },
   "cost": {
     "per": {
       "event": "",
@@ -176,7 +203,13 @@
     }
   },
   "no": {
-    "change": ""
+    "change": "",
+    "events": {
+      "month": ""
+    },
+    "tasks": {
+      "month": ""
+    }
   },
   "noaccesstoroute!": "",
   "nochange": {
@@ -185,6 +218,7 @@
     "schedule": "",
     "task": ""
   },
+  "note": "",
   "number": {
     "of": {
       "events": ""
@@ -269,7 +303,10 @@
   },
   "time": {
     "end": "",
-    "input": "",
+    "input": {
+      "end": "",
+      "start": ""
+    },
     "start": ""
   },
   "timeline": {

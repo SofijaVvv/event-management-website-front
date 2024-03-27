@@ -35,6 +35,7 @@ export interface AssignmentsDetailList {
   description: string;
   date: Date;
   time: Details;
+  end_time: Details;
   event_rating: number;
   number_of_participants: number;
   assignments: AssignmentsDetails[]

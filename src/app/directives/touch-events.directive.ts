@@ -19,15 +19,15 @@ export class TouchEventsDirective {
   @HostListener('touchend', ['$event'])
   @HostListener('touchcancel', ['$event'])
   handleTouch(event: { touches: any[]; changedTouches: any[]; type: string; timeStamp: number; }) {
-    let touch = event.touches[0] || event.changedTouches[0];
+    const touch = event.touches[0] || event.changedTouches[0];
     if (event.type === 'touchstart') {
       this.defaultTouch.x = touch.pageX;
       this.defaultTouch.y = touch.pageY;
       this.defaultTouch.time = event.timeStamp;
     } else if (event.type === 'touchend') {
-      let deltaX = touch.pageX - this.defaultTouch.x;
-      let deltaY = touch.pageY - this.defaultTouch.y;
-      let deltaTime = event.timeStamp - this.defaultTouch.time;
+      const deltaX = touch.pageX - this.defaultTouch.x;
+      const deltaY = touch.pageY - this.defaultTouch.y;
+      const deltaTime = event.timeStamp - this.defaultTouch.time;
 
       // simulte a swipe -> less than 500 ms and more than 60 px
       if (deltaTime < 500) {

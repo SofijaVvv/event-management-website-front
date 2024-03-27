@@ -135,7 +135,7 @@ export class UserInputComponent implements OnChanges {
     }).then((result) => {
       if (result.isConfirmed) {
         void this.spinner.show();
-        let user_data = this.userForm.value;
+        const user_data = this.userForm.value;
         user_data.roles_id = user_data.roles_combo?.id || 0;
         delete user_data.roles_combo;
         if (this.userForInput.id == 0) {

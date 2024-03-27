@@ -71,7 +71,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     end: moment(this.currentWeek.end).format('DD.MM.YYYY'),
   };
   ngOnInit(): void {
-    let savedPeriod = this.authServis.readLocalStorage('period');
+    const savedPeriod = this.authServis.readLocalStorage('period');
     let startPeriod = {
       start: this.currentMonth.start,
       end: this.currentMonth.end,
@@ -126,12 +126,13 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       datalabels: {
         anchor: 'center',
         align: 'end',
-        color: 'black',
+        color: 'gray',
         formatter: function (value: any, context: any) {
-          if (value == 0) {
-            return '';
-          }
-          return value.toLocaleString('en-US');
+          return '';
+          // if (value == 0) {
+          //   return '';
+          // }
+          // return value //.toLocaleString('en-US');
         },
       },
     },
@@ -212,7 +213,20 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     this.apiCalls
       .getAnalisysDataTotals(fromDate, toDate)
       .subscribe((data: any) => {
-        this.analisysDataTotals = data.message;
+        this.analisysDataTotals.total_cost = parseFloat(data.message.total_cost);
+        this.analisysDataTotals.total_events_cost = parseFloat(
+          data.message.total_events_cost,
+        );
+        this.analisysDataTotals.total_revenue = parseFloat(
+          data.message.total_revenue,
+        );
+        this.analisysDataTotals.number_of_events = parseFloat(
+          data.message.number_of_events,
+        );
+        this.analisysDataTotals.number_of_participants = parseFloat(
+          data.message.number_of_participants,
+        );
+        console.log(this.analisysDataTotals);
         this.sumPerParticipans();
       });
   }

@@ -2,6 +2,7 @@ export interface IEvents {
   id: number;
   date: string;
   time: string;
+  end_time: string;
   client_name: number;
   type_of_event_name: number;
   event_status_name: number;
@@ -28,6 +29,7 @@ export interface EventDetails {
   description: string;
   date: Date;
   time: Details;
+  end_time: Details;
   event_rating: number;
   number_of_participants: number;
 }

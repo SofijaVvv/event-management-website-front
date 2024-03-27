@@ -10,6 +10,24 @@
       <div *ngIf="scheduleForInput.id" class="p-2 text-2xl">
         {{ "schedules" | translate }}
       </div>
+      <div class="flex p-2 flex-col">
+        <label class="text-sm text-[#104166] mr-2"
+        >{{ "assignedto" | translate
+          }}<sup class="text-red-800">*</sup></label
+        >
+        <ng-select
+          class="custom-select w-full"
+          [items]="listOfUsers"
+          bindLabel="name"
+          formControlName="user"
+          [virtualScroll]="true"
+          [clearable]="false"
+        >
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <div>{{ item.name }}</div>
+          </ng-template>
+        </ng-select>
+      </div>
       <div class="w-full p-2 flex-1">
         <label class="block text-sm text-[#104166] font-family">{{
           "desc" | translate

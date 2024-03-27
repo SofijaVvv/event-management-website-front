@@ -73,7 +73,7 @@ export class TaskOverviewComponent implements OnInit, OnDestroy {
         this.selectedFilter.patchValue(this.filterOptions[0]);
       },
     );
-    let savedPeriod = this.authServis.readLocalStorage('period');
+    const savedPeriod = this.authServis.readLocalStorage('period');
     let startPeriod = {
       start: this.currentMonth.start,
       end: this.currentMonth.end,
@@ -102,6 +102,7 @@ export class TaskOverviewComponent implements OnInit, OnDestroy {
   }
 
   loadTasks(fromDate: string, toDate: string) {
+    this.selectedFilter.patchValue({ id: 10, name: this.translate.instant('filter.all') });
     void this.spinner.show();
     this.apiCalls
       .getAssignmentList(0, fromDate, toDate)

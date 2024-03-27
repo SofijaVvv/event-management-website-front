@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ExpensesInputComponent implements OnInit {
   @Input() expenseForInput: EventCostsDetails = {} as EventCostsDetails;
-  @Input() costType: String = 'event';
+  @Input() costType = 'event';
   @Output() closeExpense = new EventEmitter<EventCostsDetails>();
 
   clientList: Details[] = [];
@@ -112,7 +112,7 @@ export class ExpensesInputComponent implements OnInit {
           expense.event_id = null;
         }
         const mjesec = this.formEditExpense.value.date?.getMonth();
-        let tmp =
+        const tmp =
           this.formEditExpense.value.date?.getFullYear() +
           '-' +
           (mjesec! + 1).toString().padStart(2, '0') +
@@ -121,7 +121,7 @@ export class ExpensesInputComponent implements OnInit {
             ?.getDate()
             .toString()
             .padStart(2, '0');
-        let datum = new Date(tmp);
+        const datum = new Date(tmp);
         datum.setUTCHours(0);
         expense.date = datum;
 

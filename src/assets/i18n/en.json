@@ -9,28 +9,55 @@
     "expense": "Add Expense",
     "role": "Add role"
   },
+  "address": "Address",
   "analyse": {
     "data": "Analyse your data"
   },
+  "analysis": {
+    "no": {
+      "data": "No data for selected period"
+    }
+  },
   "areyousureyouwanttologout": "Are you sure you want to exit program?",
+  "assignedto": "Assigned to",
   "assignment": {
     "priority": "Priority"
   },
   "assignments": "Assignments",
   "back": "Back",
+  "backaccount": "Bank account",
   "backto": {
     "event": "Back to program"
   },
   "c": {
-    "costs": "Expenses"
+    "costs": "Other expenses"
   },
   "cancel": {
     "button": "Cancel"
   },
+  "city": "City",
   "cl": {
     "type": "Client type"
   },
   "client": "Client",
+  "clientaddress": {
+    "input": "Enter client address!"
+  },
+  "clientcity": {
+    "input": "Enter clients city!"
+  },
+  "clientemail": {
+    "input": "Enter client email!"
+  },
+  "clientname": {
+    "input": "Enter client name!"
+  },
+  "clientphone": {
+    "input": "Enter client phone number!"
+  },
+  "clientsaved": {
+    "input": "Client data saved!"
+  },
   "cost": {
     "per": {
       "event": "Expense Per Event",
@@ -74,7 +101,7 @@
   "desc": "Description",
   "download": {
     "base": "Download",
-    "excel": "Download excel"
+    "excel": "Export to Excel"
   },
   "e": {
     "costs": "Event Expenses",
@@ -167,7 +194,7 @@
       "shared": "Shared"
     }
   },
-  "name": "Name",
+  "name": "Client name",
   "nameisrequired": "Name is required!",
   "new": {
     "expense": "New expense",
@@ -176,7 +203,13 @@
     }
   },
   "no": {
-    "change": "You cannot change a completed task!"
+    "change": "You cannot change a completed task!",
+    "events": {
+      "month": "No events for this month"
+    },
+    "tasks": {
+      "month": "No tasks for this month"
+    }
   },
   "noaccesstoroute!": "You don't have access to this route",
   "nochange": {
@@ -185,6 +218,7 @@
     "schedule": "You have no right to change the schedule!",
     "task": "You have no right to change tasks!"
   },
+  "note": "Note",
   "number": {
     "of": {
       "events": "Number Of Events"
@@ -269,7 +303,10 @@
   },
   "time": {
     "end": "End time",
-    "input": "Time",
+    "input": {
+      "end": "End",
+      "start": "Start"
+    },
     "start": "Start time"
   },
   "timeline": {
@@ -282,13 +319,13 @@
   },
   "toentertaskquestion": "Should I enter the assignment?",
   "total": {
-    "all": "Total:",
-    "costs": "Total expenses",
+    "all": "Total expenses",
+    "costs": "Other expenses",
     "event": {
-      "costs": "Total event expenses"
+      "costs": "Event expenses"
     },
-    "events": "Total events",
-    "participants": "Total participants",
+    "events": "Number of events",
+    "participants": "Number of participants",
     "revenues": "Total Revenues"
   },
   "typein": {

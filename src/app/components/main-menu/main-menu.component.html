@@ -140,8 +140,8 @@
     <nav>
       <div
         *ngIf="canShowRoute('events')"
-        (click)="changeMenu('home')"
-        [ngClass]="{ 'active-menu': activeMenu === 'home' }"
+        (click)="changeMenu('home' , 'home')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'home' }"
         class="flex p-4 hover:bg-blue-100 items-center px-4 py-3 text-color font-family font-medium text-sm rounded-lg cursor-pointer"
       >
         <svg
@@ -167,8 +167,8 @@
 
       <div
         *ngIf="canShowRoute('events')"
-        (click)="changeMenu('/events/list/x/x')"
-        [ngClass]="{ 'active-menu': activeMenu === '/events/list/x/x' }"
+        (click)="changeMenu('/events/list/x/x', 'events')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'events' }"
         class="flex items-center hover:bg-blue-100 px-4 py-3 mt-5 text-color font-family font-medium text-sm transition-colors duration-300 transform rounded-lg cursor-pointer"
       >
         <svg
@@ -190,8 +190,8 @@
 
       <div
         *ngIf="canShowRoute('assignments')"
-        (click)="changeMenu('assignments/overview')"
-        [ngClass]="{ 'active-menu': activeMenu === 'assignments/overview' }"
+        (click)="changeMenu('assignments/overview', 'assignments')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'assignments' }"
         class="flex items-center hover:bg-blue-100 px-4 py-3 mt-5 text-color font-family font-medium text-sm transition-colors duration-300 transform rounded-lg cursor-pointer"
       >
         <svg
@@ -219,8 +219,8 @@
 
       <div
         *ngIf="canShowRoute('schedule')"
-        (click)="changeMenu('schedule/overview')"
-        [ngClass]="{ 'active-menu': activeMenu === 'schedule/overview' }"
+        (click)="changeMenu('schedule/overview', 'schedule')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'schedule' }"
         class="flex items-center hover:bg-blue-100 px-4 py-3 mt-5 text-color font-family font-medium text-sm transition-colors duration-300 transform rounded-lg cursor-pointer"
       >
         <svg
@@ -260,8 +260,8 @@
 
       <div
         *ngIf="canShowRoute('client')"
-        (click)="changeMenu('client/overview')"
-        [ngClass]="{ 'active-menu': activeMenu === 'client/overview' }"
+        (click)="changeMenu('client/overview', 'client')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'client' }"
         class="flex items-center hover:bg-blue-100 px-4 py-3 mt-5 text-color font-family font-medium text-sm transition-colors duration-300 transform rounded-lg cursor-pointer"
       >
         <svg
@@ -287,8 +287,8 @@
 
       <div
         *ngIf="canShowRoute('cost')"
-        (click)="changeMenu('/cost/overview')"
-        [ngClass]="{ 'active-menu': activeMenu === '/cost/overview' }"
+        (click)="changeMenu('/cost/overview', 'cost')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'cost' }"
         class="flex items-center hover:bg-blue-100 px-4 py-3 mt-5 text-color font-family font-medium text-sm transition-colors duration-300 transform rounded-lg cursor-pointer"
       >
         <svg
@@ -333,8 +333,8 @@
 
       <div
         *ngIf="canShowRoute('analisys')"
-        (click)="changeMenu('/analisys')"
-        [ngClass]="{ 'active-menu': activeMenu === '/analisys' }"
+        (click)="changeMenu('/analisys', 'analisys')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'analisys' }"
         class="flex items-center hover:bg-blue-100 px-4 py-3 mt-5 text-color font-family font-medium text-sm transition-colors duration-300 transform rounded-lg cursor-pointer"
       >
         <svg
@@ -437,8 +437,8 @@
 
       <div
         *ngIf="canShowRoute('shared')"
-        (click)="changeMenu('/shared/overview')"
-        [ngClass]="{ 'active-menu': activeMenu === '/shared/overview' }"
+        (click)="changeMenu('/shared/overview' , 'shared')"
+        [ngClass]="{ 'active-menu': apiCalls.activeMainMenu === 'shared' }"
         class="flex items-center hover:bg-blue-100 px-4 py-3 mt-5 text-color font-family font-medium text-sm transition-colors duration-300 transform rounded-lg cursor-pointer"
       >
         <svg

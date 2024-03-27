@@ -3,6 +3,7 @@ import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { ApiCallsService } from '../../service/api-calls.service';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-main-menu',
@@ -26,7 +27,7 @@ export class MainMenuComponent implements OnInit {
   ngOnInit() {
     const language = this._authServis.readLocalStorage('lang') || 'en';
     this.translate.use(language);
-    this.activeMenu =
+    this.apiCalls.activeMainMenu =
       this._authServis.readLocalStorage('active_menu') ||
       this._authServis.appData.route;
   }
@@ -47,10 +48,29 @@ export class MainMenuComponent implements OnInit {
     return false;
   }
 
-  changeMenu(whichMenu: string) {
-    this.activeMenu = whichMenu;
+  changeMenu(whichLink: string, whichMenu: string) {
+    const currentMonth = {
+      start: moment().startOf('month').format('YYYY-MM-DD'),
+      end: moment().endOf('month').format('YYYY-MM-DD'),
+    };
+
+
+       if (whichMenu === 'events') {
+         const savedPeriod = this._authServis.readLocalStorage('period');
+         console.log(savedPeriod, 'savedPeriod')
+         const period = JSON.parse(savedPeriod || '');
+        if (period) {
+          whichLink = `/events/list/${period.start}/${period.end}`;
+        } else {
+          whichLink = `/events/list/${currentMonth.start}/${currentMonth.end}`;
+        }
+    }
+
+
+       this.apiCalls.activeMainMenu = whichMenu;
+       console.log(whichMenu, 'selektovani meni')
     this._authServis.saveToLocalStorage('active_menu', whichMenu);
-    void this.router.navigate([whichMenu]);
+    void this.router.navigate([whichLink]);
   }
 
   changeLanguage(language: string) {

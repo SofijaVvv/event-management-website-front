@@ -45,7 +45,6 @@
                 [(ngModel)]="selectedYear"
                 [ngModelOptions]="{ standalone: true }"
                 bindLabel="name"
-                placeholder="Odaberite godinu"
                 [virtualScroll]="true"
                 [searchable]="false"
                 [clearable]="false"
@@ -132,9 +131,13 @@
         {{ selectedMonth.name }}
         <span class="lowercase">{{ "e.event" | translate }}</span>
       </div>
+      <div class="flex justify-center items-center text-gray-500 h-full" *ngIf="!monthEventList.length">
+        {{ "no.events.month" | translate}}
+      </div>
       <div
         class="mt-4 flex flex-col flex-1 max-h-[calc(100%-60px)] h-[calc(100%-60px)] overflow-y-scroll"
       >
+
         <div
           *ngFor="let event of monthEventList"
           class="w-full grid grid-cols-[1fr_min-content_min-content] gap-5 items-center bg-white border-b border-gray-200 select-none pr-3"
@@ -231,10 +234,14 @@
       {{ selectedMonth.name }}
       <span class="lowercase">{{ "assignments" | translate }}</span>
     </div>
+    <div class="flex justify-center items-center text-gray-500 h-full" *ngIf="!monthTaskList.length">
+     {{ "no.tasks.month" | translate}}
+    </div>
     <div class="overflow-auto flex-1 max-h-[calc(100vh-120px)]">
       <div *ngFor="let event of monthTaskList" class="flex flex-col p-3">
         <div class="flex flex-col">
           <div
+
             class="px-4 py-2 bg-blue-100 rounded-t-lg text-center font-family border-b border-b-blue-200 flex justify-between items-center"
           >
             <div>{{ event.client.name }}</div>
@@ -246,6 +253,9 @@
             </div>
           </div>
           <div>
+            <div   *ngIf="!event.assignments.length" class="flex justify-center items-center h-full p-4 border text-gray-500">
+              No defined assignments for this event
+            </div>
             <div
               class="w-full grid grid-cols-[min-content_1fr_100px_min-content] gap-5 items-center border-b border-gray-200 select-none p-2 border-l border-r"
               *ngFor="let task of event.assignments"

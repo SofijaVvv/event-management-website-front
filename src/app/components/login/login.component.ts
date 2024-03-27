@@ -11,13 +11,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent implements AfterViewInit, OnInit {
+export class LoginComponent implements  OnInit {
   @ViewChild('email') email!: ElementRef;
   @ViewChild('otp') otp!: ElementRef;
   @ViewChild('password') password!: ElementRef;
@@ -40,9 +41,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     this.authServis.directLogoutUser();
   }
 
-  ngAfterViewInit() {
-    // this.email.nativeElement.focus();
-  }
+
 
   onEmailEnter() {
     this.password.nativeElement.focus();
@@ -71,6 +70,12 @@ export class LoginComponent implements AfterViewInit, OnInit {
     const loginInfo = JSON.stringify(this.formLogin.value);
     this.apiPoziviServis.login(loginInfo).subscribe((data: any) => {
       if (data.token) {
+        const currentMonth = {
+          start: moment().startOf('month').format('YYYY-MM-DD'),
+          end: moment().endOf('month').format('YYYY-MM-DD'),
+        };
+        this.authServis.saveToLocalStorage('active_menu', 'home');
+        this.authServis.saveToLocalStorage('period', JSON.stringify(currentMonth));
         this.authServis.saveToLocalStorage('token', data.token);
         this.authServis.saveToLocalStorage('user', JSON.stringify(data));
         void this.setOperator(data);
