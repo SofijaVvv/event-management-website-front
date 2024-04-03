@@ -9,6 +9,7 @@
     "expense": "Add Expense",
     "role": "Add role"
   },
+  "addclient": "Add client ",
   "address": "Address",
   "analyse": {
     "data": "Analyse your data"
@@ -49,6 +50,7 @@
   "clientemail": {
     "input": "Enter client email!"
   },
+  "clientlist": "Client list",
   "clientname": {
     "input": "Enter client name!"
   },

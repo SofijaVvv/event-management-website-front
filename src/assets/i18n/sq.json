@@ -9,6 +9,7 @@
     "expense": "",
     "role": ""
   },
+  "addclient": "",
   "address": "",
   "analyse": {
     "data": ""
@@ -49,6 +50,7 @@
   "clientemail": {
     "input": ""
   },
+  "clientlist": "",
   "clientname": {
     "input": ""
   },

@@ -9,6 +9,7 @@
     "expense": "Dodaj Trošak",
     "role": "Dodaj ulogu"
   },
+  "addclient": "Dodaj klijenta",
   "address": "Adresa ",
   "analyse": {
     "data": "Analizirajte svoje podatke"
@@ -49,6 +50,7 @@
   "clientemail": {
     "input": "Unesite email klijenta!"
   },
+  "clientlist": "Lista klijenata",
   "clientname": {
     "input": "Unesite ime klijenta!"
   },
